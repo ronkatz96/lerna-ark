@@ -1,0 +1,27 @@
+{
+  "name": "polaris-delta-middleware",
+  "version": "1.0.0",
+  "description": "handling delta in polaris",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enigmatis/polaris-delta-middleware.git"
+  },
+  "keywords": [
+    "polaris",
+    "graphql",
+    "graphql-ts"
+  ],
+  "author": "Yarin Vaknin <yarinvak@gmail.com> (http://github.com/yarinvak)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Enigmatis/polaris-delta-middleware/issues"
+  },
+  "homepage": "https://github.com/Enigmatis/polaris-delta-middleware#readme",
+  "dependencies": {
+    "graphql-middleware": "^4.0.1"
+  }
+}
