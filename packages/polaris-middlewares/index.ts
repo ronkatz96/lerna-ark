@@ -1,2 +1,4 @@
 import {dataVersionMiddleware, initContextForDataVersion} from "./data-version/data-version-middleware";
-export {dataVersionMiddleware, initContextForDataVersion};
+import {softDeletedMiddleware} from "./soft-delete/soft-delete-middleware";
+
+export {dataVersionMiddleware, initContextForDataVersion, softDeletedMiddleware};
