@@ -1,0 +1,35 @@
+{
+  "name": "polaris-schema",
+  "version": "1.0.0",
+  "description": "Library that helps you create polaris based schema",
+  "main": "./dist/src/main.js",
+  "types": "./dist/src/main.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enigmatis/polaris-schema.git"
+  },
+  "keywords": [
+    "polaris",
+    "graphql"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Enigmatis/polaris-schema/issues"
+  },
+  "homepage": "https://github.com/Enigmatis/polaris-schema#readme",
+  "devDependencies": {
+    "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "@types/graphql": "^14.5.0",
+    "graphql": "^14.5.4",
+    "graphql-scalars": "^1.0.1",
+    "graphql-tag": "^2.10.1",
+    "graphql-tools": "^4.0.5",
+    "merge-graphql-schemas": "^1.7.0"
+  }
+}
