@@ -5,15 +5,15 @@ import {repositoryEntityTypeDefs} from "../common/repository-entity-type-defs";
 import {scalarsTypeDefs} from "../scalars/scalars-type-defs";
 import {scalarsResolvers} from "../scalars/scalars-resolvers";
 
-export function getExecutablePolarisSchema(typeDefs: object[], resolvers: object[]): GraphQLSchema {
+export function makeExecutablePolarisSchema(typeDefs: any, resolvers: any): GraphQLSchema {
     const polarisTypeDefs: any = mergeTypes(
-        [repositoryEntityTypeDefs, scalarsTypeDefs, ...typeDefs],
+        [repositoryEntityTypeDefs, scalarsTypeDefs, typeDefs],
         {
             all: true,
         },
     );
 
-    const polarisResolvers: any = mergeResolvers(scalarsResolvers, ...resolvers);
+    const polarisResolvers: any = mergeResolvers([scalarsResolvers, resolvers]);
 
 
     return makeExecutableSchema({
