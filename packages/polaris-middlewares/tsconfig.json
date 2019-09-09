@@ -10,6 +10,7 @@
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
+    "types": [ "node", "mocha", "chai" ],
     "typeRoots": [
       "src/type-declarations"
     ],
