@@ -51,3 +51,23 @@ For example:
 const beforeMiddleware = [{title: 'x', deleted: true}, {title:'y', deleted: false}];
 const afterMiddleware = [{title: 'y', deleted: false}];
 ```
+
+## Irrelevant entities extension
+If your context object contains an irrelevant entities object under property `context.irrelevantEntities`,
+it adds the value of this property to the extensions object in the graphql response.
+
+for example, setting the context irrelevant entities:
+```javascript
+context.irrelevantEntities = {books: [1,2,3]};
+```
+
+and the graphql response:
+```javascript
+{
+    data: {...},
+    errors:[],
+    extensions: {
+        books: [1,2,3]
+    }   
+}
+```
