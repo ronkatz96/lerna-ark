@@ -24,6 +24,7 @@
   "dependencies": {
     "@types/node": "^12.7.4",
     "graphql": "^14.5.4",
+    "graphql-extensions": "^0.10.3",
     "graphql-middleware": "^4.0.1"
   },
   "devDependencies": {

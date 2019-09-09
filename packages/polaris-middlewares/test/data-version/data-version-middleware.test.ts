@@ -1,4 +1,4 @@
-import {dataVersionMiddleware} from "./data-version-middleware";
+import {dataVersionMiddleware} from "../../src/data-version/data-version-middleware";
 import {expect} from "chai";
 
 describe('data version middleware', () => {

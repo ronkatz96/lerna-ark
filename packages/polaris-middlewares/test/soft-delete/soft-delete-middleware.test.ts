@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {softDeletedMiddleware} from "./soft-delete-middleware";
+import {softDeletedMiddleware} from "../../src/soft-delete/soft-delete-middleware";
 
 describe('soft delete middleware tests', () => {
     describe('an array instance', () => {
