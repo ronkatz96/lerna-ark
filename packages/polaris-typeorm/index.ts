@@ -1,0 +1,1 @@
+export {CommonModel} from "./src/models/common-model";
