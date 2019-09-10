@@ -1,13 +1,18 @@
 const softDeletedMiddleware = async (resolve: any, root: any, args: any, context: any, info: any) => {
+    context.logger ? context.logger.debug("Soft delete middleware started job") : {};
     const result = await resolve(root, args, context, info);
+    let finalResult;
     if (result instanceof Array) {
-        return result.filter(entity => !entity.deleted);
+        finalResult = result.filter(entity => !entity.deleted);
     } else {
-        if (result.deleted) {
-            return null;
+        if (result && result.deleted) {
+            finalResult = null;
+        } else {
+            finalResult = result;
         }
-        return result;
     }
+    context.logger ? context.logger.debug("Soft delete middleware finished job") : {};
+    return finalResult;
 };
 
 export {softDeletedMiddleware};

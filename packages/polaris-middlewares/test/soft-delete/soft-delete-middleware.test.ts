@@ -7,10 +7,11 @@ describe('soft delete middleware tests', () => {
             it('return only non-deleted entities', async () => {
                 const objects = [{title: 'moshe', deleted: false},
                     {title: 'dani', deleted: true}];
+
                 const resolve = async (root, args, context, info) => {
                     return objects;
                 };
-
+                const context = {};
                 const result = await softDeletedMiddleware(resolve,
                     {name: 'bla'}, {}, context, {});
                 expect(result).to.deep.equal([{title: 'moshe', deleted: false}]);
