@@ -1,10 +1,10 @@
-import IrrelevantEntitiesExtension from "../../src/irrelevant-entities/irrelevant-entities-extension";
+import DataVersionExtensions from "../../src/irrelevant-entities/data-version-extensions";
 import {expect} from "chai";
 
 describe('irrelevant entities extension tests', () => {
     describe('context has data version', () => {
         it('response should contain irrelevant entities if its supplied in context', async () => {
-            const extension = new IrrelevantEntitiesExtension();
+            const extension = new DataVersionExtensions();
             const irrelevantEntities = {blabla: "blabla"};
             const responseContext = {
                 graphqlResponse: {data: {}, errors: []},
@@ -16,7 +16,7 @@ describe('irrelevant entities extension tests', () => {
         });
 
         it('response should contain an undefined  irrelevant entities object if its not supplied in context', async () => {
-            const extension = new IrrelevantEntitiesExtension();
+            const extension = new DataVersionExtensions();
             const responseContext = {graphqlResponse: {data: {}, errors: []}, context: {dataVersion: 2}};
             const response = extension.willSendResponse(responseContext);
             expect(response.context).to.deep.equal({dataVersion: 2});
@@ -26,7 +26,7 @@ describe('irrelevant entities extension tests', () => {
 
     describe('context has no data version', () => {
         it('response should contain an undefined irrelevant entities object', async () => {
-            const extension = new IrrelevantEntitiesExtension();
+            const extension = new DataVersionExtensions();
             const responseContext = {graphqlResponse: {data: {}, errors: [], extensions: {}}, context: {}};
             const response = extension.willSendResponse(responseContext);
             expect(response.context).to.deep.equal({});
