@@ -9,25 +9,35 @@ export class CommonEntitySubscriber implements EntitySubscriberInterface<CommonM
     }
 
     async beforeInsert(event: InsertEvent<CommonModel>) {
+        await CommonEntitySubscriber.updateDataVersionInEntity(event);
+    }
+
+    async beforeUpdate(event: UpdateEvent<CommonModel>) {
+        await CommonEntitySubscriber.updateDataVersionInEntity(event);
+    }
+
+    private static async updateDataVersionInEntity(event: InsertEvent<CommonModel> | UpdateEvent<CommonModel>) {
         let polarisContext = event.queryRunner.data.context;
         if (!polarisContext) return;
+        let logger = polarisContext.logger;
+        logger ? logger.debug('Started data version job when inserting/updating entity') : {};
         let dataVersionRepository = event.connection.getRepository(DataVersion);
         let result = await dataVersionRepository.find();
         if (result.length == 0) {
-            console.log('no data version found');
+            logger ? logger.debug('no data version found') : {};
             await dataVersionRepository.save(new DataVersion(1));
-            console.log('data version created');
+            logger ? logger.debug('data version created') : {};
             polarisContext.globalDataVersion = 1;
         } else {
             if (!polarisContext.globalDataVersion) {
-                console.log('context does not hold data version');
+                logger ? logger.debug('context does not hold data version') : {};
                 let oldDataVersion = result[0].value;
                 await dataVersionRepository.increment({}, 'value', 1);
                 polarisContext.globalDataVersion = oldDataVersion + 1;
-                console.log('data version is incremented and holds new value ' + polarisContext.globalDataVersion);
+                logger ? logger.debug('data version is incremented and holds new value ' + polarisContext.globalDataVersion) : {};
             }
         }
         event.entity.dataVersion = polarisContext.globalDataVersion;
-        console.log(event.entity);
+        logger ? logger.debug('Finished data version job when inserting/updating entity') : {};
     }
 }
