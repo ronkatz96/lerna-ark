@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import {BeforeInsert, Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 
 export abstract class CommonModel {
     @PrimaryGeneratedColumn("uuid")
@@ -8,20 +8,20 @@ export abstract class CommonModel {
     dataVersion: number;
 
     @Column()
-    realityId: number;
+    realityId: number = 0;
 
-    @Column()
+    @Column({nullable: true})
     createdBy: string;
 
     @CreateDateColumn()
     creationTime: Date;
 
-    @Column()
+    @Column({nullable: true})
     lastUpdatedBy: string;
 
     @UpdateDateColumn()
     lastUpdateTime: Date;
 
     @Column()
-    deleted: boolean;
+    deleted: boolean = false;
 }
