@@ -1,0 +1,25 @@
+{
+  "name": "@enigmatis/polaris-typeorm",
+  "version": "1.0.0",
+  "description": "support for typeorm in polaris",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enigmatis/polaris-typeorm.git"
+  },
+  "keywords": [
+    "polaris",
+    "graphql",
+    "graphql-js",
+    "graphql-ts"
+  ],
+  "author": "Yarin Vaknin <yarinvak@gmail.com> (http://github.com/yarinvak)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Enigmatis/polaris-typeorm/issues"
+  },
+  "homepage": "https://github.com/Enigmatis/polaris-typeorm#readme"
+}
