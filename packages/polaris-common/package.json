@@ -1,0 +1,21 @@
+{
+  "name": "@enigmatis/polaris-types",
+  "version": "1.0.0",
+  "description": "common types for polaris",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "link": "cd ../graphql-logger && npm link && cd ../polaris-types && npm link @enigmatis/polaris-graphql-logger"
+  },
+  "keywords": [
+    "polaris",
+    "graphql",
+    "typescript"
+  ],
+  "dependencies": {},
+  "peerDependencies": {
+    "@enigmatis/polaris-graphql-logger": "latest"
+  },
+  "author": "yarin vaknin",
+  "license": "ISC"
+}
