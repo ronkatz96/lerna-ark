@@ -1,6 +1,7 @@
 import {EntitySubscriberInterface, EventSubscriber, InsertEvent, UpdateEvent} from "typeorm";
 import {CommonModel} from "../models/common-model";
 import {DataVersion} from "../models/data-version";
+import {PolarisBaseContext} from '@enigmatis/polaris-types';
 
 @EventSubscriber()
 export class CommonEntitySubscriber implements EntitySubscriberInterface<CommonModel> {
@@ -17,27 +18,27 @@ export class CommonEntitySubscriber implements EntitySubscriberInterface<CommonM
     }
 
     private static async updateDataVersionInEntity(event: InsertEvent<CommonModel> | UpdateEvent<CommonModel>) {
-        let polarisContext = event.queryRunner.data.context;
-        if (!polarisContext) return;
-        let logger = polarisContext.logger;
-        logger ? logger.debug('Started data version job when inserting/updating entity') : {};
+        let context: PolarisBaseContext = event.queryRunner.data.context;
+        if (!context) return;
+        let logger = context.logger;
+        logger ? logger.debug('Started data version job when inserting/updating entity', {context}) : {};
         let dataVersionRepository = event.connection.getRepository(DataVersion);
         let result = await dataVersionRepository.find();
         if (result.length == 0) {
-            logger ? logger.debug('no data version found') : {};
+            logger ? logger.debug('no data version found', {context}) : {};
             await dataVersionRepository.save(new DataVersion(1));
             logger ? logger.debug('data version created') : {};
-            polarisContext.globalDataVersion = 1;
+            context.globalDataVersion = 1;
         } else {
-            if (!polarisContext.globalDataVersion) {
-                logger ? logger.debug('context does not hold data version') : {};
+            if (!context.globalDataVersion) {
+                logger ? logger.debug('context does not hold data version', {context}) : {};
                 let oldDataVersion = result[0].value;
                 await dataVersionRepository.increment({}, 'value', 1);
-                polarisContext.globalDataVersion = oldDataVersion + 1;
-                logger ? logger.debug('data version is incremented and holds new value ' + polarisContext.globalDataVersion) : {};
+                context.globalDataVersion = oldDataVersion + 1;
+                logger ? logger.debug('data version is incremented and holds new value ' + context.globalDataVersion) : {};
             }
         }
-        event.entity.dataVersion = polarisContext.globalDataVersion;
-        logger ? logger.debug('Finished data version job when inserting/updating entity') : {};
+        event.entity.dataVersion = context.globalDataVersion;
+        logger ? logger.debug('Finished data version job when inserting/updating entity', {context}) : {};
     }
 }

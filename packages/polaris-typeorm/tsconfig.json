@@ -10,7 +10,7 @@
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
-    "types": [ "node" ],
+    "types": [  ],
     "typeRoots": [
       "src/type-declarations"
     ],
@@ -25,5 +25,8 @@
   "exclude": [
     "node_modules",
     "dist"
+  ],
+  "files": [
+    "node_modules/@types/node/index.d.ts"
   ]
 }
