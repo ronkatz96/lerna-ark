@@ -26,23 +26,25 @@ export class ExtensionsListener implements GraphQLRequestListener {
     async willSendResponse(requestContext) {
         const {context, response} = requestContext;
         context.logger ? context.logger.debug('Data Version extension started instrumenting') : {};
+        !response.extensions ? response.extensions = {} : {};
+
         if (context.dataVersion) {
-            !response.extensions ? response.extensions = {} : {};
             context.irrelevantEntities ? response.extensions.irrelevantEntities = context.irrelevantEntities : {};
-            if (context.globalDataVersion) {
-                response.extensions.dataVersion = context.globalDataVersion;
-            } else {
-                if (this.dataVersionRepository) {
-                    try {
-                        let result = await this.dataVersionRepository.find();
-                        if (result.length >= 1) {
-                            response.extensions.dataVersion = result[0].value;
-                        }
-                        context.logger ? context.logger.debug('Data Version extension finished instrumenting') : {};
+        }
+
+        if (context.globalDataVersion) {
+            response.extensions.dataVersion = context.globalDataVersion;
+        } else {
+            if (this.dataVersionRepository) {
+                try {
+                    let result = await this.dataVersionRepository.find();
+                    if (result.length >= 1) {
+                        response.extensions.dataVersion = result[0].value;
                     }
-                    catch (err) {
-                        context.logger ? context.logger.error('Error fetching data version for extensions', {throwable: err}) : {};
-                    }
+                    context.logger ? context.logger.debug('Data Version extension finished instrumenting') : {};
+                }
+                catch (err) {
+                    context.logger ? context.logger.error('Error fetching data version for extensions', {throwable: err}) : {};
                 }
             }
         }
