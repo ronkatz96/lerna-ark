@@ -1,6 +1,6 @@
-import {PolarisBaseContext} from '@enigmatis/polaris-types';
 
-const softDeletedMiddleware = async (resolve: any, root: any, args: any, context: PolarisBaseContext, info: any) => {
+import {DeltaMiddlewareContext} from "../delta-middleware-context";
+const softDeletedMiddleware = async (resolve: any, root: any, args: any, context: DeltaMiddlewareContext, info: any) => {
     context.logger ? context.logger.debug("Soft delete middleware started job", {context}) : {};
     const result = await resolve(root, args, context, info);
     let finalResult;

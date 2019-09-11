@@ -1,5 +1,6 @@
 import {dataVersionMiddleware} from "../../src/data-version/data-version-middleware";
 import {expect} from "chai";
+import {DeltaMiddlewareContext} from "../../src/delta-middleware-context";
 
 describe('data version middleware', () => {
     describe('root resolver', () => {
@@ -7,7 +8,7 @@ describe('data version middleware', () => {
             ' data version lower/equal to context', async () => {
             const root = undefined;
             const args = {};
-            const context = {dataVersion: 2};
+            const context: DeltaMiddlewareContext = {dataVersion: 2};
             const info = {};
             const objects = [{title: 'moshe', dataVersion: 2},
                 {title: 'dani', dataVersion: 5}];
@@ -20,7 +21,7 @@ describe('data version middleware', () => {
             expect(result).to.deep.equal([{title: 'dani', dataVersion: 5}]);
         });
         it('no data version in context, root query, no filter should be applied', async () => {
-            const context = {};
+            const context: DeltaMiddlewareContext = {};
             const objects = [{title: 'moshe', dataVersion: 2},
                 {title: 'dani', dataVersion: 5}];
             const resolve = async (root, args, context, info) => {
@@ -32,7 +33,7 @@ describe('data version middleware', () => {
             expect(result).to.deep.equal(objects);
         });
         it('context data version is not a number, no filter should be applied', async () => {
-            const context = {dataVersion: 'blabla'};
+            const context: DeltaMiddlewareContext = {dataVersion: undefined};
             const objects = [{title: 'moshe', dataVersion: 2},
                 {title: 'dani', dataVersion: 5}];
             const resolve = async (root, args, context, info) => {
@@ -44,7 +45,7 @@ describe('data version middleware', () => {
             expect(result).to.deep.equal(objects);
         });
         it('entities does not have a data version property, no filter should be applied', async () => {
-            const context = {dataVersion: 3};
+            const context: DeltaMiddlewareContext = {dataVersion: 3};
             const objects = [{title: 'moshe'},
                 {title: 'dani'}];
             const resolve = async (root, args, context, info) => {
@@ -56,7 +57,7 @@ describe('data version middleware', () => {
             expect(result).to.deep.equal(objects);
         });
         it ('a single entity is resolved, no filter should be applied', async()=>{
-            const context = {dataVersion: 3};
+            const context: DeltaMiddlewareContext = {dataVersion: 3};
             const objects = {title: 'moshe', dataVersion: 2};
             const resolve = async (root, args, context, info) => {
                 return objects;
@@ -69,7 +70,7 @@ describe('data version middleware', () => {
     });
     describe('not a root resolver', ()=>{
         it ('not a root resolver, no filter should be applied', async ()=>{
-            const context = {dataVersion: 3};
+            const context: DeltaMiddlewareContext = {dataVersion: 3};
             const objects = [{title: 'moshe', dataVersion: 2},
                 {title: 'dani', dataVersion: 5}];
             const resolve = async (root, args, context, info) => {

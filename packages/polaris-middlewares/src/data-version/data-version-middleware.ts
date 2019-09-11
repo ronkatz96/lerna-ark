@@ -1,8 +1,7 @@
-import {PolarisBaseContext} from '@enigmatis/polaris-types';
-
+import {DeltaMiddlewareContext} from "../delta-middleware-context";
 const dataVersionHeaderName: string = "data-version";
 
-const dataVersionMiddleware = async (resolve: any, root: any, args: any, context: PolarisBaseContext, info: any) => {
+const dataVersionMiddleware = async (resolve: any, root: any, args: any, context: DeltaMiddlewareContext, info: any) => {
     context.logger ? context.logger.debug('Data version middleware started job', {context}) : {};
     const result = await resolve(root, args, context, info);
     let finalResult;

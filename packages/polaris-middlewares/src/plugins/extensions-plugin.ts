@@ -1,6 +1,7 @@
 import {ApolloServerPlugin, GraphQLRequestListener} from "apollo-server-plugin-base";
 import {GraphQLRequestContext} from "apollo-server-plugin-base";
-import {PolarisBaseContext} from '@enigmatis/polaris-types';
+import {DeltaMiddlewareContext} from "../delta-middleware-context";
+
 
 export class ExtensionsPlugin implements ApolloServerPlugin {
     private dataVersionRepository: any;
@@ -25,7 +26,7 @@ export class ExtensionsListener implements GraphQLRequestListener {
 
 
     async willSendResponse(requestContext) {
-        const {context, response}: {context: PolarisBaseContext, response: any} = requestContext;
+        const {context, response}: { context: DeltaMiddlewareContext, response: any } = requestContext;
         context.logger ? context.logger.debug('Data Version extension started instrumenting', {context}) : {};
         !response.extensions ? response.extensions = {} : {};
 
@@ -45,7 +46,10 @@ export class ExtensionsListener implements GraphQLRequestListener {
                     context.logger ? context.logger.debug('Data Version extension finished instrumenting', {context}) : {};
                 }
                 catch (err) {
-                    context.logger ? context.logger.error('Error fetching data version for extensions', {context, graphqlLogProperties: {throwable: err}}) : {};
+                    context.logger ? context.logger.error('Error fetching data version for extensions', {
+                        context,
+                        graphqlLogProperties: {throwable: err}
+                    }) : {};
                 }
             }
         }
