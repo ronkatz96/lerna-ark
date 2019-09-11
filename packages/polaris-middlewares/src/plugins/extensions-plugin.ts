@@ -1,5 +1,6 @@
 import {ApolloServerPlugin, GraphQLRequestListener} from "apollo-server-plugin-base";
 import {GraphQLRequestContext} from "apollo-server-plugin-base";
+import {PolarisBaseContext} from '@enigmatis/polaris-types';
 
 export class ExtensionsPlugin implements ApolloServerPlugin {
     private dataVersionRepository: any;
@@ -24,8 +25,8 @@ export class ExtensionsListener implements GraphQLRequestListener {
 
 
     async willSendResponse(requestContext) {
-        const {context, response} = requestContext;
-        context.logger ? context.logger.debug('Data Version extension started instrumenting') : {};
+        const {context, response}: {context: PolarisBaseContext, response: any} = requestContext;
+        context.logger ? context.logger.debug('Data Version extension started instrumenting', {context}) : {};
         !response.extensions ? response.extensions = {} : {};
 
         if (context.dataVersion) {
@@ -41,10 +42,10 @@ export class ExtensionsListener implements GraphQLRequestListener {
                     if (result.length >= 1) {
                         response.extensions.dataVersion = result[0].value;
                     }
-                    context.logger ? context.logger.debug('Data Version extension finished instrumenting') : {};
+                    context.logger ? context.logger.debug('Data Version extension finished instrumenting', {context}) : {};
                 }
                 catch (err) {
-                    context.logger ? context.logger.error('Error fetching data version for extensions', {throwable: err}) : {};
+                    context.logger ? context.logger.error('Error fetching data version for extensions', {context, graphqlLogProperties: {throwable: err}}) : {};
                 }
             }
         }

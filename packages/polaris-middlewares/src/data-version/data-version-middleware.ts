@@ -1,7 +1,9 @@
+import {PolarisBaseContext} from '@enigmatis/polaris-types';
+
 const dataVersionHeaderName: string = "data-version";
 
-const dataVersionMiddleware = async (resolve: any, root: any, args: any, context: any, info: any) => {
-    context.logger ? context.logger.debug('Data version middleware started job') : {};
+const dataVersionMiddleware = async (resolve: any, root: any, args: any, context: PolarisBaseContext, info: any) => {
+    context.logger ? context.logger.debug('Data version middleware started job', {context}) : {};
     const result = await resolve(root, args, context, info);
     let finalResult;
     if (!root && context.dataVersion && !isNaN(context.dataVersion)) { // assert that it has no root (so it is the root)
@@ -13,7 +15,7 @@ const dataVersionMiddleware = async (resolve: any, root: any, args: any, context
     } else {
         finalResult = result;
     }
-    context.logger ? context.logger.debug('Data version middleware finished job') : {};
+    context.logger ? context.logger.debug('Data version middleware finished job', {context}) : {};
     return finalResult;
 };
 
