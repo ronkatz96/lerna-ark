@@ -23,10 +23,14 @@
   "homepage": "https://github.com/Enigmatis/polaris-delta-middleware#readme",
   "dependencies": {
     "@types/node": "^12.7.4",
+    "@types/sinon": "^7.0.13",
+    "@types/sinon-chai": "^3.2.3",
     "apollo-server-plugin-base": "^0.6.4",
     "graphql": "^14.5.4",
     "graphql-extensions": "^0.10.3",
-    "graphql-middleware": "^4.0.1"
+    "graphql-middleware": "^4.0.1",
+    "sinon": "^7.4.2",
+    "sinon-chai": "^3.3.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.1",

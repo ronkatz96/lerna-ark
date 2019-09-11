@@ -1,5 +1,11 @@
-import {expect} from "chai";
 import {ExtensionsListener} from "../../src/plugins/extensions-plugin";
+import * as sinon from 'sinon';
+import * as chai from 'chai';
+
+const expect = chai.expect;
+const sinonChai = require("sinon-chai");
+
+chai.use(sinonChai);
 
 describe('data-version extensions plugin test', () => {
     describe('data version repository supplied', () => {
@@ -16,11 +22,14 @@ describe('data-version extensions plugin test', () => {
             });
             describe('context has data version', () => {
                 let requestContext;
+                let findSpy;
                 beforeEach(() => {
                     requestContext = {
                         response: {data: {}, errors: []},
                         context: {dataVersion: 3}
                     };
+                    findSpy = sinon.spy(dataVersionRepo, 'find');
+
                 });
                 describe('context has global data version', () => {
                     beforeEach(() => {
@@ -30,6 +39,7 @@ describe('data-version extensions plugin test', () => {
                         const response = await extension.willSendResponse(requestContext);
                         expect(response.context).to.deep.equal(requestContext.context);
                         expect(response.response.extensions).to.contain({dataVersion: 4});
+                        expect(findSpy.notCalled).to.be.true;
                     });
                 });
                 describe('context has no global data version', () => {
@@ -37,6 +47,7 @@ describe('data-version extensions plugin test', () => {
                         const response = await extension.willSendResponse(requestContext);
                         expect(response.context).to.deep.equal(requestContext.context);
                         expect(response.response.extensions).to.contain({dataVersion: 2});
+                        expect(findSpy.calledOnce).to.be.true;
                     });
                 });
             });
