@@ -4,7 +4,7 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "strict": false,
+    "strict": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "resolveJsonModule": true,
@@ -12,6 +12,9 @@
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "src/type-declarations"
+    ],
+    "types": [
+      "jest"
     ],
     "declaration": true,
     "lib": [

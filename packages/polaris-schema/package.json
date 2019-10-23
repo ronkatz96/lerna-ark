@@ -2,10 +2,40 @@
   "name": "@enigmatis/polaris-schema",
   "version": "1.0.0",
   "description": "Library that helps you create polaris based schema",
-  "main": "main.ts",
-  "types": "./dist/main.d.ts",
+  "main": "./src/main.ts",
+  "types": "./dist/src/main.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest --runInBand --detectOpenHandles",
+    "coverage": "jest --runInBand --detectOpenHandles --coverage",
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": true
+        }
+      ],
+      "@semantic-release/github"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      {
+        "path": "@semantic-release/git",
+        "assets": [
+          "package.json",
+          "package-lock.json",
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
   },
   "repository": {
     "type": "git",
@@ -22,6 +52,14 @@
   },
   "homepage": "https://github.com/Enigmatis/polaris-schema#readme",
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@semantic-release/changelog": "^3.0.4",
+    "@semantic-release/git": "^7.0.16",
+    "@types/jest": "^24.0.19",
+    "jest": "24.1.0",
+    "travis-deploy-once": "^5.0.11",
+    "ts-jest": "^24.1.0",
     "typescript": "^3.6.2"
   },
   "dependencies": {
