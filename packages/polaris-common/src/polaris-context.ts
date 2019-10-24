@@ -5,4 +5,10 @@ export interface PolarisBaseContext {
     dataVersion?: number;
     globalDataVersion?: number;
     logger?: GraphQLLogger;
+    includeLinkedOperation?: boolean;
+    requestId?: string;
+    upn?: string;
+    realityId?: number;
+    requestingSystemId?: string;
+    requestingSystemName?: string;
 }
