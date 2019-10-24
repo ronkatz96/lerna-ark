@@ -1,10 +1,10 @@
 import {expect} from "chai";
 import {Book} from "../dal/book";
 import {
-    authorName1,
-    authorName2,
-    bookName1,
-    bookName2,
+    rowling,
+    mrCascade,
+    harryPotter,
+    cascadeBook,
     initDb,
     profile,
     setUpTestConnection,
@@ -15,11 +15,11 @@ import {User} from "../dal/user";
 import {Profile} from "../dal/profile";
 import {DataVersion} from "../../src/models/data-version";
 
-const testBookCriteria = {where: {title: bookName1}};
-const testAuthorCriteria = {where: {name: authorName1}};
+const testBookCriteria = {where: {title: harryPotter}};
+const testAuthorCriteria = {where: {name: rowling}};
 
-const bookWithCascadeCriteria = {where: {title: bookName2}};
-const authorWithCascadeCriteria = {where: {name: authorName2}};
+const bookWithCascadeCriteria = {where: {title: cascadeBook}};
+const authorWithCascadeCriteria = {where: {name: mrCascade}};
 
 const userCriteria = {where: {name: user.name}};
 const profileCriteria = {where: {gender: profile.gender}};
@@ -79,11 +79,11 @@ describe('entity manager tests', async () => {
             expect(author).to.be.undefined;
         });
 
-        xit('delete entity, soft delete allow is false and return deleted entities true and cascade is true,' +
+        it('delete entity, soft delete allow is false and return deleted entities true and cascade is true,' +
             ' doesnt return deleted entity and its linked entity', async () => {
             connection.manager.config = {softDelete: {returnEntities: true, allow: false}};
             await initDb(connection);
-            await connection.manager.delete(Book, bookWithCascadeCriteria);
+            await connection.manager.delete(Author, authorWithCascadeCriteria);
             let bookWithCascade: Book = await connection.manager.findOne(Book, bookWithCascadeCriteria);
             let authorWithCascade: Author = await connection.manager.findOne(Author, authorWithCascadeCriteria);
             expect(bookWithCascade).to.be.undefined;
@@ -179,8 +179,8 @@ describe('entity manager tests', async () => {
                     title: "ASC"
                 }
             });
-            expect(books1[0].title).to.equal(bookName2);
-            expect(books1[1].title).to.equal(bookName1);
+            expect(books1[0].title).to.equal(cascadeBook);
+            expect(books1[1].title).to.equal(harryPotter);
         });
     });
 });

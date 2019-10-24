@@ -4,9 +4,10 @@ import {
 } from "typeorm";
 import {softDeleteRecursive} from "./handlers/soft-delete-handler";
 import {QueryDeepPartialEntity} from "typeorm/query-builder/QueryPartialEntity";
-import {TypeORMConfig, runAndMeasureTime} from "./common-polaris";
+import {TypeORMConfig, runAndMeasureTime, PolarisContext} from "./common-polaris";
 import {FindHandler} from "./handlers/find-handler";
 import {DataVersionHandler} from "./handlers/data-version-handler";
+import {PolarisGraphQLLogger} from "@enigmatis/polaris-graphql-logger"
 
 //todo: check if throw error logs an error in mgf
 //todo: typeorm not supporting exist
@@ -18,9 +19,9 @@ export class PolarisEntityManager extends EntityManager {
     config: TypeORMConfig;
     dataVersionHandler: DataVersionHandler;
     findHandler: FindHandler;
-    logger: any;
+    logger: PolarisGraphQLLogger<PolarisContext>;
 
-    constructor(connection: Connection, config: TypeORMConfig, logger: any) {
+    constructor(connection: Connection, config: TypeORMConfig, logger: PolarisGraphQLLogger<PolarisContext>) {
         super(connection, connection.createQueryRunner());
         this.queryRunner.data = {context: {}};
         this.logger = logger;
