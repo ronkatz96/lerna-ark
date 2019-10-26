@@ -1,7 +1,6 @@
-import {CommonModel} from "../../src";
+import {CommonModel} from "../../index";
 import {Column, Entity, OneToMany} from "typeorm";
 import {Book} from "./book";
-import {Library} from "./library";
 
 @Entity()
 export class Author extends CommonModel {
@@ -17,7 +16,4 @@ export class Author extends CommonModel {
 
     @OneToMany(() => Book, (books) => books.author)
     books: Book[];
-
-    @OneToMany(() => Library, (libraries) => libraries.author)
-    libraries: Library[];
 }
