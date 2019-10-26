@@ -1,8 +1,8 @@
 const {performance} = require('perf_hooks');
-export const runAndMeasureTime = async (run) => {
+export const runAndMeasureTime = async (run: any) => {
     let t0 = performance.now();
 
-    let returnValue = await run();   // <---- The function you're measuring time for
+    let returnValue = await run();
 
     let t1 = performance.now();
 

@@ -1,6 +1,7 @@
 import {Author} from "./author";
-import {CommonModel} from "../../index";
+import {CommonModel} from "../../src";
 import {Column, Entity, ManyToOne} from "typeorm";
+import {Library} from "./library";
 
 @Entity()
 export class Book extends CommonModel {
@@ -16,4 +17,7 @@ export class Book extends CommonModel {
 
     @ManyToOne(() => Author, (author) => author.books, {onDelete: 'CASCADE'})
     author: Author;
+
+    @ManyToOne(() => Library, (library) => library.books, {onDelete: 'CASCADE'})
+    library: Library;
 }

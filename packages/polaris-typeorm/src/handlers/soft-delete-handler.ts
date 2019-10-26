@@ -1,10 +1,27 @@
-import { PolarisEntityManager} from "../polaris-entity-manager";
+import {EntityManager, EntityMetadata} from "typeorm";
+import {CommonModel} from "..";
 
-// todo: if the field is common modal or list of common model and cascade all or cascade remove is on soft delete it too and field is not syntethic tru update
-export const softDeleteRecursive = async (targetOrEntity: any, entities: any, entityManager: PolarisEntityManager) => {
+export class SoftDeleteHandler {
+    manager: EntityManager;
 
-    for (let entity of entities) {
-        entity.deleted = true;
+    constructor(manager: EntityManager) {
+        this.manager = manager;
     }
-    await entityManager.save(targetOrEntity, entities);
-};
+
+    async softDeleteRecursive(targetOrEntity: any, entities: any) {
+        let parentEntityMetaData: EntityMetadata | undefined = this.manager.connection.entityMetadatas.find(meta => meta.target == targetOrEntity && meta.inheritanceTree.find(ancestor => ancestor.name == "CommonModel"));
+        let childEntityMetaData: EntityMetadata[] = parentEntityMetaData ? parentEntityMetaData.relations.map(relation => relation.inverseEntityMetadata) : [];
+        let childEntityMetaDataWithCascade: EntityMetadata[] = childEntityMetaData.filter(child => child.inheritanceTree.find(ancestor => ancestor.name == "CommonModel") && child.foreignKeys.filter(foreign => foreign.onDelete == "CASCADE" && foreign.referencedEntityMetadata == parentEntityMetaData));
+        entities = entities instanceof Array ? entities : [entities];
+        childEntityMetaDataWithCascade.forEach(child => {
+            child.relations.forEach(relation => {
+                let childEntities = entities.map((entity: any) => entity[relation.inverseSidePropertyPath])[0];
+                childEntities ? this.softDeleteRecursive(child.target, childEntities) : {};
+            })
+        });
+        for (let entity of entities) {
+            entity.deleted = true;
+        }
+        await this.manager.save(targetOrEntity, entities);
+    }
+}

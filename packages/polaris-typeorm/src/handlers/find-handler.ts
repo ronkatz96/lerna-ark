@@ -23,12 +23,13 @@ export class FindHandler {
     }
 
     findConditions(includeLinkedOper: boolean, optionsOrConditions?: any) {
+        let context = this.manager.queryRunner ? this.manager.queryRunner.data ? this.manager.queryRunner.data.context : {} : {};
         let polarisCriteria = optionsOrConditions ? optionsOrConditions : {};
         polarisCriteria.where = optionsOrConditions && optionsOrConditions.where ? optionsOrConditions.where : {};
-        let dvCriteria = dataVersionCriteria(this.manager.queryRunner.data.context);
+        let dvCriteria = dataVersionCriteria(context);
         // @ts-ignore
         let sdCriteria = softDeleteCriteria(this.manager.config);
-        polarisCriteria.where.realityId = realityIdCriteria(includeLinkedOper, this.manager.queryRunner.data.context);
+        polarisCriteria.where.realityId = realityIdCriteria(includeLinkedOper, context);
         dvCriteria === undefined ? delete polarisCriteria.where.dataVersion : polarisCriteria.where.dataVersion = dvCriteria;
         sdCriteria === undefined ? delete polarisCriteria.where.deleted : polarisCriteria.where.deleted = sdCriteria;
         return polarisCriteria;
