@@ -1,7 +1,7 @@
 {
   "name": "@enigmatis/polaris-middlewares",
   "version": "1.0.0",
-  "description": "handling delta in polaris",
+  "description": "handling middlewares in polaris",
   "main": "index.ts",
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.test.ts"
@@ -18,9 +18,9 @@
   "author": "Yarin Vaknin <yarinvak@gmail.com> (http://github.com/yarinvak)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Enigmatis/polaris-delta-middleware/issues"
+    "url": "https://github.com/Enigmatis/polaris-middlewares/issues"
   },
-  "homepage": "https://github.com/Enigmatis/polaris-delta-middleware#readme",
+  "homepage": "https://github.com/Enigmatis/polaris-middlewares#readme",
   "dependencies": {
     "@types/sinon": "^7.0.13",
     "@types/sinon-chai": "^3.2.3",
