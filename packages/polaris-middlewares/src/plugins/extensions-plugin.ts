@@ -1,7 +1,6 @@
 import {ApolloServerPlugin, GraphQLRequestListener} from "apollo-server-plugin-base";
 import {GraphQLRequestContext} from "apollo-server-plugin-base";
-import {DeltaMiddlewareContext} from "../delta-middleware-context";
-
+import {PolarisBaseContext} from "@enigmatis/polaris-common"
 
 export class ExtensionsPlugin implements ApolloServerPlugin {
     private dataVersionRepository: any;
@@ -26,7 +25,7 @@ export class ExtensionsListener implements GraphQLRequestListener {
 
 
     async willSendResponse(requestContext) {
-        const {context, response}: { context: DeltaMiddlewareContext, response: any } = requestContext;
+        const {context, response}: { context: PolarisBaseContext, response: any } = requestContext;
         context.logger ? context.logger.debug('Data Version extension started instrumenting', {context}) : {};
         !response.extensions ? response.extensions = {} : {};
 

@@ -1,6 +1,6 @@
 import {expect} from "chai";
-import {softDeletedMiddleware} from "../../src/soft-delete/soft-delete-middleware";
-import {DeltaMiddlewareContext} from "../../src/delta-middleware-context";
+import {softDeletedMiddleware} from "../../src/soft-delete/soft-delete-middleware"
+import {PolarisBaseContext} from "@enigmatis/polaris-common"
 
 describe('soft delete middleware tests', () => {
     describe('an array instance', () => {
@@ -12,7 +12,7 @@ describe('soft delete middleware tests', () => {
                 const resolve = async (root, args, context, info) => {
                     return objects;
                 };
-                const context: DeltaMiddlewareContext = {};
+                const context: PolarisBaseContext = {};
                 const result = await softDeletedMiddleware(resolve,
                     {name: 'bla'}, {}, context, {});
                 expect(result).to.deep.equal([{title: 'moshe', deleted: false}]);
@@ -22,7 +22,7 @@ describe('soft delete middleware tests', () => {
             it('return only non-deleted entities', async () => {
                 const objects = [{title: 'moshe', deleted: false},
                     {title: 'dani', deleted: true}];
-                const context: DeltaMiddlewareContext = {};
+                const context: PolarisBaseContext = {};
 
                 const resolve = async (root, args, context, info) => {
                     return objects;
@@ -42,7 +42,7 @@ describe('soft delete middleware tests', () => {
                 const resolve = async (root, args, context, info) => {
                     return objects;
                 };
-                const context: DeltaMiddlewareContext = {};
+                const context: PolarisBaseContext = {};
 
                 const result = await softDeletedMiddleware(resolve,
                     {name: 'bla'}, {}, context, {});
@@ -54,7 +54,7 @@ describe('soft delete middleware tests', () => {
                 const resolve = async (root, args, context, info) => {
                     return objects;
                 };
-                const context: DeltaMiddlewareContext = {};
+                const context: PolarisBaseContext = {};
 
                 const result = await softDeletedMiddleware(resolve,
                     {name: 'bla'}, {}, context, {});
@@ -65,7 +65,7 @@ describe('soft delete middleware tests', () => {
                 const resolve = async (root, args, context, info) => {
                     return objects;
                 };
-                const context: DeltaMiddlewareContext = {};
+                const context: PolarisBaseContext = {};
 
                 const result = await softDeletedMiddleware(resolve,
                     {name: 'bla'}, {}, context, {});
@@ -78,7 +78,7 @@ describe('soft delete middleware tests', () => {
                 const resolve = async (root, args, context, info) => {
                     return objects;
                 };
-                const context: DeltaMiddlewareContext = {};
+                const context: PolarisBaseContext = {};
 
                 const result = await softDeletedMiddleware(resolve,
                     undefined, {}, context, {});
@@ -90,7 +90,7 @@ describe('soft delete middleware tests', () => {
                 const resolve = async (root, args, context, info) => {
                     return objects;
                 };
-                const context: DeltaMiddlewareContext = {};
+                const context: PolarisBaseContext = {};
 
                 const result = await softDeletedMiddleware(resolve,
                     undefined, {}, context, {});
@@ -101,7 +101,7 @@ describe('soft delete middleware tests', () => {
                 const resolve = async (root, args, context, info) => {
                     return objects;
                 };
-                const context: DeltaMiddlewareContext = {};
+                const context: PolarisBaseContext = {};
 
                 const result = await softDeletedMiddleware(resolve,
                     undefined, {}, context, {});

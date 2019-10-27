@@ -4,7 +4,8 @@
   "description": "handling middlewares in polaris",
   "main": "index.ts",
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.test.ts"
+    "test": "mocha -r ts-node/register test/**/*.test.ts",
+    "link": "npm link @enigmatis/polaris-common"
   },
   "repository": {
     "type": "git",
