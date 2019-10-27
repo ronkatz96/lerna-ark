@@ -4,15 +4,17 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "strict": false,
+    "strict": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
-    "types": [ ],
     "typeRoots": [
       "src/type-declarations"
+    ],
+    "types": [
+      "jest"
     ],
     "declaration": true,
     "lib": [
