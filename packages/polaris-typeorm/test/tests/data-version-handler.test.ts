@@ -14,6 +14,7 @@ describe('data version handler tests', async () => {
     afterEach(async () => {
         await connection.close();
     });
+    
     it('data version table empty, global data version in context and db created', async () => {
         // @ts-ignore
         await dataVersionHandler.updateDataVersion();
