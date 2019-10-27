@@ -1,5 +1,5 @@
 {
-  "name": "@enigmatis/polaris-delta-middleware",
+  "name": "@enigmatis/polaris-middlewares",
   "version": "1.0.0",
   "description": "handling delta in polaris",
   "main": "index.ts",
