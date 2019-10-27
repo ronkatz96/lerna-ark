@@ -12,7 +12,10 @@
     "graphql",
     "typescript"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "@types/node": "^12.11.7",
+    "perf_hooks": "0.0.1"
+  },
   "peerDependencies": {
     "@enigmatis/polaris-graphql-logger": "latest"
   },
