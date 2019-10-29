@@ -4,15 +4,17 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "strict": false,
+    "strict": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
-    "types": [ "node", "mocha", "chai" ],
     "typeRoots": [
       "src/type-declarations"
+    ],
+    "types": [
+      "mocha"
     ],
     "declaration": true,
     "lib": [

@@ -1,5 +1,4 @@
-import {ApolloServerPlugin, GraphQLRequestListener} from "apollo-server-plugin-base";
-import {GraphQLRequestContext} from "apollo-server-plugin-base";
+import {ApolloServerPlugin, GraphQLRequestContext, GraphQLRequestListener} from "apollo-server-plugin-base";
 import {PolarisBaseContext} from "@enigmatis/polaris-common"
 
 export class ExtensionsPlugin implements ApolloServerPlugin {
@@ -24,7 +23,7 @@ export class ExtensionsListener implements GraphQLRequestListener {
     }
 
 
-    async willSendResponse(requestContext) {
+    async willSendResponse(requestContext: any) {
         const {context, response}: { context: PolarisBaseContext, response: any } = requestContext;
         context.logger ? context.logger.debug('Data Version extension started instrumenting', {context}) : {};
         !response.extensions ? response.extensions = {} : {};

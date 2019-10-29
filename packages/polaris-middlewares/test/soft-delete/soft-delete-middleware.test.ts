@@ -9,7 +9,7 @@ describe('soft delete middleware tests', () => {
                 const objects = [{title: 'moshe', deleted: false},
                     {title: 'dani', deleted: true}];
 
-                const resolve = async (root, args, context, info) => {
+                const resolve = async (root: any, args: any, context: any, info: any) => {
                     return objects;
                 };
                 const context: PolarisBaseContext = {};
@@ -24,7 +24,7 @@ describe('soft delete middleware tests', () => {
                     {title: 'dani', deleted: true}];
                 const context: PolarisBaseContext = {};
 
-                const resolve = async (root, args, context, info) => {
+                const resolve = async (root: any, args: any, context: any, info: any) => {
                     return objects;
                 };
 
@@ -39,7 +39,7 @@ describe('soft delete middleware tests', () => {
         describe('a non root resolver', () => {
             it('return null if entity is deleted', async () => {
                 const objects = {title: 'moshe', deleted: true};
-                const resolve = async (root, args, context, info) => {
+                const resolve = async (root: any, args: any, context: any, info: any) => {
                     return objects;
                 };
                 const context: PolarisBaseContext = {};
@@ -51,7 +51,7 @@ describe('soft delete middleware tests', () => {
 
             it('return entity if its not deleted', async () => {
                 const objects = {title: 'moshe', deleted: false};
-                const resolve = async (root, args, context, info) => {
+                const resolve = async (root: any, args: any, context: any, info: any) => {
                     return objects;
                 };
                 const context: PolarisBaseContext = {};
@@ -62,7 +62,7 @@ describe('soft delete middleware tests', () => {
             });
             it('return entity if it had no deleted property', async () => {
                 const objects = {title: 'moshe'};
-                const resolve = async (root, args, context, info) => {
+                const resolve = async (root: any, args: any, context: any, info: any) => {
                     return objects;
                 };
                 const context: PolarisBaseContext = {};
@@ -75,7 +75,7 @@ describe('soft delete middleware tests', () => {
         describe('a root resolver', () => {
             it('return null if entity is deleted', async () => {
                 const objects = {title: 'moshe', deleted: true};
-                const resolve = async (root, args, context, info) => {
+                const resolve = async (root: any, args: any, context: any, info: any) => {
                     return objects;
                 };
                 const context: PolarisBaseContext = {};
@@ -87,7 +87,7 @@ describe('soft delete middleware tests', () => {
 
             it('return entity if its not deleted', async () => {
                 const objects = {title: 'moshe', deleted: false};
-                const resolve = async (root, args, context, info) => {
+                const resolve = async (root: any, args: any, context: any, info: any) => {
                     return objects;
                 };
                 const context: PolarisBaseContext = {};
@@ -98,7 +98,7 @@ describe('soft delete middleware tests', () => {
             });
             it('return entity if it had no deleted property', async () => {
                 const objects = {title: 'moshe'};
-                const resolve = async (root, args, context, info) => {
+                const resolve = async (root: any, args: any, context: any, info: any) => {
                     return objects;
                 };
                 const context: PolarisBaseContext = {};

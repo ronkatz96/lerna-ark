@@ -9,16 +9,16 @@ describe('reality id tests', () => {
     const entities = [operationalEntity, notOperationalEntity];
     const args = {};
     const info = {};
-    const entitiesResolver = async (root, args, context, info) => {
+    const entitiesResolver = async (root: any, args: any, context: any, info: any) => {
         return entities;
     };
-    const operationalEntityResolver = async (root, args, context, info) => {
+    const operationalEntityResolver = async (root: any, args: any, context: any, info: any) => {
         return operationalEntity;
     };
-    const notOperationalEntityResolver = async (root, args, context, info) => {
+    const notOperationalEntityResolver = async (root: any, args: any, context: any, info: any) => {
         return notOperationalEntity;
     };
-    const noRealityIdEntityResolver = async (root, args, context, info) => {
+    const noRealityIdEntityResolver = async (root: any, args: any, context: any, info: any) => {
         return noRealityIdEntity;
     };
     describe('root resolver', () => {
@@ -36,7 +36,7 @@ describe('reality id tests', () => {
         it('reality id is in context, array of not repository entities, return operational and not repository entities', async () => {
             const context = {realityId: 0};
             const notRepositoryEntities = [operationalEntity, notOperationalEntity, noRealityIdEntity];
-            const notRepositoryEntitiesResolver = async (root, args, context, info) => {
+            const notRepositoryEntitiesResolver = async (root: any, args: any, context: any, info: any) => {
                 return notRepositoryEntities;
             };
             const result = await realitiesMiddleware(notRepositoryEntitiesResolver, emptyRoot, args, context, info);
@@ -97,12 +97,12 @@ describe('reality id tests', () => {
             expect(result).to.deep.equal(noRealityIdEntity);
         });
         it('reality id and includeLinkedOper is in context, operational entity with different reality id from context, return that entity', async () => {
-            const context = {realityId: 1, includeLinkedOper:true};
+            const context = {realityId: 1, includeLinkedOper: true};
             const result = await realitiesMiddleware(operationalEntityResolver, notEmptyRoot, args, context, info);
             expect(result).to.deep.equal(operationalEntity);
         });
         it('reality id is in context and includeLinkedOper is false, operational entity with different reality id from context, return null', async () => {
-            const context = {realityId: 1, includeLinkedOper:false};
+            const context = {realityId: 1, includeLinkedOper: false};
             const result = await realitiesMiddleware(operationalEntityResolver, notEmptyRoot, args, context, info);
             expect(result).to.be.null;
         });

@@ -12,7 +12,7 @@ describe('data version middleware', () => {
             const info = {};
             const objects = [{title: 'moshe', dataVersion: 2},
                 {title: 'dani', dataVersion: 5}];
-            const resolve = async (root, args, context, info) => {
+            const resolve = async (root: any, args: any, context: any, info: any) => {
                 return objects;
             };
 
@@ -24,7 +24,7 @@ describe('data version middleware', () => {
             const context: PolarisBaseContext = {};
             const objects = [{title: 'moshe', dataVersion: 2},
                 {title: 'dani', dataVersion: 5}];
-            const resolve = async (root, args, context, info) => {
+            const resolve = async (root: any, args: any, context: any, info: any) => {
                 return objects;
             };
 
@@ -36,7 +36,7 @@ describe('data version middleware', () => {
             const context: PolarisBaseContext = {dataVersion: undefined};
             const objects = [{title: 'moshe', dataVersion: 2},
                 {title: 'dani', dataVersion: 5}];
-            const resolve = async (root, args, context, info) => {
+            const resolve = async (root: any, args: any, context: any, info: any) => {
                 return objects;
             };
 
@@ -48,7 +48,7 @@ describe('data version middleware', () => {
             const context: PolarisBaseContext = {dataVersion: 3};
             const objects = [{title: 'moshe'},
                 {title: 'dani'}];
-            const resolve = async (root, args, context, info) => {
+            const resolve = async (root: any, args: any, context: any, info: any) => {
                 return objects;
             };
 
@@ -59,7 +59,7 @@ describe('data version middleware', () => {
         it ('a single entity is resolved, no filter should be applied', async()=>{
             const context: PolarisBaseContext = {dataVersion: 3};
             const objects = {title: 'moshe', dataVersion: 2};
-            const resolve = async (root, args, context, info) => {
+            const resolve = async (root: any, args: any, context: any, info: any) => {
                 return objects;
             };
 
@@ -73,7 +73,7 @@ describe('data version middleware', () => {
             const context: PolarisBaseContext = {dataVersion: 3};
             const objects = [{title: 'moshe', dataVersion: 2},
                 {title: 'dani', dataVersion: 5}];
-            const resolve = async (root, args, context, info) => {
+            const resolve = async (root: any, args: any, context: any, info: any) => {
                 return objects;
             };
 

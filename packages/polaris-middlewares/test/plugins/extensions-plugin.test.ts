@@ -10,8 +10,8 @@ chai.use(sinonChai);
 describe('data-version extensions plugin test', () => {
     describe('data version repository supplied', () => {
         describe('data version repo returns a data version value', () => {
-            let dataVersionRepo;
-            let extension;
+            let dataVersionRepo: any;
+            let extension: any;
             beforeEach(() => {
                 dataVersionRepo = {
                     find: async () => {
@@ -21,8 +21,8 @@ describe('data-version extensions plugin test', () => {
                 extension = new ExtensionsListener(dataVersionRepo);
             });
             describe('context has data version', () => {
-                let requestContext;
-                let findSpy;
+                let requestContext: any;
+                let findSpy: any;
                 beforeEach(() => {
                     requestContext = {
                         response: {data: {}, errors: []},
@@ -52,7 +52,7 @@ describe('data-version extensions plugin test', () => {
                 });
             });
             describe('context has no data version', () => {
-                let requestContext;
+                let requestContext: any;
                 beforeEach(() => {
                     requestContext = {
                         response: {data: {}, errors: []},
@@ -69,12 +69,12 @@ describe('data-version extensions plugin test', () => {
 
     });
     describe('no data version repository supplied', () => {
-        let extension;
+        let extension: any;
         beforeEach(() => {
             extension = new ExtensionsListener();
         });
         describe('context has data version', () => {
-            let requestContext;
+            let requestContext: any;
             beforeEach(() => {
                 requestContext = {
                     response: {data: {}, errors: []},
@@ -96,7 +96,7 @@ describe('data-version extensions plugin test', () => {
         });
 
         describe('context has no data version', () => {
-            let requestContext;
+            let requestContext: any;
             beforeEach(() => {
                 requestContext = {response: {data: {}, errors: [], extensions: {}}, context: {}};
             });
