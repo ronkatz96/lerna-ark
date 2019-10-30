@@ -8,7 +8,7 @@ import {
     initDb,
     profile,
     setUpTestConnection,
-    user, setContext
+    user, setContext, tearDownTestConnection
 } from "../utils/set-up";
 import {Author} from "../dal/author";
 import {User} from "../dal/user";
@@ -33,6 +33,7 @@ describe('entity manager tests', async () => {
         connection = await setUpTestConnection();
     });
     afterEach(async () => {
+        await tearDownTestConnection(connection);
         await connection.close();
     });
     describe('soft delete tests', () => {
@@ -47,7 +48,7 @@ describe('entity manager tests', async () => {
             await initDb(connection);
             await connection.manager.delete(Profile, profileCriteria);
             let user: User | undefined = await connection.manager.findOne(User, {
-                where: userCriteria,
+                ...userCriteria,
                 relations: ["profile"]
             });
             user ? expect(user.deleted).to.be.false : expect(user).to.not.be.undefined;

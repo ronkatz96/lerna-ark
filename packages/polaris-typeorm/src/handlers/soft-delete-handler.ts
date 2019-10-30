@@ -9,9 +9,9 @@ export class SoftDeleteHandler {
     }
 
     async softDeleteRecursive(targetOrEntity: any, entities: any) {
-        let parentEntityMetaData: EntityMetadata | undefined = await this.manager.connection.entityMetadatas.find(meta => meta.target == targetOrEntity && meta.inheritanceTree.find(ancestor => ancestor.name == "CommonModel"));
-        let childEntityMetaData: EntityMetadata[] = parentEntityMetaData ? await parentEntityMetaData.relations.map(relation => relation.inverseEntityMetadata) : [];
-        let childEntityMetaDataWithCascade: EntityMetadata[] = await childEntityMetaData.filter(async child =>await child.inheritanceTree.find(ancestor => ancestor.name == "CommonModel") && child.foreignKeys.filter(foreign => foreign.onDelete == "CASCADE" && foreign.referencedEntityMetadata == parentEntityMetaData));
+        let parentEntityMetaData: EntityMetadata | undefined = this.manager.connection.entityMetadatas.find((meta) => meta.target == targetOrEntity && meta.inheritanceTree.find(ancestor => ancestor.name == "CommonModel"));
+        let childEntityMetaData: EntityMetadata[] = parentEntityMetaData ? parentEntityMetaData.relations.map(relation => relation.inverseEntityMetadata) : [];
+        let childEntityMetaDataWithCascade: EntityMetadata[] = childEntityMetaData.filter(child => child.inheritanceTree.find(ancestor => ancestor.name == "CommonModel") && child.foreignKeys.filter(foreign => foreign.onDelete == "CASCADE" && foreign.referencedEntityMetadata == parentEntityMetaData));
         entities = entities instanceof Array ? entities : [entities];
         for (const child of childEntityMetaDataWithCascade) {
             for (const relation of child.relations) {

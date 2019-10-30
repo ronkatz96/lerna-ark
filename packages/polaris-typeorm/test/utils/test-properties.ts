@@ -1,23 +1,18 @@
 import {ConnectionOptions} from "typeorm";
-import {CommonModel} from "../../src/models/common-model";
-import {DataVersion} from "../../src/models/data-version";
+import {CommonModel} from "../../src";
+import {DataVersion} from "../../src";
 import {ApplicationLogProperties, LoggerConfiguration} from "@enigmatis/polaris-logs";
 
 const path = require('path');
-
 export const connectionOptions: ConnectionOptions = {
     type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "Aa123456",
-    database: "postgres",
+    url: process.env.CONNECTION_STRING ? process.env.CONNECTION_STRING : "",
     entities: [
         path.resolve(__dirname, '..') + '/dal/*.ts',
         CommonModel,
         DataVersion
     ],
-    synchronize:true,
+    synchronize: true,
     logging: false
 };
 

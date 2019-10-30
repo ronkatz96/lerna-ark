@@ -10,12 +10,16 @@ import {Library} from "../dal/library";
 import {createPolarisConnection} from "../../src";
 
 
-export const setUpTestConnection = async (polarisConfig?: TypeORMConfig) => {
+export const setUpTestConnection = async (polarisConfig?: TypeORMConfig): Promise<Connection> => {
     const polarisGraphQLLogger = await new PolarisGraphQLLogger(applicationLogProperties, loggerConfig);
-    let connection = await createPolarisConnection(connectionOptions, polarisGraphQLLogger, polarisConfig);
-    await connection.dropDatabase();
-    await connection.synchronize();
-    return connection;
+    return await createPolarisConnection(connectionOptions, polarisGraphQLLogger, polarisConfig);
+};
+
+export const tearDownTestConnection = async (connection: Connection) => {
+    let tables = ["book", "library", "author", "user", "profile", "dataVersion"];
+    for (const table of tables) {
+        connection.manager && connection.manager.queryRunner ? await connection.manager.queryRunner.dropTable(table) : {};
+    }
 };
 
 export const profile = new Profile("female");
@@ -34,7 +38,7 @@ export const initDb = async (connection: Connection) => {
     await connection.manager.save(User, user);
     await connection.manager.save(Author, [rowlingAuthor, cascadeAuthor]);
     await connection.manager.save(Book, [hpBook, cbBook]);
-    await connection.manager.save(Library, new Library("public",[cbBook]));
+    await connection.manager.save(Library, new Library("public", [cbBook]));
 };
 
 export function setContext(connection: Connection, context: PolarisContext): void {

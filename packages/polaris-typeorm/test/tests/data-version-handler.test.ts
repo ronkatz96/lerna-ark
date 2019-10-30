@@ -1,5 +1,5 @@
 import {DataVersionHandler} from "../../src/handlers/data-version-handler";
-import {getContext, setContext, setUpTestConnection} from "../utils/set-up";
+import {getContext, setContext, setUpTestConnection, tearDownTestConnection} from "../utils/set-up";
 import {expect} from "chai";
 import {Connection} from "typeorm";
 import {DataVersion} from "../../src";
@@ -13,9 +13,10 @@ describe('data version handler tests', async () => {
         dataVersionHandler = new DataVersionHandler(connection.manager);
     });
     afterEach(async () => {
+        await tearDownTestConnection(connection);
         await connection.close();
     });
-    
+
     it('data version table empty, global data version in context and db created', async () => {
         await dataVersionHandler.updateDataVersion();
         let dv: DataVersion | undefined = await connection.manager.findOne(DataVersion, {});

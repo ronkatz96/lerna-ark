@@ -1,6 +1,6 @@
 import {FindHandler} from "../../src/handlers/find-handler";
 import {expect} from "chai";
-import {setContext, setUpTestConnection} from "../utils/set-up";
+import {setContext, setUpTestConnection, tearDownTestConnection} from "../utils/set-up";
 import {Connection} from "typeorm";
 
 let connection: Connection;
@@ -12,6 +12,7 @@ describe('find handler tests', async () => {
         findHandler = new FindHandler(connection.manager);
     });
     afterEach(async () => {
+        await tearDownTestConnection(connection);
         await connection.close();
     });
 

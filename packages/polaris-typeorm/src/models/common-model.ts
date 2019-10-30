@@ -4,8 +4,10 @@ export abstract class CommonModel {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column({type: 'real',
-        default: 0})
+    @Column({
+        name: 'dataVersion', type: 'real',
+        default: 0
+    })
     dataVersion: string;
 
     @Column()
