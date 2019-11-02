@@ -1,18 +1,19 @@
-import {PolarisContext} from "../common-polaris";
-import {Connection, EntityManager, MoreThan} from "typeorm";
+import {TypeORMConfig, PolarisContext} from "../common-polaris";
+import {EntityManager, MoreThan} from "typeorm";
 
 
-const softDeleteCriteria = (connection: Connection) => {
-    let config = connection.options.extra.config;
-    return config && config.softDelete && config.softDelete.returnEntities ? undefined : false;
-};
+const softDeleteCriteria = (config?: TypeORMConfig) =>
+    config && config.softDelete && config.softDelete.returnEntities ? undefined : false;
 
 const dataVersionCriteria = (context: PolarisContext) =>
-    context.dataVersion != undefined ? MoreThan(context.dataVersion) : undefined;
+    context && context.dataVersion != undefined ? MoreThan(context.dataVersion) : undefined;
 
-const realityIdCriteria = (includeLinkedOper: boolean, context: PolarisContext) =>
-    includeLinkedOper && context.realityId != 0 && context.includeLinkedOper ? [context.realityId, 0] : context.realityId || 0;
-
+const realityIdCriteria = (includeLinkedOper: boolean, context: PolarisContext) => {
+    if (includeLinkedOper) {
+        return context && context.realityId ? context.includeLinkedOper ? [context.realityId, 0] : context.realityId : 0;
+    }
+    return context && context.realityId ? context.realityId : 0;
+};
 
 export class FindHandler {
     manager: EntityManager;
@@ -22,13 +23,15 @@ export class FindHandler {
     }
 
     findConditions(includeLinkedOper: boolean, optionsOrConditions?: any) {
-        let context = this.manager.queryRunner ? this.manager.queryRunner.data.context : {};
-        let polarisCriteria = optionsOrConditions || {};
+        let context = this.manager.queryRunner ? this.manager.queryRunner.data ? this.manager.queryRunner.data.context : {} : {};
+        let polarisCriteria = optionsOrConditions ? optionsOrConditions : {};
+        polarisCriteria.where = optionsOrConditions && optionsOrConditions.where ? optionsOrConditions.where : {};
         let dvCriteria = dataVersionCriteria(context);
-        let sdCriteria = softDeleteCriteria(this.manager.connection);
+        // @ts-ignore
+        let sdCriteria = softDeleteCriteria(this.manager.config);
         polarisCriteria.where.realityId = realityIdCriteria(includeLinkedOper, context);
-        dvCriteria === undefined || (polarisCriteria.where.dataVersion = dvCriteria);
-        sdCriteria === undefined || (polarisCriteria.where.deleted = sdCriteria);
+        dvCriteria === undefined ? delete polarisCriteria.where.dataVersion : polarisCriteria.where.dataVersion = dvCriteria;
+        sdCriteria === undefined ? delete polarisCriteria.where.deleted : polarisCriteria.where.deleted = sdCriteria;
         return polarisCriteria;
     }
 }

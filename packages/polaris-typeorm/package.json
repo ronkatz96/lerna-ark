@@ -57,7 +57,7 @@
   },
   "homepage": "https://github.com/Enigmatis/polaris-typeorm#readme",
   "dependencies": {
-    "@enigmatis/polaris-logs": "^2.5.4",
+    "@enigmatis/polaris-graphql-logger": "^1.0.2",
     "@types/node": "^12.7.4",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.20"

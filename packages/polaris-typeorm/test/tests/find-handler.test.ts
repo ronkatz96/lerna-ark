@@ -56,7 +56,8 @@ describe('find handler tests', async () => {
     });
 
     it('soft delete return entities is true, get condition without limitation on deleted', async () => {
-        Object.assign(connection.options, {extra: {config: {softDelete: {returnEntities: true}}}});
+        // @ts-ignore
+        connection.manager.config = {softDelete: {returnEntities: true}};
         let find = findHandler.findConditions(false);
         expect(find).to.deep.equal({where: {realityId: 0}});
     });

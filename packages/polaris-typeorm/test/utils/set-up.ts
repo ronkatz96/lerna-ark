@@ -3,16 +3,16 @@ import {Book} from "../dal/book";
 import {Author} from "../dal/author";
 import {Profile} from "../dal/profile";
 import {User} from "../dal/user";
+import {PolarisGraphQLLogger} from "@enigmatis/polaris-graphql-logger"
 import {applicationLogProperties, connectionOptions, loggerConfig} from "./test-properties";
-import {PolarisContext} from "../../src/common-polaris";
+import {PolarisContext, TypeORMConfig} from "../../src/common-polaris";
 import {Library} from "../dal/library";
 import {createPolarisConnection} from "../../src";
-import {PolarisLogger} from "@enigmatis/polaris-logs";
 
 
-export const setUpTestConnection = async (): Promise<Connection> => {
-    const polarisGraphQLLogger = await new PolarisLogger(applicationLogProperties, loggerConfig);
-    return await createPolarisConnection(connectionOptions, polarisGraphQLLogger);
+export const setUpTestConnection = async (polarisConfig?: TypeORMConfig): Promise<Connection> => {
+    const polarisGraphQLLogger = await new PolarisGraphQLLogger(applicationLogProperties, loggerConfig);
+    return await createPolarisConnection(connectionOptions, polarisGraphQLLogger, polarisConfig);
 };
 
 export const tearDownTestConnection = async (connection: Connection) => {
