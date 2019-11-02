@@ -25,7 +25,6 @@ describe('data version handler tests', async () => {
     });
 
     it('no global data version in context but exist in db, data version incremented and saved to db and context', async () => {
-        // @ts-ignore
         await connection.manager.save(DataVersion, new DataVersion(1));
         setContext(connection, {});
         await dataVersionHandler.updateDataVersion();
@@ -44,7 +43,6 @@ describe('data version handler tests', async () => {
         }
     });
     it('global data version in context but does not equal to data version in db, throws error', async () => {
-        // @ts-ignore
         await connection.manager.save(DataVersion, new DataVersion(1));
         setContext(connection, {globalDataVersion: 3});
         try {

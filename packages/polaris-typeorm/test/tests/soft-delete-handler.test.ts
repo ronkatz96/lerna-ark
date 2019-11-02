@@ -22,8 +22,7 @@ describe('soft delete handler tests', async () => {
     });
 
     it('parent is not common model, soft delete parent entity, does not delete linked entity', async () => {
-        // @ts-ignore
-        connection.manager.config = {softDelete: {returnEntities: true}};
+        Object.assign(connection.manager, "config", {softDelete: {returnEntities: true}});
         await initDb(connection);
         let lib = await connection.manager.findOne(Library, {relations: ["books"]});
         await softDeleteHandler.softDeleteRecursive(Library, lib);
@@ -33,8 +32,7 @@ describe('soft delete handler tests', async () => {
     });
 
     it('field is not common model, does not delete linked entity', async () => {
-        // @ts-ignore
-        connection.manager.config = {softDelete: {returnEntities: true}};
+        Object.assign(connection.manager, "config", {softDelete: {returnEntities: true}});
         await initDb(connection);
         let lib = await connection.manager.findOne(Library, {relations: ["books"]});
         let authorWithCascade = await connection.manager.findOne(Author, authorWithCascadeCriteria);
@@ -44,8 +42,7 @@ describe('soft delete handler tests', async () => {
     });
 
     it('parent and field are common models but cascade is not on, does not delete linked entity', async () => {
-        // @ts-ignore
-        connection.manager.config = {softDelete: {returnEntities: true}};
+        Object.assign(connection.manager, "config", {softDelete: {returnEntities: true}});
         await initDb(connection);
         let user: User | undefined = await connection.manager.findOne(User, {
             ...userCriteria,
@@ -58,8 +55,7 @@ describe('soft delete handler tests', async () => {
     });
 
     it('field is common model and cascade is on, delete linked entity', async () => {
-        // @ts-ignore
-        connection.manager.config = {softDelete: {returnEntities: true}};
+        Object.assign(connection.options, {extra: {config: {softDelete: {returnEntities: true}}}});
         await initDb(connection);
         let authorWithCascade: Author | undefined = await connection.manager.findOne(Author, {
             ...authorWithCascadeCriteria,

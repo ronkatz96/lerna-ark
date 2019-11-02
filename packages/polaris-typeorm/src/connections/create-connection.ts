@@ -1,12 +1,13 @@
-import {Connection, ConnectionOptions, createConnection} from "typeorm";
+import {ConnectionOptions, createConnection} from "typeorm";
 import {PolarisEntityManager} from "../polaris-entity-manager";
-import {PolarisContext, TypeORMConfig} from "../common-polaris";
-import {PolarisGraphQLLogger} from "@enigmatis/polaris-graphql-logger";
+import {TypeORMConfig} from "../common-polaris";
+import {PolarisLogger} from "@enigmatis/polaris-logs";
+import {PolarisTypeormLogger} from "../polaris-typeorm-logger";
 
-export async function createPolarisConnection(options: ConnectionOptions, logger: PolarisGraphQLLogger<PolarisContext>,
-                                              config?: TypeORMConfig): Promise<Connection> {
+export async function createPolarisConnection(options: ConnectionOptions, logger: PolarisLogger, config?: TypeORMConfig) {
+    Object.assign(options, {logger: new PolarisTypeormLogger(logger, options.logging)});
+    Object.assign(options.extra, {config: config || {}});
     let connection = await createConnection(options);
-    // @ts-ignore
-    connection.manager = new PolarisEntityManager(connection, config, logger);
+    Object.defineProperty(connection, "manager", {value: new PolarisEntityManager(connection)});
     return connection;
 }
