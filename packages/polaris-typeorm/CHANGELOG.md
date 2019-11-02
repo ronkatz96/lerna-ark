@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/Enigmatis/polaris-typeorm/compare/v1.0.0...v1.0.1) (2019-11-02)
+
+
+### Bug Fixes
+
+* expressions, add logger ([4d9ccfc](https://github.com/Enigmatis/polaris-typeorm/commit/4d9ccfc16120f698a23df2f9fd47ca5bc2415827))
+* revert push to master ([686bfab](https://github.com/Enigmatis/polaris-typeorm/commit/686bfab64cb024806e72b744690927520c8154e4))
+
 # 1.0.0 (2019-10-30)
 
 
