@@ -70,5 +70,5 @@ export const scalarsResolvers: any = {
 
     USCurrency: USCurrencyResolver,
     JSON: JSONResolver,
-    JSONObject: JSONObjectResolver
+    JSONObject: JSONObjectResolver,
 };
