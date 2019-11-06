@@ -1,30 +1,63 @@
-import {Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import { Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 export abstract class CommonModel {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+    @PrimaryGeneratedColumn('uuid')
+    private id: string;
 
     @Column({
-        name: 'dataVersion', type: 'real',
-        default: 0
+        name: 'dataVersion',
+        type: 'real',
+        default: 0,
     })
-    dataVersion: string;
+    private dataVersion: string;
 
     @Column()
-    realityId: number = 0;
+    private realityId: number = 0;
 
-    @Column({nullable: true})
-    createdBy: string;
+    @Column({ nullable: true })
+    private createdBy: string;
 
     @CreateDateColumn()
-    creationTime: Date;
+    private creationTime: Date;
 
-    @Column({nullable: true})
-    lastUpdatedBy: string;
+    @Column({ nullable: true })
+    private lastUpdatedBy: string;
 
     @UpdateDateColumn()
-    lastUpdateTime: Date;
+    private lastUpdateTime: Date;
 
     @Column()
-    deleted: boolean = false;
+    private deleted: boolean = false;
+
+    public getId(): string {
+        return this.id;
+    }
+
+    public getDataVersion(): string {
+        return this.dataVersion;
+    }
+
+    public getRealityId(): number {
+        return this.realityId;
+    }
+
+    public getCreatedBy(): string {
+        return this.createdBy;
+    }
+
+    public getCreationTime(): Date {
+        return this.creationTime;
+    }
+
+    public getLastUpdatedBy(): string {
+        return this.lastUpdatedBy;
+    }
+
+    public getLastUpdateTime(): Date {
+        return this.lastUpdateTime;
+    }
+
+    public getDeleted(): boolean {
+        return this.deleted;
+    }
 }

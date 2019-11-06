@@ -5,52 +5,54 @@ import {
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
-    UpdateDateColumn
-} from "typeorm";
-import {Book} from "./book";
-import {Author} from "./author";
+    UpdateDateColumn,
+} from 'typeorm';
+import { Author } from './author';
+import { Book } from './book';
 
 @Entity()
 export class Library {
-
-    constructor(name?: string, books?: Book[]) {
-        name ? this.name = name : {};
-        books ? this.books = books : {};
-    }
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+    @PrimaryGeneratedColumn('uuid')
+    public id: string;
 
     @Column({
         type: 'real',
-        default: 0
+        default: 0,
     })
-    dataVersion: string;
+    public dataVersion: string;
 
     @Column()
-    realityId: number = 0;
+    public realityId: number = 0;
 
-    @Column({nullable: true})
-    createdBy: string;
+    @Column({ nullable: true })
+    public createdBy: string;
 
     @CreateDateColumn()
-    creationTime: Date;
+    public creationTime: Date;
 
-    @Column({nullable: true})
-    lastUpdatedBy: string;
+    @Column({ nullable: true })
+    public lastUpdatedBy: string;
 
     @UpdateDateColumn()
-    lastUpdateTime: Date;
+    public lastUpdateTime: Date;
 
     @Column()
-    deleted: boolean = false;
+    public deleted: boolean = false;
 
     @Column()
-    name: string;
+    public name: string;
 
-    @ManyToOne(() => Author, (author) => author.libraries, {onDelete: 'CASCADE'})
-    author: Author;
+    @ManyToOne(() => Author, author => author.libraries, { onDelete: 'CASCADE' })
+    public author: Author;
 
-    @OneToMany(() => Book, (books) => books.library)
-    books: Book[];
+    @OneToMany(() => Book, books => books.library)
+    public books: Book[];
+    constructor(name?: string, books?: Book[]) {
+        if (name) {
+            this.name = name;
+        }
+        if (books) {
+            this.books = books;
+        }
+    }
 }

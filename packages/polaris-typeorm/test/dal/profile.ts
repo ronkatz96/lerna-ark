@@ -1,14 +1,14 @@
-import {CommonModel} from "../../src";
-import {Column, Entity} from "typeorm";
+import { Column, Entity } from 'typeorm';
+import { CommonModel } from '../../src';
 
 @Entity()
 export class Profile extends CommonModel {
-
+    @Column()
+    public gender: string;
     constructor(gender?: string) {
         super();
-        gender ? this.gender = gender : {};
+        if (gender) {
+            this.gender = gender;
+        }
     }
-
-    @Column()
-    gender: string;
 }

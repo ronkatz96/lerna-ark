@@ -1,20 +1,22 @@
-import {CommonModel} from "../../src";
-import {Column, Entity, JoinColumn, OneToOne} from "typeorm";
-import {Profile} from "./profile";
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { CommonModel } from '../../src';
+import { Profile } from './profile';
 
 @Entity()
 export class User extends CommonModel {
-
-    constructor(name?: string, profile?: Profile) {
-        super();
-        name ? this.name = name : {};
-        profile ? this.profile = profile : {};
-    }
-
     @Column()
-    name: string;
+    public name: string;
 
     @OneToOne(() => Profile)
     @JoinColumn()
-    profile: Profile;
+    public profile: Profile;
+    constructor(name?: string, profile?: Profile) {
+        super();
+        if (name) {
+            this.name = name;
+        }
+        if (profile) {
+            this.profile = profile;
+        }
+    }
 }

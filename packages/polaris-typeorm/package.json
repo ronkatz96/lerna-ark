@@ -5,11 +5,14 @@
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.test.ts --timeout 15000",
+    "lint": "npm run tslint-check && tslint -p .",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "lint:fix": "npm run tslint-check && tslint -p . --fix",
+    "test": "jest --runInBand",
     "build": "rimraf dist && tsc -p tsconfig.json",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once",
-    "prepare": "npm run build"
+    "prepare": "npm run lint:fix && npm run build"
   },
   "publishConfig": {
     "access": "public"
@@ -57,7 +60,8 @@
   },
   "homepage": "https://github.com/Enigmatis/polaris-typeorm#readme",
   "dependencies": {
-    "@enigmatis/polaris-graphql-logger": "^1.0.2",
+    "@enigmatis/polaris-common": "^1.0.1",
+    "@enigmatis/polaris-logs": "^2.5.4",
     "@types/node": "^12.7.4",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.20"
@@ -67,18 +71,23 @@
     "@commitlint/config-conventional": "^8.2.0",
     "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/git": "^7.0.16",
-    "@types/chai": "^4.2.1",
-    "@types/mocha": "^5.2.7",
+    "@types/jest": "^24.0.11",
     "@types/node": "^12.7.4",
-    "chai": "^4.2.0",
     "husky": "^3.0.9",
-    "mocha": "^6.2.0",
+    "jest": "24.1.0",
     "path": "^0.12.7",
     "pg": "^7.12.1",
+    "prettier": "^1.17.0",
     "rimraf": "^3.0.0",
     "travis-deploy-once": "^5.0.11",
+    "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "ts-node-register": "^1.0.0",
+    "tslint": "^5.15.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-consistent-codestyle": "^1.15.1",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.6.2"
   },
   "husky": {

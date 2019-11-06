@@ -1,14 +1,22 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({name: "dataVersion"})
+@Entity({ name: 'dataVersion' })
 export class DataVersion {
-    constructor(value?: number) {
-        value ? this.value = value : {};
-    }
-
     @PrimaryGeneratedColumn()
-    id: number = 1;
+    private id: number = 1;
 
     @Column()
-    value: number;
+    private readonly value: number;
+
+    constructor(value: number) {
+        this.value = value;
+    }
+
+    public getId(): number {
+        return this.id;
+    }
+
+    public getValue(): number {
+        return this.value;
+    }
 }
