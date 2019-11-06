@@ -1,3 +1,16 @@
+## [1.0.2](https://github.com/Enigmatis/polaris-typeorm/compare/v1.0.1...v1.0.2) (2019-11-06)
+
+
+### Bug Fixes
+
+* expressions ([c309f35](https://github.com/Enigmatis/polaris-typeorm/commit/c309f35cea7f2586d5ecbaf80d5bd50a52e6dbac))
+* expressions and logger ([535dcfe](https://github.com/Enigmatis/polaris-typeorm/commit/535dcfe1b8d1dc56ff6c82d05ab942485dbc60d8))
+* jest & prettier ([46b200b](https://github.com/Enigmatis/polaris-typeorm/commit/46b200b7f60a0c91d0d29cedd9f847a56025471e))
+* refactored context and common ([f8f859a](https://github.com/Enigmatis/polaris-typeorm/commit/f8f859affa07ddead1b7792cf9ed05364f0c2ce2))
+* remove redundant dependencies ([3938aa6](https://github.com/Enigmatis/polaris-typeorm/commit/3938aa6878fb5c05c29f98c25c0b90dc7284bd2f))
+* remove redundant dependencies ([986e08a](https://github.com/Enigmatis/polaris-typeorm/commit/986e08a303c73897e05d9cc501abf69bf0b8bba1))
+* reset db in tests ([6adfbe5](https://github.com/Enigmatis/polaris-typeorm/commit/6adfbe51c435af4fd419e2d1732b1cc50366974f))
+
 ## [1.0.1](https://github.com/Enigmatis/polaris-typeorm/compare/v1.0.0...v1.0.1) (2019-11-02)
 
 
