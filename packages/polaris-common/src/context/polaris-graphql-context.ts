@@ -4,8 +4,8 @@ import { PolarisExtensions } from './polaris-extensions';
 import { PolarisGraphQLRequest } from './polaris-request';
 
 export interface PolarisGraphQLContext extends PolarisBaseContext {
-    request: PolarisGraphQLRequest;
-    response: any;
+    request?: PolarisGraphQLRequest;
+    response?: any;
     returnedExtensions?: PolarisExtensions;
     errors?: GraphQLError[];
     warnings?: any[];
