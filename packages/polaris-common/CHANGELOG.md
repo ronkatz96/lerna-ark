@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/Enigmatis/polaris-common/compare/v1.0.5...v1.0.6) (2019-11-07)
+
+
+### Bug Fixes
+
+* add upn ([733f36c](https://github.com/Enigmatis/polaris-common/commit/733f36c6a309368af87dbd0dbfd1f4cd89bee5e8))
+
 ## [1.0.5](https://github.com/Enigmatis/polaris-common/compare/v1.0.4...v1.0.5) (2019-11-07)
 
 
