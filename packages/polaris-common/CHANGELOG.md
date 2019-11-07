@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/Enigmatis/polaris-common/compare/v1.0.2...v1.0.3) (2019-11-07)
+
+
+### Bug Fixes
+
+* fixed main and types paths in package.json ([df25cea](https://github.com/Enigmatis/polaris-common/commit/df25cea4c12699b3fbe27f4f20c9d31c543a410a))
+
 ## [1.0.2](https://github.com/Enigmatis/polaris-common/compare/v1.0.1...v1.0.2) (2019-11-07)
 
 
