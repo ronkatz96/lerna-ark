@@ -1,7 +1,7 @@
 import { PolarisRequestHeaders, PolarisResponseHeaders } from '..';
 
 export interface PolarisBaseContext {
-    requestHeaders?: PolarisRequestHeaders;
-    responseHeaders?: PolarisResponseHeaders;
-    clientIp?: string;
+    requestHeaders: PolarisRequestHeaders;
+    responseHeaders: PolarisResponseHeaders;
+    clientIp: string;
 }
