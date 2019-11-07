@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/Enigmatis/polaris-common/compare/v1.0.3...v1.0.4) (2019-11-07)
+
+
+### Bug Fixes
+
+* made fields optional ([85a9659](https://github.com/Enigmatis/polaris-common/commit/85a965940da4232baddfde5ac873aa3f3b5c977e))
+
 ## [1.0.3](https://github.com/Enigmatis/polaris-common/compare/v1.0.2...v1.0.3) (2019-11-07)
 
 
