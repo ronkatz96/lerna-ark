@@ -5,4 +5,5 @@ export interface PolarisRequestHeaders {
     realityId?: number;
     requestingSystemId?: string;
     requestingSystemName?: string;
+    upn?: string;
 }
