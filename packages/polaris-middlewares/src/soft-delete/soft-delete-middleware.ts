@@ -1,7 +1,15 @@
-import {PolarisBaseContext} from "@enigmatis/polaris-common"
+import { PolarisGraphQLContext } from '@enigmatis/polaris-common';
 
-const softDeletedMiddleware = async (resolve: any, root: any, args: any, context: PolarisBaseContext, info: any) => {
-    context.logger ? context.logger.debug("Soft delete middleware started job", {context}) : {};
+export const softDeletedMiddleware = async (
+    resolve: any,
+    root: any,
+    args: any,
+    context: PolarisGraphQLContext,
+    info: any,
+) => {
+    // if (context.logger) {
+    //     context.logger.debug('Soft delete middleware started job', { context });
+    // }
     const result = await resolve(root, args, context, info);
     let finalResult;
     if (result instanceof Array) {
@@ -13,8 +21,8 @@ const softDeletedMiddleware = async (resolve: any, root: any, args: any, context
             finalResult = result;
         }
     }
-    context.logger ? context.logger.debug("Soft delete middleware finished job", {context}) : {};
+    // if (context.logger) {
+    //     context.logger.debug('Soft delete middleware finished job', { context });
+    // }
     return finalResult;
 };
-
-export {softDeletedMiddleware};

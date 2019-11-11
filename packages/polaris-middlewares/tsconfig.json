@@ -14,7 +14,8 @@
       "src/type-declarations"
     ],
     "types": [
-      "mocha"
+      "jest",
+      "node"
     ],
     "declaration": true,
     "lib": [

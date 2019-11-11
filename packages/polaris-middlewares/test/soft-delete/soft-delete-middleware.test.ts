@@ -1,36 +1,44 @@
-import {expect} from "chai";
-import {softDeletedMiddleware} from "../../src/soft-delete/soft-delete-middleware"
-import {PolarisBaseContext} from "@enigmatis/polaris-common"
+import { softDeletedMiddleware } from '../../src';
+import { PolarisGraphQLContext } from '@enigmatis/polaris-common';
+import { getContextWithRequestHeaders } from '../context-util';
 
 describe('soft delete middleware tests', () => {
     describe('an array instance', () => {
         describe('a non root resolver', () => {
             it('return only non-deleted entities', async () => {
-                const objects = [{title: 'moshe', deleted: false},
-                    {title: 'dani', deleted: true}];
+                const objects = [
+                    { title: 'moshe', deleted: false },
+                    { title: 'dani', deleted: true },
+                ];
 
-                const resolve = async (root: any, args: any, context: any, info: any) => {
+                const resolve = async () => {
                     return objects;
                 };
-                const context: PolarisBaseContext = {};
-                const result = await softDeletedMiddleware(resolve,
-                    {name: 'bla'}, {}, context, {});
-                expect(result).to.deep.equal([{title: 'moshe', deleted: false}]);
+                const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
+                const result = await softDeletedMiddleware(
+                    resolve,
+                    { name: 'bla' },
+                    {},
+                    context,
+                    {},
+                );
+                expect(result).toEqual([{ title: 'moshe', deleted: false }]);
             });
         });
         describe('a root resolver', () => {
             it('return only non-deleted entities', async () => {
-                const objects = [{title: 'moshe', deleted: false},
-                    {title: 'dani', deleted: true}];
-                const context: PolarisBaseContext = {};
+                const objects = [
+                    { title: 'moshe', deleted: false },
+                    { title: 'dani', deleted: true },
+                ];
+                const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
 
-                const resolve = async (root: any, args: any, context: any, info: any) => {
+                const resolve = async () => {
                     return objects;
                 };
 
-                const result = await softDeletedMiddleware(resolve,
-                    undefined, {}, context, {});
-                expect(result).to.deep.equal([{title: 'moshe', deleted: false}]);
+                const result = await softDeletedMiddleware(resolve, undefined, {}, context, {});
+                expect(result).toEqual([{ title: 'moshe', deleted: false }]);
             });
         });
     });
@@ -38,74 +46,86 @@ describe('soft delete middleware tests', () => {
     describe('a single entity instance', () => {
         describe('a non root resolver', () => {
             it('return null if entity is deleted', async () => {
-                const objects = {title: 'moshe', deleted: true};
-                const resolve = async (root: any, args: any, context: any, info: any) => {
+                const objects = { title: 'moshe', deleted: true };
+                const resolve = async () => {
                     return objects;
                 };
-                const context: PolarisBaseContext = {};
+                const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
 
-                const result = await softDeletedMiddleware(resolve,
-                    {name: 'bla'}, {}, context, {});
-                expect(result).to.be.null;
+                const result = await softDeletedMiddleware(
+                    resolve,
+                    { name: 'bla' },
+                    {},
+                    context,
+                    {},
+                );
+                expect(result).toBeNull();
             });
 
             it('return entity if its not deleted', async () => {
-                const objects = {title: 'moshe', deleted: false};
-                const resolve = async (root: any, args: any, context: any, info: any) => {
+                const objects = { title: 'moshe', deleted: false };
+                const resolve = async () => {
                     return objects;
                 };
-                const context: PolarisBaseContext = {};
+                const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
 
-                const result = await softDeletedMiddleware(resolve,
-                    {name: 'bla'}, {}, context, {});
-                expect(result).to.deep.equal({title: 'moshe', deleted: false});
+                const result = await softDeletedMiddleware(
+                    resolve,
+                    { name: 'bla' },
+                    {},
+                    context,
+                    {},
+                );
+                expect(result).toEqual({ title: 'moshe', deleted: false });
             });
             it('return entity if it had no deleted property', async () => {
-                const objects = {title: 'moshe'};
-                const resolve = async (root: any, args: any, context: any, info: any) => {
+                const objects = { title: 'moshe' };
+                const resolve = async () => {
                     return objects;
                 };
-                const context: PolarisBaseContext = {};
+                const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
 
-                const result = await softDeletedMiddleware(resolve,
-                    {name: 'bla'}, {}, context, {});
-                expect(result).to.deep.equal({title: 'moshe'});
+                const result = await softDeletedMiddleware(
+                    resolve,
+                    { name: 'bla' },
+                    {},
+                    context,
+                    {},
+                );
+                expect(result).toEqual({ title: 'moshe' });
             });
         });
         describe('a root resolver', () => {
             it('return null if entity is deleted', async () => {
-                const objects = {title: 'moshe', deleted: true};
-                const resolve = async (root: any, args: any, context: any, info: any) => {
+                const objects = { title: 'moshe', deleted: true };
+                const resolve = async () => {
                     return objects;
                 };
-                const context: PolarisBaseContext = {};
+                const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
 
-                const result = await softDeletedMiddleware(resolve,
-                    undefined, {}, context, {});
-                expect(result).to.be.null;
+                const result = await softDeletedMiddleware(resolve, undefined, {}, context, {});
+                expect(result).toBeNull();
             });
 
             it('return entity if its not deleted', async () => {
-                const objects = {title: 'moshe', deleted: false};
-                const resolve = async (root: any, args: any, context: any, info: any) => {
+                const objects = { title: 'moshe', deleted: false };
+                const resolve = async () => {
                     return objects;
                 };
-                const context: PolarisBaseContext = {};
+                const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
 
-                const result = await softDeletedMiddleware(resolve,
-                    undefined, {}, context, {});
-                expect(result).to.deep.equal({title: 'moshe', deleted: false});
+                const result = await softDeletedMiddleware(resolve, undefined, {}, context, {});
+                expect(result).toEqual({ title: 'moshe', deleted: false });
             });
             it('return entity if it had no deleted property', async () => {
-                const objects = {title: 'moshe'};
-                const resolve = async (root: any, args: any, context: any, info: any) => {
+                const objects = { title: 'moshe' };
+                const resolve = async () => {
                     return objects;
                 };
-                const context: PolarisBaseContext = {};
+                const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
 
-                const result = await softDeletedMiddleware(resolve,
-                    undefined, {}, context, {});
-                expect(result).to.deep.equal({title: 'moshe'});
+                const result = await softDeletedMiddleware(resolve, undefined, {}, context, {});
+                expect(result).toEqual({ title: 'moshe' });
             });
         });
     });
