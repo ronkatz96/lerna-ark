@@ -20,7 +20,10 @@ export class PolarisTypeormLogger implements Logger {
                     this.options === true ||
                     (this.options instanceof Array && this.options.indexOf('log') !== -1)
                 ) {
-                    this.logger.debug(message);
+                    this.logger.debug(message, {
+                        elapsedTime:
+                            queryRunner && queryRunner.data && queryRunner.data.elapsedTime,
+                    });
                 }
                 break;
             case 'info':

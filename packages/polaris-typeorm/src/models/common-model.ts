@@ -60,4 +60,31 @@ export abstract class CommonModel {
     public getDeleted(): boolean {
         return this.deleted;
     }
+
+    public setDataVersion(dataVersion: string) {
+        this.dataVersion = dataVersion;
+    }
+    public setRealityId(realityId: number) {
+        this.realityId = realityId;
+    }
+
+    public setCreatedBy(createdBy: string) {
+        this.createdBy = createdBy;
+    }
+
+    public setCreationTime(creationTime: Date) {
+        this.creationTime = creationTime;
+    }
+
+    public setLastUpdatedBy(lastUpdatedBy: string) {
+        this.lastUpdatedBy = lastUpdatedBy;
+    }
+
+    public setLastUpdateTime(lastUpdateTime: Date) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public setDeleted(deleted: boolean) {
+        this.deleted = deleted;
+    }
 }
