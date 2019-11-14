@@ -11,7 +11,6 @@ describe('soft delete handler tests', () => {
                 queryRunner: { data: { requestHeaders: {} } },
                 save: jest.fn(),
                 connection: {
-                    options: { extra: { config: { softDelete: { returnEntities: true } } } },
                     entityMetadatas: [{ target: Library, inheritanceTree: [Library] }],
                 },
             },
@@ -29,7 +28,6 @@ describe('soft delete handler tests', () => {
                 queryRunner: { data: { requestHeaders: {} } },
                 save: jest.fn(),
                 connection: {
-                    options: { extra: { config: { softDelete: { returnEntities: true } } } },
                     entityMetadatas: [
                         {
                             target: Author,
@@ -66,7 +64,6 @@ describe('soft delete handler tests', () => {
                 queryRunner: { data: { requestHeaders: {} } },
                 save: jest.fn(),
                 connection: {
-                    options: { extra: { config: { softDelete: { returnEntities: true } } } },
                     entityMetadatas: [
                         {
                             target: Author,
@@ -104,7 +101,6 @@ describe('soft delete handler tests', () => {
                 queryRunner: { data: { requestHeaders: {} } },
                 save: jest.fn(),
                 connection: {
-                    options: { extra: { config: { softDelete: { returnEntities: true } } } },
                     entityMetadatas: [
                         {
                             target: Author,

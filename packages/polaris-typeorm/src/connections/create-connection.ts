@@ -1,8 +1,8 @@
 import { PolarisLogger } from '@enigmatis/polaris-logs';
 import { ConnectionOptions, createConnection } from 'typeorm';
-import { TypeORMConfig } from '../common-polaris';
 import { PolarisEntityManager } from '../polaris-entity-manager';
 import { PolarisTypeormLogger } from '../polaris-typeorm-logger';
+import { TypeORMConfig } from '../typeorm-config';
 
 export async function createPolarisConnection(
     options: ConnectionOptions,

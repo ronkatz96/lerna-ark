@@ -1,5 +1,6 @@
 import { Connection } from 'typeorm';
 import { DataVersion } from '../../../src';
+import { getAllEntitiesIncludingDeleted } from '../../../src/handlers/find-handler';
 import { Author } from '../../dal/author';
 import { Book } from '../../dal/book';
 import { Library } from '../../dal/library';
@@ -45,11 +46,8 @@ describe('entity manager tests', () => {
             }
         });
         it('parent is not common model, hard delete parent entity', async () => {
-            Object.assign(connection.options, {
-                extra: { config: { softDelete: { returnEntities: true } } },
-            });
             await initDb(connection);
-            const criteria = { relations: ['books'] };
+            const criteria = { relations: ['books'], getAllEntitiesIncludingDeleted };
             const lib = await connection.manager.findOne(Library, criteria);
             expect(lib).toBeDefined();
             await connection.manager.delete(Library, criteria);
@@ -58,28 +56,28 @@ describe('entity manager tests', () => {
         });
 
         it('field is not common model, does not delete linked entity', async () => {
-            Object.assign(connection.options, {
-                extra: { config: { softDelete: { returnEntities: true } } },
-            });
             await initDb(connection);
             await connection.manager.delete(Author, authorWithCascadeCriteria);
             const lib = await connection.manager.findOne(Library, { relations: ['books'] });
-            const authorWithCascade = await connection.manager.findOne(
-                Author,
-                authorWithCascadeCriteria,
-            );
-            lib ? expect(lib.deleted).toBeFalsy() : expect(lib).toBeDefined();
+            const criteria = {
+                where: {
+                    ...authorWithCascadeCriteria.where,
+                    ...getAllEntitiesIncludingDeleted.where,
+                },
+            };
+            const authorWithCascade = await connection.manager.findOne(Author, criteria);
+            expect(lib).toBeDefined();
             authorWithCascade
                 ? expect(authorWithCascade.getDeleted()).toBeTruthy()
                 : expect(authorWithCascade).toBeDefined();
         });
 
         it('parent and field are common models but cascade is not on, does not delete linked entity', async () => {
-            Object.assign(connection.options, {
-                extra: { config: { softDelete: { returnEntities: true } } },
-            });
             await initDb(connection);
-            const criteria = { ...userCriteria, relations: ['profile'] };
+            const criteria = {
+                where: { ...userCriteria.where, ...getAllEntitiesIncludingDeleted.where },
+                relations: ['profile'],
+            };
             await connection.manager.delete(User, criteria);
             const userCommonModel = await connection.manager.findOne(User, criteria);
             userCommonModel
@@ -93,21 +91,28 @@ describe('entity manager tests', () => {
         });
 
         it('field is common model and cascade is on, delete linked entity', async () => {
-            Object.assign(connection.options, {
-                extra: { config: { softDelete: { returnEntities: true } } },
-            });
             await initDb(connection);
-            await connection.manager.delete(Author, {
-                ...authorWithCascadeCriteria,
+            const criteria = {
+                where: {
+                    ...authorWithCascadeCriteria.where,
+                    ...getAllEntitiesIncludingDeleted.where,
+                },
                 relations: ['books'],
-            });
-            const authorWithCascade: Author | undefined = await connection.manager.findOne(Author, {
-                ...authorWithCascadeCriteria,
-                relations: ['books'],
-            });
+            };
+            const bookCriteria = {
+                where: {
+                    ...bookWithCascadeCriteria.where,
+                    ...getAllEntitiesIncludingDeleted.where,
+                },
+            };
+            await connection.manager.delete(Author, criteria);
+            const authorWithCascade: Author | undefined = await connection.manager.findOne(
+                Author,
+                criteria,
+            );
             const bookWithCascade: Book | undefined = await connection.manager.findOne(
                 Book,
-                bookWithCascadeCriteria,
+                bookCriteria,
             );
             bookWithCascade
                 ? expect(bookWithCascade.getDeleted()).toBeTruthy()
@@ -144,14 +149,13 @@ describe('entity manager tests', () => {
     // checks soft delete allow false
     it('delete entity, soft delete allow is false and return deleted entities true, doesnt return deleted entity', async () => {
         Object.assign(connection.options, {
-            extra: { config: { softDelete: { returnEntities: true, allow: false } } },
+            extra: { config: { allowSoftDelete: false } },
         });
         await initDb(connection);
         await connection.manager.delete(Author, testAuthorCriteria);
-        const author: Author | undefined = await connection.manager.findOne(
-            Author,
-            testAuthorCriteria,
-        );
+        const author: Author | undefined = await connection.manager.findOne(Author, {
+            where: { ...testAuthorCriteria.where, ...getAllEntitiesIncludingDeleted.where },
+        });
         expect(author).toBeUndefined();
     });
 
@@ -161,18 +165,22 @@ describe('entity manager tests', () => {
             ' doesnt return deleted entity and its linked entity',
         async () => {
             Object.assign(connection.options, {
-                extra: { config: { softDelete: { returnEntities: true, allow: false } } },
+                extra: { config: { allowSoftDelete: false } },
             });
             await initDb(connection);
             await connection.manager.delete(Author, authorWithCascadeCriteria);
-            const bookWithCascade: Book | undefined = await connection.manager.findOne(
-                Book,
-                bookWithCascadeCriteria,
-            );
-            const authorWithCascade: Author | undefined = await connection.manager.findOne(
-                Author,
-                authorWithCascadeCriteria,
-            );
+            const bookWithCascade: Book | undefined = await connection.manager.findOne(Book, {
+                where: {
+                    ...bookWithCascadeCriteria.where,
+                    ...getAllEntitiesIncludingDeleted.where,
+                },
+            });
+            const authorWithCascade: Author | undefined = await connection.manager.findOne(Author, {
+                where: {
+                    ...authorWithCascadeCriteria.where,
+                    ...getAllEntitiesIncludingDeleted.where,
+                },
+            });
             expect(bookWithCascade).toBeUndefined();
             expect(authorWithCascade).toBeUndefined();
         },

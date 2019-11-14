@@ -60,7 +60,7 @@ export class PolarisEntityManager extends EntityManager {
             if (entities.length > 0) {
                 const config = this.connection.options.extra.config;
                 if (
-                    (config && config.softDelete && config.softDelete.allow === false) ||
+                    (config && config.allowSoftDelete === false) ||
                     !targetOrEntity.toString().includes('CommonModel')
                 ) {
                     return this.wrapTransaction(async () => {
