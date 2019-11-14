@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.0...v1.1.1) (2019-11-14)
+
+
+### Bug Fixes
+
+* options and conditions can be override ([3f30d85](https://github.com/Enigmatis/polaris-typeorm/commit/3f30d8596e3515e7822fd883622e15e7ac67b953))
+
 # [1.1.0](https://github.com/Enigmatis/polaris-typeorm/compare/v1.0.2...v1.1.0) (2019-11-12)
 
 
