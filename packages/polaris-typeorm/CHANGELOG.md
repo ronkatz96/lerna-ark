@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.1...v1.1.2) (2019-11-17)
+
+
+### Bug Fixes
+
+* check options in logger correctly ([bf11e22](https://github.com/Enigmatis/polaris-typeorm/commit/bf11e22a972bf2c3840743b3182209027ad9ff00))
+
 ## [1.1.1](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.0...v1.1.1) (2019-11-14)
 
 
