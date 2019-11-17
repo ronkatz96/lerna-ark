@@ -7,7 +7,7 @@ export class PolarisTypeormLogger implements Logger {
 
     constructor(logger: PolarisLogger, options?: any) {
         this.logger = logger;
-        if (this.options) {
+        if (options) {
             this.options = options;
         }
     }
