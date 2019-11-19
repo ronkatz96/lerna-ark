@@ -1,3 +1,18 @@
+# [1.1.0](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.0.1...v1.1.0) (2019-11-19)
+
+
+### Bug Fixes
+
+* added irrelevant middleware and merged with osher ([14b3cd6](https://github.com/Enigmatis/polaris-delta-middleware/commit/14b3cd671e95fd728708b806ff1938c0cb035855))
+* added logger, changed irrelevant entities logic ([91b2315](https://github.com/Enigmatis/polaris-delta-middleware/commit/91b2315c12f23b7a5536bd9f3b25a092a32668a7))
+* code review fixes prepearing to polaris core ([0232b3e](https://github.com/Enigmatis/polaris-delta-middleware/commit/0232b3e127b8abbcf3588b0b70614179c94177e2))
+* fixed type in condition ([2f97570](https://github.com/Enigmatis/polaris-delta-middleware/commit/2f975705bcb05d3d5f51cb6f7714f59ee5830f8b))
+
+
+### Features
+
+* added support for irrelevant entities ([77b3edf](https://github.com/Enigmatis/polaris-delta-middleware/commit/77b3edf0ad287c66fa91ea8647f9034129dff971))
+
 ## [1.0.1](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.0.0...v1.0.1) (2019-11-11)
 
 
