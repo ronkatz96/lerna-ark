@@ -60,10 +60,11 @@
   "homepage": "https://github.com/Enigmatis/polaris-middlewares#readme",
   "dependencies": {
     "@enigmatis/polaris-common": "^1.0.5",
+    "@enigmatis/polaris-graphql-logger": "^1.0.3",
+    "@enigmatis/polaris-typeorm": "^1.1.1",
     "apollo-server-plugin-base": "^0.6.4",
     "graphql": "^14.5.4",
-    "graphql-extensions": "^0.10.3",
-    "graphql-middleware": "^4.0.2"
+    "graphql-extensions": "^0.10.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",

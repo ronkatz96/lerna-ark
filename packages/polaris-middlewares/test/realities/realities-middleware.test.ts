@@ -1,7 +1,9 @@
 import { PolarisGraphQLContext } from '@enigmatis/polaris-common';
-import { realitiesMiddleware } from '../../src';
+import { RealitiesMiddleware } from '../../src';
 import { getContextWithRequestHeaders } from '../context-util';
 
+const logger = { debug: jest.fn() } as any;
+const realitiesMiddleware = new RealitiesMiddleware(logger).getMiddleware();
 describe('reality id tests', () => {
     const operationalEntity = { title: 'Harry Potter', realityId: 0 };
     const notOperationalEntity = { title: 'Jurassic Park', realityId: 1 };

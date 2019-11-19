@@ -1,20 +1,24 @@
-import { dataVersionMiddleware } from '../../src';
+import { DataVersionMiddleware } from '../../src';
 import { PolarisGraphQLContext } from '@enigmatis/polaris-common';
 import { getContextWithRequestHeaders } from '../context-util';
 
+const dvResult = { getValue: jest.fn(() => 1) };
+const dvRepo: any = {
+    findOne: jest.fn(() => dvResult),
+};
+const connection: any = { getRepository: jest.fn(() => dvRepo) };
+const logger: any = { debug: jest.fn() };
+const dataVersionMiddleware = new DataVersionMiddleware(logger, connection).getMiddleware();
+
 describe('data version middleware', () => {
     describe('root resolver', () => {
-        it('should filter out entities with' + ' data version lower/equal to context', async () => {
-            const root = undefined;
-            const args = {};
+        it('should filter out entities with data version lower/equal to context', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({ dataVersion: 2 });
-            const info = {};
             const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
             const resolve = async () => {
                 return objects;
             };
-
-            const result = await dataVersionMiddleware(resolve, root, args, context, info);
+            const result = await dataVersionMiddleware(resolve, undefined, {}, context, {});
             expect(result).toEqual([{ title: 'dani', dataVersion: 5 }]);
         });
         it('no data version in context, root query, no filter should be applied', async () => {
@@ -55,7 +59,6 @@ describe('data version middleware', () => {
             const resolve = async () => {
                 return objects;
             };
-
             const result = await dataVersionMiddleware(resolve, undefined, {}, context, {});
             expect(result).toBeUndefined();
         });
@@ -81,6 +84,45 @@ describe('data version middleware', () => {
 
             const result = await dataVersionMiddleware(resolve, { name: 'bla' }, {}, context, {});
             expect(result).toEqual(objects);
+        });
+    });
+    describe('update global data version extensions in context', () => {
+        it('global data version is undefined in context, update global data version in extensions', async () => {
+            const context: any = getContextWithRequestHeaders({ dataVersion: 2 });
+            context.returnedExtensions = undefined;
+            const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
+            const resolve = async () => {
+                return objects;
+            };
+            const result = await dataVersionMiddleware(resolve, undefined, {}, context, {});
+            expect(result).toEqual([{ title: 'dani', dataVersion: 5 }]);
+            expect(context.returnedExtensions.globalDataVersion).toEqual(1);
+        });
+
+        it('global data version is already in extensions, change it', async () => {
+            const context: PolarisGraphQLContext = getContextWithRequestHeaders({ dataVersion: 2 });
+            const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
+            const resolve = async () => {
+                return objects;
+            };
+            const result = await dataVersionMiddleware(resolve, undefined, {}, context, {});
+            expect(result).toEqual([{ title: 'dani', dataVersion: 5 }]);
+            expect(context.returnedExtensions.globalDataVersion).toEqual(1);
+        });
+
+        it('global data version not found, throw error', async () => {
+            const context: any = getContextWithRequestHeaders({ dataVersion: 2 });
+            context.returnedExtensions = undefined;
+            const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
+            const resolve = async () => {
+                return objects;
+            };
+            dvRepo.findOne = jest.fn(() => undefined);
+            try {
+                await dataVersionMiddleware(resolve, undefined, {}, context, {});
+            } catch (e) {
+                expect(e.message).toEqual('no data version found in db');
+            }
         });
     });
 });

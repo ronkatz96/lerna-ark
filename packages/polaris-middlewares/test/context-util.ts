@@ -5,7 +5,7 @@ export const getContextWithRequestHeaders = (requestHeaders: PolarisRequestHeade
         requestHeaders,
         request: { query: 'foo' },
         response: jest.fn(),
-        returnedExtensions: { globalDataVersion: 0 },
+        returnedExtensions: { globalDataVersion: 5 },
         responseHeaders: {},
         clientIp: 'bar',
     };
