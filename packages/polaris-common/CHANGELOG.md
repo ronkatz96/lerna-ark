@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/Enigmatis/polaris-common/compare/v1.0.6...v1.0.7) (2019-11-20)
+
+
+### Bug Fixes
+
+* added more response headers ([3918cd6](https://github.com/Enigmatis/polaris-common/commit/3918cd673bd7435b71e8e27b3a39f4e9999600c7))
+
 ## [1.0.6](https://github.com/Enigmatis/polaris-common/compare/v1.0.5...v1.0.6) (2019-11-07)
 
 
