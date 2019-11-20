@@ -1,5 +1,5 @@
 export interface PolarisResponseHeaders {
+    realityId?: number;
     requestId?: string;
-    realityId?: string;
     upn?: string;
 }
