@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/Enigmatis/polaris-common/compare/v1.0.7...v1.0.8) (2019-11-20)
+
+
+### Bug Fixes
+
+* changed type of reality id in response header ([9f46cc4](https://github.com/Enigmatis/polaris-common/commit/9f46cc4ccbca6c7a177e32963ba1750dc1aff4ac))
+
 ## [1.0.7](https://github.com/Enigmatis/polaris-common/compare/v1.0.6...v1.0.7) (2019-11-20)
 
 
