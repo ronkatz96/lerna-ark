@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/Enigmatis/polaris-common/compare/v1.0.8...v1.0.9) (2019-11-25)
+
+
+### Bug Fixes
+
+* added application properties ([fb78ecf](https://github.com/Enigmatis/polaris-common/commit/fb78ecff8fd535e546e642e368a3bc2eed5ba60e))
+
 ## [1.0.8](https://github.com/Enigmatis/polaris-common/compare/v1.0.7...v1.0.8) (2019-11-20)
 
 
