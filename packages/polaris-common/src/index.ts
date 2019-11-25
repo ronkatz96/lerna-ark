@@ -7,3 +7,4 @@ export { runAndMeasureTime } from './common-methods';
 export * from './headers/header-names';
 export { PolarisRequestHeaders } from './headers/polaris-request-headers';
 export { PolarisResponseHeaders } from './headers/polaris-response-headers';
+export { ApplicationProperties } from './application-properties';
