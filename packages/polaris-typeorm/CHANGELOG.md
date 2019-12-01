@@ -1,3 +1,12 @@
+## [1.1.3](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.2...v1.1.3) (2019-12-01)
+
+
+### Bug Fixes
+
+* auto fields update include tests. before code review ([367936c](https://github.com/Enigmatis/polaris-typeorm/commit/367936c0c2f4063a94a72f3bc4c63d1c1cb10faa))
+* fix code review comments ([2a2edad](https://github.com/Enigmatis/polaris-typeorm/commit/2a2edade9e007a88fb5bbc0fc214be27cc883046))
+* temp commit, before code review fixes ([80edd74](https://github.com/Enigmatis/polaris-typeorm/commit/80edd7407b610f546a6196b059d102d597d1f0a1))
+
 ## [1.1.2](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.1...v1.1.2) (2019-11-17)
 
 
