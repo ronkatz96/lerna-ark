@@ -9,19 +9,19 @@ export abstract class CommonModel {
         type: 'real',
         default: 0,
     })
-    private dataVersion: string;
+    private dataVersion: number;
 
     @Column()
-    private realityId: number = 0;
+    private realityId: number;
 
     @Column({ nullable: true })
-    private createdBy: string;
+    private createdBy?: string;
 
     @CreateDateColumn()
     private creationTime: Date;
 
     @Column({ nullable: true })
-    private lastUpdatedBy: string;
+    private lastUpdatedBy?: string;
 
     @UpdateDateColumn()
     private lastUpdateTime: Date;
@@ -33,7 +33,7 @@ export abstract class CommonModel {
         return this.id;
     }
 
-    public getDataVersion(): string {
+    public getDataVersion(): number {
         return this.dataVersion;
     }
 
@@ -41,7 +41,7 @@ export abstract class CommonModel {
         return this.realityId;
     }
 
-    public getCreatedBy(): string {
+    public getCreatedBy(): string | undefined {
         return this.createdBy;
     }
 
@@ -49,7 +49,7 @@ export abstract class CommonModel {
         return this.creationTime;
     }
 
-    public getLastUpdatedBy(): string {
+    public getLastUpdatedBy(): string | undefined {
         return this.lastUpdatedBy;
     }
 
@@ -61,14 +61,14 @@ export abstract class CommonModel {
         return this.deleted;
     }
 
-    public setDataVersion(dataVersion: string) {
+    public setDataVersion(dataVersion: number) {
         this.dataVersion = dataVersion;
     }
     public setRealityId(realityId: number) {
         this.realityId = realityId;
     }
 
-    public setCreatedBy(createdBy: string) {
+    public setCreatedBy(createdBy?: string) {
         this.createdBy = createdBy;
     }
 
@@ -76,7 +76,7 @@ export abstract class CommonModel {
         this.creationTime = creationTime;
     }
 
-    public setLastUpdatedBy(lastUpdatedBy: string) {
+    public setLastUpdatedBy(lastUpdatedBy?: string) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 

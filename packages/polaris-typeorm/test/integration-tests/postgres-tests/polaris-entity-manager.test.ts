@@ -32,6 +32,7 @@ let connection: Connection;
 describe('entity manager tests', () => {
     beforeEach(async () => {
         connection = await setUpTestConnection();
+        await initDb(connection);
         setHeaders(connection, { res: { locals: {} } } as any);
     });
     afterEach(async () => {
@@ -46,7 +47,6 @@ describe('entity manager tests', () => {
             }
         });
         it('parent is not common model, hard delete parent entity', async () => {
-            await initDb(connection);
             const criteria = { relations: ['books'], getAllEntitiesIncludingDeleted };
             const lib = await connection.manager.findOne(Library, criteria);
             expect(lib).toBeDefined();
@@ -56,7 +56,6 @@ describe('entity manager tests', () => {
         });
 
         it('field is not common model, does not delete linked entity', async () => {
-            await initDb(connection);
             await connection.manager.delete(Author, authorWithCascadeCriteria);
             const lib = await connection.manager.findOne(Library, { relations: ['books'] });
             const criteria = {
@@ -73,7 +72,6 @@ describe('entity manager tests', () => {
         });
 
         it('parent and field are common models but cascade is not on, does not delete linked entity', async () => {
-            await initDb(connection);
             const criteria = {
                 where: { ...userCriteria.where, ...getAllEntitiesIncludingDeleted.where },
                 relations: ['profile'],
@@ -91,7 +89,6 @@ describe('entity manager tests', () => {
         });
 
         it('field is common model and cascade is on, delete linked entity', async () => {
-            await initDb(connection);
             const criteria = {
                 where: {
                     ...authorWithCascadeCriteria.where,
@@ -123,7 +120,6 @@ describe('entity manager tests', () => {
         });
     });
     it('delete linked entity, should not return deleted entities(first level), get entity and its linked entity', async () => {
-        await initDb(connection);
         await connection.manager.delete(Profile, profileCriteria);
         const userEntity: User | undefined = await connection.manager.findOne(User, {
             ...userCriteria,
@@ -140,7 +136,6 @@ describe('entity manager tests', () => {
 
     // checks default setting
     it('delete entity, should not return deleted entities, doesnt return deleted entity', async () => {
-        await initDb(connection);
         await connection.manager.delete(Book, testBookCriteria);
         const book: Book | undefined = await connection.manager.findOne(Book, testBookCriteria);
         expect(book).toBeUndefined();
@@ -151,7 +146,6 @@ describe('entity manager tests', () => {
         Object.assign(connection.options, {
             extra: { config: { allowSoftDelete: false } },
         });
-        await initDb(connection);
         await connection.manager.delete(Author, testAuthorCriteria);
         const author: Author | undefined = await connection.manager.findOne(Author, {
             where: { ...testAuthorCriteria.where, ...getAllEntitiesIncludingDeleted.where },
@@ -167,7 +161,6 @@ describe('entity manager tests', () => {
             Object.assign(connection.options, {
                 extra: { config: { allowSoftDelete: false } },
             });
-            await initDb(connection);
             await connection.manager.delete(Author, authorWithCascadeCriteria);
             const bookWithCascade: Book | undefined = await connection.manager.findOne(Book, {
                 where: {
@@ -188,7 +181,6 @@ describe('entity manager tests', () => {
 
     describe('data version tests', () => {
         it('books are created with data version, get all book for data version 0', async () => {
-            await initDb(connection);
             if (connection.manager.queryRunner && connection.manager.queryRunner.data) {
                 connection.manager.queryRunner.data = {
                     returnedExtensions: {},
@@ -208,8 +200,8 @@ describe('entity manager tests', () => {
         });
 
         it('fail save action, data version not progressing', async () => {
-            await initDb(connection);
             const bookFail = new Book('fail book');
+            bookFail.setRealityId(0);
             setHeaders(connection, { realityId: 1 });
             await connection.manager.save(Book, bookFail);
             const dv = await connection.manager.findOne(DataVersion);
@@ -223,7 +215,6 @@ describe('entity manager tests', () => {
 
     describe('reality tests', () => {
         it('reality id is supplied in headers', async () => {
-            await initDb(connection);
             const bookReality1: any = new Book('Jurassic Park');
             bookReality1.realityId = 1;
             setHeaders(connection, { realityId: 1 });
@@ -234,7 +225,6 @@ describe('entity manager tests', () => {
         });
 
         it('delete operational entity, linked oper header true and reality id isnt operational, entity not deleted', async () => {
-            await initDb(connection);
             setHeaders(connection, { realityId: 1 });
             try {
                 await connection.manager.delete(Author, testAuthorCriteria);
@@ -244,7 +234,6 @@ describe('entity manager tests', () => {
         });
 
         it('save existing entity with different reality id, fail saving', async () => {
-            await initDb(connection);
             const book: any = new Book('my book');
             await connection.getRepository(Book).save(book);
             book.realityId = 1;
@@ -256,7 +245,6 @@ describe('entity manager tests', () => {
         });
     });
     it('find one with id', async () => {
-        await initDb(connection);
         const book = new Book('my book');
         await connection.getRepository(Book).save(book);
         const bookFound: Book | undefined = await connection.manager.findOne(Book, {
@@ -266,12 +254,10 @@ describe('entity manager tests', () => {
     });
 
     it('count', async () => {
-        await initDb(connection);
         expect(await connection.manager.count(Book)).toEqual(2);
     });
 
     it('order by', async () => {
-        await initDb(connection);
         const books1 = await connection.manager.find(Book, {
             order: {
                 title: 'ASC',

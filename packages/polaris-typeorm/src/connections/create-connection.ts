@@ -14,6 +14,7 @@ export async function createPolarisConnection(
     options.extra
         ? Object.assign(options.extra, configObj)
         : Object.assign(options, { extra: configObj });
+    Object.assign(options, { subscribers: ['src/subscribers/*.ts', options.subscribers] });
     const connection = await createConnection(options);
     Object.defineProperty(connection, 'manager', { value: new PolarisEntityManager(connection) });
     return connection;
