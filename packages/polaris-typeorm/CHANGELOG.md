@@ -1,3 +1,11 @@
+## [1.1.4](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.3...v1.1.4) (2019-12-02)
+
+
+### Bug Fixes
+
+* corrected the if statemets bug ([ba1f69b](https://github.com/Enigmatis/polaris-typeorm/commit/ba1f69bc8a1200a32b89310304b2c1cd6431cad1))
+* sakak fixes ([ca6dcb4](https://github.com/Enigmatis/polaris-typeorm/commit/ca6dcb4398cc2a444f3e37d93ecb1111de26dad9))
+
 ## [1.1.3](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.2...v1.1.3) (2019-12-01)
 
 

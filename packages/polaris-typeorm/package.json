@@ -1,6 +1,6 @@
 {
   "name": "@enigmatis/polaris-typeorm",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "support for typeorm in polaris",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
