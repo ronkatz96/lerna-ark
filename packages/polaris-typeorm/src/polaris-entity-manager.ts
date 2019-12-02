@@ -243,11 +243,10 @@ export class PolarisEntityManager extends EntityManager {
     }
 
     private getHeaders = () =>
-        this.queryRunner && this.queryRunner.data && (this.queryRunner.data.requestHeaders || {});
+        (this.queryRunner && this.queryRunner.data && this.queryRunner.data.requestHeaders) || {};
     private getExtensions = () =>
-        this.queryRunner &&
-        this.queryRunner.data &&
-        (this.queryRunner.data.returnedExtensions || {});
+        (this.queryRunner && this.queryRunner.data && this.queryRunner.data.returnedExtensions) ||
+        {};
 
     private calculateCriteria(target: any, includeLinkedOper: boolean, criteria: any) {
         return target.toString().includes('CommonModel')
