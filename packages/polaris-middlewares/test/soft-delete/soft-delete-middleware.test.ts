@@ -1,5 +1,5 @@
-import { SoftDeleteMiddleware } from '../../src';
 import { PolarisGraphQLContext } from '@enigmatis/polaris-common';
+import { SoftDeleteMiddleware } from '../../src';
 import { getContextWithRequestHeaders } from '../context-util';
 
 const logger = { debug: jest.fn() } as any;

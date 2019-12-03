@@ -1,17 +1,17 @@
 import { DATA_VERSION, PolarisGraphQLContext } from '@enigmatis/polaris-common';
-import { DataVersion, Connection } from '@enigmatis/polaris-typeorm';
 import { PolarisGraphQLLogger } from '@enigmatis/polaris-graphql-logger';
+import { Connection, DataVersion } from '@enigmatis/polaris-typeorm';
 
 export class DataVersionMiddleware {
-    readonly connection?: Connection;
-    readonly logger: PolarisGraphQLLogger;
+    public readonly connection?: Connection;
+    public readonly logger: PolarisGraphQLLogger;
 
     constructor(logger: PolarisGraphQLLogger, connection?: Connection) {
         this.connection = connection;
         this.logger = logger;
     }
 
-    getMiddleware() {
+    public getMiddleware() {
         return async (
             resolve: any,
             root: any,
@@ -52,8 +52,10 @@ export class DataVersionMiddleware {
         };
     }
 
-    async updateDataVersionInReturnedExtensions(context: PolarisGraphQLContext) {
-        if(!this.connection) return;
+    public async updateDataVersionInReturnedExtensions(context: PolarisGraphQLContext) {
+        if (!this.connection) {
+            return;
+        }
         const dataVersionRepo = this.connection.getRepository(DataVersion);
         const globalDataVersion: any = await dataVersionRepo.findOne();
         if (globalDataVersion) {

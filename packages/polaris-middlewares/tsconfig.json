@@ -14,8 +14,7 @@
       "src/type-declarations"
     ],
     "types": [
-      "jest",
-      "node"
+      "jest"
     ],
     "declaration": true,
     "lib": [

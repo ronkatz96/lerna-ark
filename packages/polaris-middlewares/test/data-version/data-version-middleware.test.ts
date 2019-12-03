@@ -1,5 +1,5 @@
-import { DataVersionMiddleware } from '../../src';
 import { PolarisGraphQLContext } from '@enigmatis/polaris-common';
+import { DataVersionMiddleware } from '../../src';
 import { getContextWithRequestHeaders } from '../context-util';
 
 const dvResult = { getValue: jest.fn(() => 1) };
@@ -14,7 +14,10 @@ describe('data version middleware', () => {
     describe('root resolver', () => {
         it('should filter out entities with data version lower/equal to context', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({ dataVersion: 2 });
-            const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
+            const objects = [
+                { title: 'moshe', dataVersion: 2 },
+                { title: 'dani', dataVersion: 5 },
+            ];
             const resolve = async () => {
                 return objects;
             };
@@ -23,7 +26,10 @@ describe('data version middleware', () => {
         });
         it('no data version in context, root query, no filter should be applied', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
-            const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
+            const objects = [
+                { title: 'moshe', dataVersion: 2 },
+                { title: 'dani', dataVersion: 5 },
+            ];
             const resolve = async () => {
                 return objects;
             };
@@ -35,7 +41,10 @@ describe('data version middleware', () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({
                 dataVersion: undefined,
             });
-            const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
+            const objects = [
+                { title: 'moshe', dataVersion: 2 },
+                { title: 'dani', dataVersion: 5 },
+            ];
             const resolve = async () => {
                 return objects;
             };
@@ -77,7 +86,10 @@ describe('data version middleware', () => {
     describe('not a root resolver', () => {
         it('not a root resolver, no filter should be applied', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({ dataVersion: 3 });
-            const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
+            const objects = [
+                { title: 'moshe', dataVersion: 2 },
+                { title: 'dani', dataVersion: 5 },
+            ];
             const resolve = async () => {
                 return objects;
             };
@@ -90,7 +102,10 @@ describe('data version middleware', () => {
         it('global data version is undefined in context, update global data version in extensions', async () => {
             const context: any = getContextWithRequestHeaders({ dataVersion: 2 });
             context.returnedExtensions = undefined;
-            const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
+            const objects = [
+                { title: 'moshe', dataVersion: 2 },
+                { title: 'dani', dataVersion: 5 },
+            ];
             const resolve = async () => {
                 return objects;
             };
@@ -101,7 +116,10 @@ describe('data version middleware', () => {
 
         it('global data version is already in extensions, change it', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({ dataVersion: 2 });
-            const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
+            const objects = [
+                { title: 'moshe', dataVersion: 2 },
+                { title: 'dani', dataVersion: 5 },
+            ];
             const resolve = async () => {
                 return objects;
             };
@@ -113,7 +131,10 @@ describe('data version middleware', () => {
         it('global data version not found, throw error', async () => {
             const context: any = getContextWithRequestHeaders({ dataVersion: 2 });
             context.returnedExtensions = undefined;
-            const objects = [{ title: 'moshe', dataVersion: 2 }, { title: 'dani', dataVersion: 5 }];
+            const objects = [
+                { title: 'moshe', dataVersion: 2 },
+                { title: 'dani', dataVersion: 5 },
+            ];
             const resolve = async () => {
                 return objects;
             };

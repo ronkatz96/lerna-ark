@@ -2,12 +2,12 @@ import { PolarisGraphQLContext } from '@enigmatis/polaris-common';
 import { PolarisGraphQLLogger } from '@enigmatis/polaris-graphql-logger';
 
 export class RealitiesMiddleware {
-    readonly logger: PolarisGraphQLLogger;
+    public readonly logger: PolarisGraphQLLogger;
 
     constructor(logger: PolarisGraphQLLogger) {
         this.logger = logger;
     }
-    getMiddleware() {
+    public getMiddleware() {
         return async (
             resolve: any,
             root: any,

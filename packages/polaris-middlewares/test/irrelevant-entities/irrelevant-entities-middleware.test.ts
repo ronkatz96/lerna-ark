@@ -35,6 +35,16 @@ describe('Irrelevant entities middleware', () => {
             });
             expect(testContext.returnedExtensions.irrelevantEntities).toEqual({ getEven: evenIds });
         });
+
+        it('keeps searching for the query type even if its complex', async () => {
+            const evenIds = ['2', '4', '6'];
+            const testContext = { requestHeaders: { dataVersion: 1 } } as any;
+            await irrelevantEntitiesMiddleware(jest.fn(), undefined, {}, testContext, {
+                returnType: { ofType: { ofType: { name: 'Book' } } },
+                path: { key: 'getEven' },
+            });
+            expect(testContext.returnedExtensions.irrelevantEntities).toEqual({ getEven: evenIds });
+        });
         it('appends irrelevant entities by query name, multiple queries', async () => {
             const evenIds = ['2', '4', '6'];
             const testContext = {
@@ -49,6 +59,15 @@ describe('Irrelevant entities middleware', () => {
                 getEven: evenIds,
                 getOdd: result,
             });
+        });
+
+        it('not searches for irrelevant if root is defined', async () => {
+            const testContext = { requestHeaders: { dataVersion: 1 } } as any;
+            await irrelevantEntitiesMiddleware(jest.fn(), {}, {}, testContext, {
+                returnType: { ofType: { name: 'Book' } },
+                path: { key: 'getEven' },
+            });
+            expect(testContext.returnedExtensions).toBeUndefined();
         });
     });
 });
