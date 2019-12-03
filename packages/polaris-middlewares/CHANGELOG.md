@@ -1,3 +1,13 @@
+## [1.1.1](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.0...v1.1.1) (2019-12-03)
+
+
+### Bug Fixes
+
+* extract to methods ([69ae8eb](https://github.com/Enigmatis/polaris-delta-middleware/commit/69ae8eb4ca2cc8f6f15cfaf871d9a0da6b92c579))
+* fixed check for nan or undefined ([6195453](https://github.com/Enigmatis/polaris-delta-middleware/commit/61954530ec5b509443354beb0a2aa7f407df5d7b))
+* fixed irrelevant entities tests ([c13e6a1](https://github.com/Enigmatis/polaris-delta-middleware/commit/c13e6a14e699d2fd9b41577a2a4e2fc23add5d19))
+* fixed irrelevant entities tests ([f907d8c](https://github.com/Enigmatis/polaris-delta-middleware/commit/f907d8c68e0b6c4ec9d97dcaff0b5a16ad3e40f5))
+
 # [1.1.0](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.0.1...v1.1.0) (2019-11-19)
 
 
