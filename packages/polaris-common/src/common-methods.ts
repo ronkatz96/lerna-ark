@@ -1,8 +1,6 @@
-import { performance } from 'perf_hooks';
-
-export const runAndMeasureTime = async (run: any) => {
-    const t0 = performance.now();
-    const returnValue = await run();
-    const t1 = performance.now();
+export const runAndMeasureTime = async (runnable: () => {}) => {
+    const t0 = +new Date();
+    const returnValue = await runnable();
+    const t1 = +new Date();
     return { returnValue, elapsedTime: t1 - t0 };
 };
