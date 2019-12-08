@@ -1,3 +1,17 @@
+## [1.1.5](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.4...v1.1.5) (2019-12-08)
+
+
+### Bug Fixes
+
+* add polaris logo ([002386d](https://github.com/Enigmatis/polaris-typeorm/commit/002386d09bf27a8fb6063c03c4b8dd0a9b969127))
+* add readme for polaris typeorm ([9d2de9f](https://github.com/Enigmatis/polaris-typeorm/commit/9d2de9f7a3c8854fb9b4f744550d481b1062fbfa))
+* edit the optional values ([4a52c11](https://github.com/Enigmatis/polaris-typeorm/commit/4a52c11e11c8c5a57193533f057fda9581dfb004))
+* first code review fixes ([99fa5ca](https://github.com/Enigmatis/polaris-typeorm/commit/99fa5ca59d7f8f5936ac155428f29ce9796238e5))
+* last fix i hope ([ed025aa](https://github.com/Enigmatis/polaris-typeorm/commit/ed025aa5e13a618e2f34ebe02fe54b8c2a4bb575))
+* prettier fixes ([ff92db6](https://github.com/Enigmatis/polaris-typeorm/commit/ff92db66bcba907626b9c8c76b84b0a14a30e5bb))
+* update polaris logo size ([4c65ab3](https://github.com/Enigmatis/polaris-typeorm/commit/4c65ab31e2bfdb429c1245b2c069c80553c0ec71))
+* update polaris logo size ([7d6f8ca](https://github.com/Enigmatis/polaris-typeorm/commit/7d6f8ca4c1116f774932cb7c35cd5a67e4470aa3))
+
 ## [1.1.4](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.3...v1.1.4) (2019-12-02)
 
 
