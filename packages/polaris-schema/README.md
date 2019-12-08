@@ -26,7 +26,7 @@ It consists the following properties:
 -   createdBy: who created the entity.
 -   creationTime: when was the entity created.
 -   lastUpdatedBy(_string - Optional_): who last updated the entity.
--   lastUpdateTime(_Date - Optional_): when does the entity last updated.
+-   lastUpdateTime(_Date - Optional_): when was the entity last updated.
 -   realityId: the id of the reality the entity is from.
 
 #### RepositoryEntityTypeDefs
