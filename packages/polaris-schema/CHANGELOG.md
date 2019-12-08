@@ -1,3 +1,14 @@
+## [1.0.6](https://github.com/Enigmatis/polaris-schema/compare/v1.0.5...v1.0.6) (2019-12-08)
+
+
+### Bug Fixes
+
+* add readme ([a2768dd](https://github.com/Enigmatis/polaris-schema/commit/a2768dd064c5649549eddbf5ef92287852dc7694))
+* FIRST CODE REVIEW FIXES ([9864fea](https://github.com/Enigmatis/polaris-schema/commit/9864fea33cf6b5e8c7753451f4972c7bb39b61ca))
+* prettier fix ([93664cb](https://github.com/Enigmatis/polaris-schema/commit/93664cbbb720784c668c0f4df99624f75271044b))
+* prettier fix ([32dce1b](https://github.com/Enigmatis/polaris-schema/commit/32dce1b17dcc18f0dd9349e7d86a3dc7a9f9aa60))
+* prettier fixes ([b801f84](https://github.com/Enigmatis/polaris-schema/commit/b801f8493fa18ae16c0ba4a53f166da1e8ee65bd))
+
 ## [1.0.5](https://github.com/Enigmatis/polaris-schema/compare/v1.0.4...v1.0.5) (2019-11-06)
 
 
