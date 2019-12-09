@@ -1,3 +1,13 @@
+## [1.0.10](https://github.com/Enigmatis/polaris-common/compare/v1.0.9...v1.0.10) (2019-12-09)
+
+
+### Bug Fixes
+
+* add read me ([f641842](https://github.com/Enigmatis/polaris-common/commit/f641842b74322275bdc268ab814ae66a3cd67d29))
+* add read me ([6f26d4f](https://github.com/Enigmatis/polaris-common/commit/6f26d4f21cf05a7cc4e4a7f0083a8876d6e98d3b))
+* add read me, changed run and measure ([107b811](https://github.com/Enigmatis/polaris-common/commit/107b81181c99fb3c813a1f1fa603eda4fc87425d))
+* add read me, changed run and measure ([d31250a](https://github.com/Enigmatis/polaris-common/commit/d31250aec7d4fd1483e0f8ae63fea14559609e0a))
+
 ## [1.0.9](https://github.com/Enigmatis/polaris-common/compare/v1.0.8...v1.0.9) (2019-11-25)
 
 
