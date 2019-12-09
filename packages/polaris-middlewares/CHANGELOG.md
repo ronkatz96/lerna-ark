@@ -1,3 +1,12 @@
+## [1.1.2](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.1...v1.1.2) (2019-12-09)
+
+
+### Bug Fixes
+
+* updated README and prettified code ([425d697](https://github.com/Enigmatis/polaris-delta-middleware/commit/425d6970a66e62231990b41385fb630eafb805c6))
+* updated README and prettified code ([aee4ec9](https://github.com/Enigmatis/polaris-delta-middleware/commit/aee4ec970b30117dbfa14264bb2f378f117072ef))
+* updated README and prettified code ([d70e5b8](https://github.com/Enigmatis/polaris-delta-middleware/commit/d70e5b8b485f3ab201e2524214a98ae68aa090ec))
+
 ## [1.1.1](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.0...v1.1.1) (2019-12-03)
 
 
