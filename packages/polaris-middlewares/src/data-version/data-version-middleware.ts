@@ -68,9 +68,3 @@ export class DataVersionMiddleware {
         }
     }
 }
-// is it relevant?
-export const initContextForDataVersion = async ({ req }: any) => {
-    return {
-        dataVersion: req.headers[DATA_VERSION],
-    };
-};
