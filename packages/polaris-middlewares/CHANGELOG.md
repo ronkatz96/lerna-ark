@@ -1,3 +1,11 @@
+## [1.1.3](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.2...v1.1.3) (2019-12-12)
+
+
+### Bug Fixes
+
+* check for undefined before running middlewares ([81110bc](https://github.com/Enigmatis/polaris-delta-middleware/commit/81110bc3359c0e4bcd1d4724692151de6e552f4e))
+* fixed ifs ([8d4fb70](https://github.com/Enigmatis/polaris-delta-middleware/commit/8d4fb70ae16cb8e1040ebce5306cd31fb42bb129))
+
 ## [1.1.2](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.1...v1.1.2) (2019-12-09)
 
 
