@@ -7,6 +7,7 @@ export class RealitiesMiddleware {
     constructor(logger: PolarisGraphQLLogger) {
         this.logger = logger;
     }
+
     public getMiddleware() {
         return async (
             resolve: any,
@@ -16,6 +17,9 @@ export class RealitiesMiddleware {
             info: any,
         ) => {
             const result = await resolve(root, args, context, info);
+            if (result === undefined || result === null) {
+                return result;
+            }
             const operationalRealityId: number = 0;
             context.requestHeaders.realityId = context.requestHeaders.realityId || 0;
             const noRealityIdOrSameAsHeader = (entity: any) =>
