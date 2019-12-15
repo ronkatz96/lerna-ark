@@ -1,3 +1,15 @@
+## [1.1.6](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.5...v1.1.6) (2019-12-15)
+
+
+### Bug Fixes
+
+* fixed soft delete so it will not use calculate criteria ([5585903](https://github.com/Enigmatis/polaris-typeorm/commit/55859035444818d8fdaa0c60b8dc8791315944d1))
+* fixed soft delete so it will not use calculate criteria ([e0dd75f](https://github.com/Enigmatis/polaris-typeorm/commit/e0dd75feae98e2fece83cc927f16d2ca7948f8b3))
+* fixed soft delete so it will not use calculate criteria ([c663953](https://github.com/Enigmatis/polaris-typeorm/commit/c663953e84d2ea2ba10e9e20c5e7c08cf508d19a))
+* fixed tests ([bf0feea](https://github.com/Enigmatis/polaris-typeorm/commit/bf0feeaff7efe56cd2165638039262eeebda417e))
+* fixed tests ([0e4815c](https://github.com/Enigmatis/polaris-typeorm/commit/0e4815c8b6f208d6cb6782fb146ae1882bba88b9))
+* fixed tests ([fcf5e2f](https://github.com/Enigmatis/polaris-typeorm/commit/fcf5e2fd385cb0d88d85847f3d82e6d9e1b2ee1f))
+
 ## [1.1.5](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.4...v1.1.5) (2019-12-08)
 
 
