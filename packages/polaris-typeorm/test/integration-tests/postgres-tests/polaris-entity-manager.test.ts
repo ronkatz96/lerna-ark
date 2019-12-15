@@ -36,7 +36,10 @@ describe('entity manager tests', () => {
         setHeaders(connection, { res: { locals: {} } } as any);
     });
     afterEach(async () => {
-        await connection.close();
+        try {
+            await connection.close();
+            // tslint:disable-next-line:no-empty
+        } catch (e) {}
     });
     describe('soft delete tests', () => {
         it('delete without criteria, should throw error', async () => {
@@ -47,16 +50,16 @@ describe('entity manager tests', () => {
             }
         });
         it('parent is not common model, hard delete parent entity', async () => {
-            const criteria = { relations: ['books'], getAllEntitiesIncludingDeleted };
+            const criteria = { where: { name: 'public' } };
             const lib = await connection.manager.findOne(Library, criteria);
             expect(lib).toBeDefined();
-            await connection.manager.delete(Library, criteria);
+            await connection.manager.delete(Library, criteria.where);
             const libAfterDelete = await connection.manager.findOne(Library, criteria);
             expect(libAfterDelete).toBeUndefined();
         });
 
         it('field is not common model, does not delete linked entity', async () => {
-            await connection.manager.delete(Author, authorWithCascadeCriteria);
+            await connection.manager.delete(Author, authorWithCascadeCriteria.where);
             const lib = await connection.manager.findOne(Library, { relations: ['books'] });
             const criteria = {
                 where: {
@@ -76,7 +79,7 @@ describe('entity manager tests', () => {
                 where: { ...userCriteria.where, ...getAllEntitiesIncludingDeleted.where },
                 relations: ['profile'],
             };
-            await connection.manager.delete(User, criteria);
+            await connection.manager.delete(User, userCriteria.where);
             const userCommonModel = await connection.manager.findOne(User, criteria);
             userCommonModel
                 ? expect(userCommonModel.getDeleted()).toBeTruthy()
@@ -102,7 +105,7 @@ describe('entity manager tests', () => {
                     ...getAllEntitiesIncludingDeleted.where,
                 },
             };
-            await connection.manager.delete(Author, criteria);
+            await connection.manager.delete(Author, authorWithCascadeCriteria.where);
             const authorWithCascade: Author | undefined = await connection.manager.findOne(
                 Author,
                 criteria,
@@ -120,7 +123,7 @@ describe('entity manager tests', () => {
         });
     });
     it('delete linked entity, should not return deleted entities(first level), get entity and its linked entity', async () => {
-        await connection.manager.delete(Profile, profileCriteria);
+        await connection.manager.delete(Profile, profileCriteria.where);
         const userEntity: User | undefined = await connection.manager.findOne(User, {
             ...userCriteria,
             relations: ['profile'],
@@ -136,7 +139,7 @@ describe('entity manager tests', () => {
 
     // checks default setting
     it('delete entity, should not return deleted entities, doesnt return deleted entity', async () => {
-        await connection.manager.delete(Book, testBookCriteria);
+        await connection.manager.delete(Book, testBookCriteria.where);
         const book: Book | undefined = await connection.manager.findOne(Book, testBookCriteria);
         expect(book).toBeUndefined();
     });
@@ -146,7 +149,7 @@ describe('entity manager tests', () => {
         Object.assign(connection.options, {
             extra: { config: { allowSoftDelete: false } },
         });
-        await connection.manager.delete(Author, testAuthorCriteria);
+        await connection.manager.delete(Author, testAuthorCriteria.where);
         const author: Author | undefined = await connection.manager.findOne(Author, {
             where: { ...testAuthorCriteria.where, ...getAllEntitiesIncludingDeleted.where },
         });
@@ -161,7 +164,7 @@ describe('entity manager tests', () => {
             Object.assign(connection.options, {
                 extra: { config: { allowSoftDelete: false } },
             });
-            await connection.manager.delete(Author, authorWithCascadeCriteria);
+            await connection.manager.delete(Author, authorWithCascadeCriteria.where);
             const bookWithCascade: Book | undefined = await connection.manager.findOne(Book, {
                 where: {
                     ...bookWithCascadeCriteria.where,

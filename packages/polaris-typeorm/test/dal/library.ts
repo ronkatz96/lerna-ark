@@ -42,10 +42,17 @@ export class Library {
     @Column()
     public name: string;
 
-    @ManyToOne(() => Author, author => author.libraries, { onDelete: 'CASCADE' })
+    @ManyToOne(
+        () => Author,
+        author => author.libraries,
+        { onDelete: 'CASCADE' },
+    )
     public author: Author;
 
-    @OneToMany(() => Book, books => books.library)
+    @OneToMany(
+        () => Book,
+        books => books.library,
+    )
     public books: Book[];
     constructor(name?: string, books?: Book[]) {
         if (name) {

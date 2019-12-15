@@ -43,41 +43,23 @@ export class PolarisEntityManager extends EntityManager {
             | any,
     ): Promise<DeleteResult> {
         const run = await runAndMeasureTime(async () => {
-            const calculatedCriteria: FindManyOptions = this.calculateCriteria(
-                targetOrEntity,
-                false,
-                criteria,
-            );
-            const metadata = this.connection.entityMetadatas.find(
-                meta => meta.target === targetOrEntity,
-            );
-            if (metadata && metadata.relations.length > 0) {
-                calculatedCriteria.relations = metadata.relations.map(
-                    relation => relation.propertyName,
-                );
-            }
-            const entities: Entity[] = await super.find(targetOrEntity, calculatedCriteria);
-            if (entities.length > 0) {
+            await this.wrapTransaction(async () => {
+                await this.dataVersionHandler.updateDataVersion();
                 const config = this.connection.options.extra.config;
                 if (
                     (config && config.allowSoftDelete === false) ||
                     !targetOrEntity.toString().includes('CommonModel')
                 ) {
-                    return this.wrapTransaction(async () => {
-                        await this.dataVersionHandler.updateDataVersion();
-                        return super.delete(targetOrEntity, calculatedCriteria);
-                    });
+                    return super.delete(targetOrEntity, criteria);
                 }
-                return this.softDeleteHandler.softDeleteRecursive(targetOrEntity, entities);
-            } else {
-                throw new Error('there are no entities to delete');
-            }
+                return this.softDeleteHandler.softDeleteRecursive(targetOrEntity, criteria);
+            });
         });
         if (this.queryRunner && this.queryRunner.data) {
             this.queryRunner.data.elapsedTime = run.elapsedTime;
         }
         this.connection.logger.log('log', 'finished delete action successfully', this.queryRunner);
-        return run.returnValue;
+        return run.returnValue as any;
     }
 
     public async findOne<Entity>(
@@ -110,7 +92,7 @@ export class PolarisEntityManager extends EntityManager {
             'finished find one action successfully',
             this.queryRunner,
         );
-        return run.returnValue;
+        return run.returnValue as any;
     }
 
     public async find<Entity>(
@@ -127,7 +109,7 @@ export class PolarisEntityManager extends EntityManager {
             this.queryRunner.data.elapsedTime = run.elapsedTime;
         }
         this.connection.logger.log('log', 'finished find action successfully', this.queryRunner);
-        return run.returnValue;
+        return run.returnValue as any;
     }
 
     public async count<Entity>(
@@ -144,7 +126,7 @@ export class PolarisEntityManager extends EntityManager {
             this.queryRunner.data.elapsedTime = run.elapsedTime;
         }
         this.connection.logger.log('log', 'finished count action successfully', this.queryRunner);
-        return run.returnValue;
+        return run.returnValue as any;
     }
 
     public async save<Entity, T extends DeepPartial<Entity>>(
@@ -156,7 +138,7 @@ export class PolarisEntityManager extends EntityManager {
             if (targetOrEntity.toString().includes('CommonModel')) {
                 await this.wrapTransaction(async () => {
                     await this.dataVersionHandler.updateDataVersion();
-                    await this.saveDataVersionAndRealityId(maybeEntityOrOptions);
+                    await this.saveDataVersion(maybeEntityOrOptions);
                     return super.save(targetOrEntity, maybeEntityOrOptions, maybeOptions);
                 });
             } else {
@@ -167,7 +149,7 @@ export class PolarisEntityManager extends EntityManager {
             this.queryRunner.data.elapsedTime = run.elapsedTime;
         }
         this.connection.logger.log('log', 'finished save action successfully', this.queryRunner);
-        return run.returnValue;
+        return run.returnValue as any;
     }
 
     public async update<Entity>(
@@ -188,15 +170,15 @@ export class PolarisEntityManager extends EntityManager {
             await this.wrapTransaction(async () => {
                 await this.dataVersionHandler.updateDataVersion();
                 const globalDataVersion = this.getExtensions().globalDataVersion;
-                partialEntity = { ...partialEntity, ...{ dataVersion: globalDataVersion } };
+                partialEntity = { ...partialEntity, dataVersion: globalDataVersion };
                 return super.update(target, criteria, partialEntity);
             });
         });
-        if (this.queryRunner) {
+        if (this.queryRunner && this.queryRunner.data) {
             this.queryRunner.data.elapsedTime = run.elapsedTime;
         }
         this.connection.logger.log('log', 'finished update action successfully', this.queryRunner);
-        return run.returnValue;
+        return run.returnValue as any;
     }
 
     private async wrapTransaction(action: any) {
@@ -221,29 +203,16 @@ export class PolarisEntityManager extends EntityManager {
         }
     }
 
-    private async saveDataVersionAndRealityId(maybeEntityOrOptions?: any) {
+    private async saveDataVersion(maybeEntityOrOptions?: any) {
         if (maybeEntityOrOptions instanceof Array) {
             for (const t of maybeEntityOrOptions) {
                 t.dataVersion = this.getExtensions().globalDataVersion;
-                this.setRealityIdOfEntity(t);
             }
         } else {
             maybeEntityOrOptions.dataVersion = this.getExtensions().globalDataVersion;
-            this.setRealityIdOfEntity(maybeEntityOrOptions);
         }
     }
 
-    private setRealityIdOfEntity(entity: any) {
-        const realityIdFromHeader = this.getHeaders().realityId || 0;
-        if (entity.realityId === undefined) {
-            entity.realityId = realityIdFromHeader;
-        } else if (entity.realityId !== realityIdFromHeader) {
-            throw new Error('reality id of entity is different from header');
-        }
-    }
-
-    private getHeaders = () =>
-        (this.queryRunner && this.queryRunner.data && this.queryRunner.data.requestHeaders) || {};
     private getExtensions = () =>
         (this.queryRunner && this.queryRunner.data && this.queryRunner.data.returnedExtensions) ||
         {};
