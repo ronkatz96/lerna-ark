@@ -16,7 +16,11 @@ export async function createPolarisConnection(
         ? Object.assign(options.extra, configObj)
         : Object.assign(options, { extra: configObj });
     Object.assign(options, {
-        subscribers: ['src/subscribers/*.ts', 'src/subscribers/*.js', options.subscribers],
+        subscribers: [
+            path.resolve(__dirname, '../') + '/subscribers/*.ts',
+            path.resolve(__dirname, '../') + '/subscribers/*.js',
+            options.subscribers,
+        ],
     });
     const connection = await createConnection(options);
     Object.defineProperty(connection, 'manager', { value: new PolarisEntityManager(connection) });
