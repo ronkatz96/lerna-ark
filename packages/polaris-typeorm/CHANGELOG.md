@@ -1,3 +1,10 @@
+## [1.1.9](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.8...v1.1.9) (2019-12-16)
+
+
+### Bug Fixes
+
+* fixed subscriber scan ([5393aad](https://github.com/Enigmatis/polaris-typeorm/commit/5393aad25f46294139c5841c7ef856fe118a7516))
+
 ## [1.1.8](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.7...v1.1.8) (2019-12-16)
 
 
