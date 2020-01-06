@@ -21,10 +21,10 @@ export class RealitiesMiddleware {
                 return result;
             }
             const operationalRealityId: number = 0;
-            context.requestHeaders.realityId = context.requestHeaders.realityId || 0;
+            const realityId =
+                (context && context.requestHeaders && context.requestHeaders.realityId) || 0;
             const noRealityIdOrSameAsHeader = (entity: any) =>
-                entity.realityId === undefined ||
-                entity.realityId === context.requestHeaders.realityId;
+                entity.realityId === undefined || entity.realityId === realityId;
             if (!root) {
                 if (Array.isArray(result)) {
                     return result.filter(noRealityIdOrSameAsHeader);
@@ -35,7 +35,9 @@ export class RealitiesMiddleware {
                 }
             } else if (
                 noRealityIdOrSameAsHeader(result) ||
-                (context.requestHeaders.includeLinkedOper &&
+                (context &&
+                    context.requestHeaders &&
+                    context.requestHeaders.includeLinkedOper &&
                     result.realityId === operationalRealityId)
             ) {
                 return result;

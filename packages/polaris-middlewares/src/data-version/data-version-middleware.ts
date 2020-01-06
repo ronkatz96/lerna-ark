@@ -22,9 +22,9 @@ export class DataVersionMiddleware {
             this.logger.debug('Data version middleware started job', { context });
             const result = await resolve(root, args, context, info);
             let finalResult = result;
+            context = context || {};
             if (
                 !root &&
-                context &&
                 context.requestHeaders &&
                 context.requestHeaders.dataVersion &&
                 !isNaN(context.requestHeaders.dataVersion) &&
