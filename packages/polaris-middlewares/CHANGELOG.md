@@ -1,3 +1,14 @@
+## [1.1.4](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.3...v1.1.4) (2020-01-06)
+
+
+### Bug Fixes
+
+* fixed import in tests ([f42a478](https://github.com/Enigmatis/polaris-delta-middleware/commit/f42a478bf86fa0aa40ca3748b06dec72cd605093))
+* fixed tests ([e57084e](https://github.com/Enigmatis/polaris-delta-middleware/commit/e57084e5b41ce79adb2d76c4d563df8adcff4a84))
+* fixed tests and connection handling ([d372b74](https://github.com/Enigmatis/polaris-delta-middleware/commit/d372b7466bd7e0d34aeed7320f8ab13387037d20))
+* get connection manager ([35a1f4c](https://github.com/Enigmatis/polaris-delta-middleware/commit/35a1f4c282a9f1ab5a15da4e57ad6b35d10d923e))
+* get connection manager ([2d27583](https://github.com/Enigmatis/polaris-delta-middleware/commit/2d27583128ea64ec8879d0310a69a3ea950084c6))
+
 ## [1.1.3](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.2...v1.1.3) (2019-12-12)
 
 ### Bug Fixes
