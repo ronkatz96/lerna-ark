@@ -14,6 +14,19 @@ import { Book } from './book';
 export class Library {
     @Column({ nullable: true })
     public name: string;
+
+    @ManyToOne(
+        () => Author,
+        author => author.libraries,
+        { onDelete: 'CASCADE' },
+    )
+    public author: Author;
+
+    @OneToMany(
+        () => Book,
+        books => books.library,
+    )
+    public books: Book[];
     @PrimaryGeneratedColumn('uuid')
     private id: string;
     @Column({
@@ -42,19 +55,6 @@ export class Library {
         default: false,
     })
     private deleted: boolean = false;
-
-    @ManyToOne(
-        () => Author,
-        author => author.libraries,
-        { onDelete: 'CASCADE' },
-    )
-    public author: Author;
-
-    @OneToMany(
-        () => Book,
-        books => books.library,
-    )
-    public books: Book[];
     constructor(name?: string, books?: Book[]) {
         if (name) {
             this.name = name;
