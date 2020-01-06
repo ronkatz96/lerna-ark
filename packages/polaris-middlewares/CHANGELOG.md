@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.4...v1.1.5) (2020-01-06)
+
+
+### Bug Fixes
+
+* fixed empty context ([837c24d](https://github.com/Enigmatis/polaris-delta-middleware/commit/837c24dce892f0790f77751135adda175c9d887b))
+
 ## [1.1.4](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.3...v1.1.4) (2020-01-06)
 
 
