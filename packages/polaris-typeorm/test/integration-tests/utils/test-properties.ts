@@ -1,12 +1,11 @@
 import { ApplicationProperties, LoggerConfiguration } from '@enigmatis/polaris-logs';
 import * as path from 'path';
 import { ConnectionOptions } from 'typeorm';
-import { CommonModel, DataVersion } from '../../../src';
 
 export const connectionOptions: ConnectionOptions = {
     type: 'postgres',
     url: process.env.CONNECTION_STRING || '',
-    entities: [path.resolve(__dirname, '../..') + '/dal/*.ts', CommonModel, DataVersion],
+    entities: [path.resolve(__dirname, '../..') + '/dal/*.ts'],
     synchronize: true,
     logging: true,
 };
