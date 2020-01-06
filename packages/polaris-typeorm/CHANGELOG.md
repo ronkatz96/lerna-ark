@@ -1,3 +1,10 @@
+## [1.1.12](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.11...v1.1.12) (2020-01-06)
+
+
+### Bug Fixes
+
+* empty context bug ([e60aac4](https://github.com/Enigmatis/polaris-typeorm/commit/e60aac457b2b732c37aedfd3cb89ae53e4cf606b))
+
 ## [1.1.11](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.10...v1.1.11) (2020-01-06)
 
 
