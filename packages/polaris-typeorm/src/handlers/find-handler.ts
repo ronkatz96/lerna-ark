@@ -1,5 +1,7 @@
 import { PolarisRequestHeaders } from '@enigmatis/polaris-common';
-import { EntityManager, In, MoreThan } from 'typeorm';
+import { In, MoreThan } from 'typeorm';
+import { PolarisFindOneOptions } from '..';
+import { PolarisFindManyOptions } from '../contextable-options/polaris-find-many-options';
 
 export const getAllEntitiesIncludingDeleted = { where: { deleted: In([true, false]) } };
 
@@ -9,18 +11,23 @@ const realityIdCriteria = (includeLinkedOper: boolean, headers: PolarisRequestHe
         : headers.realityId || 0;
 
 export class FindHandler {
-    private manager: EntityManager;
-
-    constructor(manager: EntityManager) {
-        this.manager = manager;
-    }
-
-    public findConditions(includeLinkedOper: boolean, optionsOrConditions?: any) {
+    public findConditions<Entity>(
+        includeLinkedOper: boolean,
+        polarisOptions?: PolarisFindManyOptions<Entity> | PolarisFindOneOptions<Entity>,
+    ) {
         const headers: PolarisRequestHeaders =
-            this.manager.queryRunner &&
-            this.manager.queryRunner.data &&
-            (this.manager.queryRunner.data.requestHeaders || {});
-        const polarisCriteria = optionsOrConditions || {};
+            (polarisOptions && polarisOptions.context && polarisOptions.context.requestHeaders) ||
+            {};
+
+        let polarisCriteria: any = {};
+        if (polarisOptions && typeof polarisOptions.criteria === 'string') {
+            polarisCriteria = { where: { id: polarisOptions.criteria } };
+        } else if (polarisOptions && polarisCriteria instanceof Array) {
+            polarisCriteria = { where: { id: In(polarisOptions.criteria) } };
+        } else {
+            polarisCriteria = (polarisOptions && polarisOptions.criteria) || {};
+        }
+
         polarisCriteria.where = { ...polarisCriteria.where };
         if (polarisCriteria.where.deleted === undefined) {
             polarisCriteria.where.deleted = false;

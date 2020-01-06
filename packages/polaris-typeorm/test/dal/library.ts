@@ -12,47 +12,41 @@ import { Book } from './book';
 
 @Entity()
 export class Library {
+    @Column({ nullable: true })
+    public name: string;
     @PrimaryGeneratedColumn('uuid')
-    public id: string;
-
+    private id: string;
     @Column({
+        name: 'dataVersion',
         type: 'real',
         default: 0,
     })
-    public dataVersion: string;
-
-    @Column()
-    public realityId: number = 0;
-
+    private dataVersion: number;
+    @Column({
+        name: 'realityId',
+        type: 'real',
+        default: 0,
+    })
+    private realityId: number;
     @Column({ nullable: true })
-    public createdBy: string;
-
+    private createdBy: string;
     @CreateDateColumn()
-    public creationTime: Date;
-
+    private creationTime: Date;
     @Column({ nullable: true })
-    public lastUpdatedBy: string;
-
+    private lastUpdatedBy: string;
     @UpdateDateColumn()
-    public lastUpdateTime: Date;
+    private lastUpdateTime: Date;
+    @Column({
+        name: 'deleted',
+        type: 'boolean',
+        default: false,
+    })
+    private deleted: boolean = false;
 
-    @Column()
-    public deleted: boolean = false;
-
-    @Column()
-    public name: string;
-
-    @ManyToOne(
-        () => Author,
-        author => author.libraries,
-        { onDelete: 'CASCADE' },
-    )
+    @ManyToOne(() => Author, author => author.libraries, { onDelete: 'CASCADE' })
     public author: Author;
 
-    @OneToMany(
-        () => Book,
-        books => books.library,
-    )
+    @OneToMany(() => Book, books => books.library)
     public books: Book[];
     constructor(name?: string, books?: Book[]) {
         if (name) {

@@ -10,6 +10,7 @@
     "tslint-config-prettier"
   ],
   "rules": {
+    "no-object-literal-type-assertion": false,
     "file-name-casing": [
       true,
       "kebab-case"

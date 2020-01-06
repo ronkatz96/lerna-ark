@@ -1,11 +1,4 @@
-import {
-    Connection,
-    EntityManager,
-    EntityMetadata,
-    InsertEvent,
-    QueryRunner,
-    UpdateEvent,
-} from 'typeorm';
+import { Connection, EntityManager, EntityMetadata, InsertEvent, QueryRunner, UpdateEvent } from 'typeorm';
 // tslint:disable-next-line:no-submodule-imports
 import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
 // tslint:disable-next-line:no-submodule-imports
@@ -24,40 +17,31 @@ describe('common model event subscriber tests', () => {
     });
     describe('beforeInsert tests', () => {
         it('all the common model fields defined as needed', async () => {
-            const connection = setConnection(1, 4, 's8000000');
+            const connection = getConnection();
             const event = new DummyInsertEvent(connection, bookEntity);
             Object.assign(connection.manager.connection, connection);
             await commonModelEventSubscriber.beforeInsert(event);
             expect(bookEntity.getCreationTime()).toBeDefined();
             expect(bookEntity.getLastUpdateTime()).toBeDefined();
-            expect(bookEntity.getCreatedBy()).toEqual('s8000000');
-            expect(bookEntity.getLastUpdatedBy()).toEqual('s8000000');
-            expect(bookEntity.getRealityId()).toEqual(4);
         });
         it('without upn and with requesting system id', async () => {
-            const connection = setConnection(1, 4, undefined, 's8111111');
+            const connection = getConnection();
             const event = new DummyInsertEvent(connection, bookEntity);
             Object.assign(connection.manager.connection, connection);
             await commonModelEventSubscriber.beforeInsert(event);
             expect(bookEntity.getCreationTime()).toBeDefined();
             expect(bookEntity.getLastUpdateTime()).toBeDefined();
-            expect(bookEntity.getCreatedBy()).toEqual('s8111111');
-            expect(bookEntity.getLastUpdatedBy()).toEqual('s8111111');
-            expect(bookEntity.getRealityId()).toEqual(4);
         });
         it('without reality id, so reality id is the default(which is 0)', async () => {
-            const connection = setConnection(1, undefined, undefined, 's8111111');
+            const connection = getConnection();
             const event = new DummyInsertEvent(connection, bookEntity);
             Object.assign(connection.manager.connection, connection);
             await commonModelEventSubscriber.beforeInsert(event);
             expect(bookEntity.getCreationTime()).toBeDefined();
             expect(bookEntity.getLastUpdateTime()).toBeDefined();
-            expect(bookEntity.getCreatedBy()).toEqual('s8111111');
-            expect(bookEntity.getLastUpdatedBy()).toEqual('s8111111');
-            expect(bookEntity.getRealityId()).toEqual(0);
         });
         it('check that the logger called as needed', async () => {
-            const connection = setConnection(1);
+            const connection = getConnection();
             const event = new DummyInsertEvent(connection, bookEntity);
             await commonModelEventSubscriber.beforeInsert(event);
             expect(connection.logger.log).toBeCalledTimes(2);
@@ -65,29 +49,26 @@ describe('common model event subscriber tests', () => {
     });
     describe('beforeUpdate tests', () => {
         it('all the common model fields defined as needed', async () => {
-            const connection = setConnection(1, undefined, 's8111111');
+            const connection = getConnection();
             const event = new DummyUpdateEvent(connection, bookEntity);
             await commonModelEventSubscriber.beforeUpdate(event);
             expect(bookEntity.getLastUpdateTime()).toBeDefined();
-            expect(bookEntity.getLastUpdatedBy()).toEqual('s8111111');
         });
         it('without upn and with requesting system id', async () => {
-            const connection = setConnection(1, undefined, undefined, 's8000000');
+            const connection = getConnection();
             const event = new DummyUpdateEvent(connection, bookEntity);
             await commonModelEventSubscriber.beforeUpdate(event);
             expect(bookEntity.getLastUpdateTime()).toBeDefined();
-            expect(bookEntity.getLastUpdatedBy()).toEqual('s8000000');
         });
         it('without reality id, so reality id is the default(which is 0)', async () => {
-            const connection = setConnection(1, undefined, undefined, 's8111110');
+            const connection = getConnection();
             const event = new DummyUpdateEvent(connection, bookEntity);
             Object.assign(connection.manager.connection, connection);
             await commonModelEventSubscriber.beforeUpdate(event);
             expect(bookEntity.getLastUpdateTime()).toBeDefined();
-            expect(bookEntity.getLastUpdatedBy()).toEqual('s8111110');
         });
         it('check that the logger called as needed', async () => {
-            const connection = setConnection(1);
+            const connection = getConnection();
             const event = new DummyUpdateEvent(connection, bookEntity);
             await commonModelEventSubscriber.beforeUpdate(event);
             expect(connection.logger.log).toBeCalledTimes(2);
@@ -95,26 +76,9 @@ describe('common model event subscriber tests', () => {
     });
 });
 
-function setConnection(
-    globalDataVersion: number,
-    realityId?: number,
-    upn?: string,
-    requestingSystemId?: string,
-): any {
+function getConnection(): any {
     return {
-        manager: {
-            queryRunner: {
-                data: {
-                    requestHeaders: {
-                        upn,
-                        requestingSystemId,
-                        realityId,
-                    },
-                    returnedExtensions: { globalDataVersion },
-                },
-            },
-            connection: {},
-        },
+        manager: { connection: {} },
         logger: { log: jest.fn() },
     } as any;
 }
@@ -130,9 +94,6 @@ class DummyInsertEvent implements InsertEvent<CommonModel> {
         this.connection = connection;
         this.entity = entity;
         this.manager = connection.manager;
-        if (connection.manager.queryRunner) {
-            this.queryRunner = connection.manager.queryRunner;
-        }
     }
 }
 
@@ -151,8 +112,5 @@ class DummyUpdateEvent implements UpdateEvent<CommonModel> {
         this.connection = connection;
         this.entity = entity;
         this.manager = connection.manager;
-        if (connection.manager.queryRunner) {
-            this.queryRunner = connection.manager.queryRunner;
-        }
     }
 }

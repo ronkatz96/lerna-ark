@@ -8,16 +8,10 @@ export class Author extends CommonModel {
     @Column()
     public name: string;
 
-    @OneToMany(
-        () => Book,
-        books => books.author,
-    )
+    @OneToMany(() => Book, books => books.author)
     public books: Book[];
 
-    @OneToMany(
-        () => Library,
-        libraries => libraries.author,
-    )
+    @OneToMany(() => Library, libraries => libraries.author)
     public libraries: Library[];
     constructor(name?: string, books?: Book[]) {
         super();

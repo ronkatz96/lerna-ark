@@ -1,7 +1,7 @@
-import { PolarisExtensions, PolarisRequestHeaders } from '@enigmatis/polaris-common';
+import { PolarisExtensions, PolarisGraphQLContext, PolarisRequestHeaders } from '@enigmatis/polaris-common';
 import { PolarisLogger } from '@enigmatis/polaris-logs';
 import { Connection } from 'typeorm';
-import { createPolarisConnection } from '../../../src';
+import { createPolarisConnection, PolarisSaveOptions } from '../../../src';
 import { Author } from '../../dal/author';
 import { Book } from '../../dal/book';
 import { Library } from '../../dal/library';
@@ -33,22 +33,39 @@ export const harryPotter = 'Harry Potter and the Chamber of Secrets';
 export const cascadeBook = 'Cascade Book';
 
 export const initDb = async (connection: Connection) => {
+    const context = { requestHeaders: { realityId: 0 } } as any;
     const hpBook = new Book(harryPotter);
     const cbBook = new Book(cascadeBook);
     const rowlingAuthor = new Author(rowling, [hpBook]);
     const cascadeAuthor = new Author(mrCascade, [cbBook]);
     cbBook.author = cascadeAuthor;
-    await connection.manager.save(Profile, profile);
-    await connection.manager.save(User, user);
-    await connection.manager.save(Author, [rowlingAuthor, cascadeAuthor]);
-    await connection.manager.save(Book, [hpBook, cbBook]);
-    await connection.manager.save(Library, new Library('public', [cbBook]));
+    await connection.manager.save(Profile, new PolarisSaveOptions(profile, context) as any);
+    await connection.manager.save(User, new PolarisSaveOptions(user, context) as any);
+    await connection.manager.save(Author, new PolarisSaveOptions(
+        [rowlingAuthor, cascadeAuthor],
+        context,
+    ) as any);
+    await connection.manager.save(Book, new PolarisSaveOptions([hpBook, cbBook], context) as any);
+    await connection.manager.save(Library, new PolarisSaveOptions(
+        new Library('public', [cbBook]),
+        context,
+    ) as any);
 };
 
 export function setHeaders(connection: Connection, headers?: PolarisRequestHeaders): void {
     if (connection.manager.queryRunner && connection.manager.queryRunner.data) {
         connection.manager.queryRunner.data.requestHeaders = headers || {};
     }
+}
+
+export function generateContext(
+    headers?: PolarisRequestHeaders,
+    extensions?: PolarisExtensions,
+): PolarisGraphQLContext {
+    return {
+        requestHeaders: headers || {},
+        returnedExtensions: extensions || {},
+    } as PolarisGraphQLContext;
 }
 
 export function getHeaders(connection: Connection): PolarisRequestHeaders {

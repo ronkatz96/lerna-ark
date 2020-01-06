@@ -7,11 +7,15 @@ export abstract class CommonModel {
     @Column({
         name: 'dataVersion',
         type: 'real',
-        default: 0,
+        default: 1,
     })
     private dataVersion: number;
 
-    @Column()
+    @Column({
+        name: 'realityId',
+        type: 'real',
+        default: 0,
+    })
     private realityId: number;
 
     @Column({ nullable: true })
