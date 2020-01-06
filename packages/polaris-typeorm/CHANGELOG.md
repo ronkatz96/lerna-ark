@@ -1,3 +1,22 @@
+## [1.1.10](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.9...v1.1.10) (2020-01-06)
+
+
+### Bug Fixes
+
+* a bit less messy needs works ([4e2b4ec](https://github.com/Enigmatis/polaris-typeorm/commit/4e2b4ec8317609da4df299a2c75fe4da9e6a6b01))
+* delete syntax done ([251b39b](https://github.com/Enigmatis/polaris-typeorm/commit/251b39b888edaa2902d8f88a0b227865b79898a5))
+* fixed cr ([f053b96](https://github.com/Enigmatis/polaris-typeorm/commit/f053b96fcd0de03e547ba41c7ef0b1b394f7e236))
+* fixed cr ([de1cac2](https://github.com/Enigmatis/polaris-typeorm/commit/de1cac2d6679c6977be8a18c115859a3871d21a3))
+* fixed soft delete so it will not use calculate criteria ([f40030d](https://github.com/Enigmatis/polaris-typeorm/commit/f40030dc725d3d68db1c2723992d90d807dbe0cd))
+* kinda works fine i guess ([0e43627](https://github.com/Enigmatis/polaris-typeorm/commit/0e4362707fa261e076c3cfc03d21522ba4e8b0e7))
+* looks like sending the context works ([7e91855](https://github.com/Enigmatis/polaris-typeorm/commit/7e91855f2843de959961600408c2b86c1b4aa921))
+* tests are updated ([2d22dbd](https://github.com/Enigmatis/polaris-typeorm/commit/2d22dbdc5782e86dce0b6cfcecadb0b628c75d4f))
+* tests are updated ([3b8f997](https://github.com/Enigmatis/polaris-typeorm/commit/3b8f99741632812bb95509b1b6cfe24ee4f6ad5f))
+* tests are updated ([1bffa4d](https://github.com/Enigmatis/polaris-typeorm/commit/1bffa4d23f143ad352f92745180238ee45f3afc4))
+* tests are updated ([6f87560](https://github.com/Enigmatis/polaris-typeorm/commit/6f87560b6483250bb9b2fa558b070a5be2524a09))
+* tests are updated ([1b0b39c](https://github.com/Enigmatis/polaris-typeorm/commit/1b0b39ca320d93df12803a67b4e3f949b79a1937))
+* updating deleting upn ([6b44a06](https://github.com/Enigmatis/polaris-typeorm/commit/6b44a0623c9164adb0f7bc06e55c7fe01fab351e))
+
 ## [1.1.9](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.8...v1.1.9) (2019-12-16)
 
 
