@@ -1,3 +1,10 @@
+## [1.1.11](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.10...v1.1.11) (2020-01-06)
+
+
+### Bug Fixes
+
+* fixed soft delete so it will not use calculate criteria ([4154601](https://github.com/Enigmatis/polaris-typeorm/commit/41546015a38cf5a04144f91592b2174707e86a24))
+
 ## [1.1.10](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.9...v1.1.10) (2020-01-06)
 
 
