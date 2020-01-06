@@ -39,19 +39,15 @@ describe('entity manager tests', () => {
         setHeaders(connection, { res: { locals: {} } } as any);
     });
     afterEach(async () => {
-        try {
-            await connection.close();
-            // tslint:disable-next-line:no-empty
-        } catch (e) {
-        }
+        await connection.close();
     });
     describe('soft delete tests', () => {
         it('parent is not common model, hard delete parent entity', async () => {
             const criteria = { where: { name: 'public' } };
-            const lib = await connection.manager.findOne(Library, new PolarisFindOneOptions(
-                criteria,
-                generateContext(),
-            ) as any);
+            const lib = await connection.manager.findOne(
+                Library,
+                new PolarisFindOneOptions(criteria, generateContext()) as any,
+            );
             expect(lib).toBeDefined();
             await connection.manager.delete(
                 Library,
@@ -69,10 +65,10 @@ describe('entity manager tests', () => {
                 Author,
                 new PolarisCriteria(authorWithCascadeCriteria, generateContext() as any),
             );
-            const lib = await connection.manager.findOne(Library, new PolarisFindOneOptions(
-                { relations: ['books'] },
-                generateContext(),
-            ) as any);
+            const lib = await connection.manager.findOne(
+                Library,
+                new PolarisFindOneOptions({ relations: ['books'] }, generateContext()) as any,
+            );
             const criteria = {
                 where: {
                     ...authorWithCascadeCriteria.where,
@@ -126,10 +122,10 @@ describe('entity manager tests', () => {
                     ...getAllEntitiesIncludingDeleted.where,
                 },
             };
-            await connection.manager.delete(Author, new PolarisCriteria(
-                authorWithCascadeCriteria,
-                generateContext(),
-            ) as any);
+            await connection.manager.delete(
+                Author,
+                new PolarisCriteria(authorWithCascadeCriteria, generateContext()) as any,
+            );
             const authorWithCascade: Author | undefined = await connection.manager.findOne(
                 Author,
                 new PolarisFindOneOptions(criteria, generateContext()) as any,
@@ -267,12 +263,15 @@ describe('entity manager tests', () => {
             } catch (e) {
             }
             const dv = await connection.manager.findOne(DataVersion);
-            const bookSaved = await connection.manager.findOne(Book, new PolarisFindOneOptions(
-                {
-                    where: { title: bookFail.title },
-                },
-                generateContext({ realityId: 1 }),
-            ) as any);
+            const bookSaved = await connection.manager.findOne(
+                Book,
+                new PolarisFindOneOptions(
+                    {
+                        where: { title: bookFail.title },
+                    },
+                    generateContext({ realityId: 1 }),
+                ) as any,
+            );
             dv ? expect(dv.getValue()).toEqual(1) : expect(dv).toBeUndefined();
             expect(bookSaved).toBeUndefined();
         });
@@ -282,10 +281,10 @@ describe('entity manager tests', () => {
         it('reality id is supplied in headers', async () => {
             const bookReality1: any = new Book('Jurassic Park');
             bookReality1.realityId = 1;
-            await connection.manager.save(Book, new PolarisSaveOptions(
-                bookReality1,
-                generateContext({ realityId: 1 }),
-            ) as any);
+            await connection.manager.save(
+                Book,
+                new PolarisSaveOptions(bookReality1, generateContext({ realityId: 1 })) as any,
+            );
             const book: Book | undefined = await connection.manager.findOne(
                 Book,
                 new PolarisFindOneOptions({}, generateContext({ realityId: 1 })) as any,
@@ -311,10 +310,10 @@ describe('entity manager tests', () => {
                 .save(new PolarisSaveOptions(book, generateContext()) as any);
             book.realityId = 1;
             try {
-                await connection.manager.save(Book, new PolarisSaveOptions(
-                    book,
-                    generateContext({ realityId: 1 }),
-                ) as any);
+                await connection.manager.save(
+                    Book,
+                    new PolarisSaveOptions(book, generateContext({ realityId: 1 })) as any,
+                );
             } catch (err) {
                 expect(err.message).toEqual('reality id of entity is different from header');
             }
@@ -339,22 +338,25 @@ describe('entity manager tests', () => {
 
     it('count', async () => {
         expect(
-            await connection.manager.count(Book, new PolarisFindManyOptions(
-                {},
-                generateContext(),
-            ) as any),
+            await connection.manager.count(
+                Book,
+                new PolarisFindManyOptions({}, generateContext()) as any,
+            ),
         ).toEqual(2);
     });
 
     it('order by', async () => {
-        const books1 = await connection.manager.find(Book, new PolarisFindManyOptions(
-            {
-                order: {
-                    title: 'ASC',
+        const books1 = await connection.manager.find(
+            Book,
+            new PolarisFindManyOptions(
+                {
+                    order: {
+                        title: 'ASC',
+                    },
                 },
-            },
-            generateContext(),
-        ) as any);
+                generateContext(),
+            ) as any,
+        );
         expect(books1[0].title).toEqual(cascadeBook);
         expect(books1[1].title).toEqual(harryPotter);
     });

@@ -16,23 +16,26 @@ export class PolarisEntityManager extends EntityManager {
         if (maybeEntityOrOptions instanceof Array) {
             for (const t of maybeEntityOrOptions) {
                 t.dataVersion = context.returnedExtensions.globalDataVersion;
-                t.realityId = context.requestHeaders.realityId || 0;
+                t.realityId = (context.requestHeaders && context.requestHeaders.realityId) || 0;
                 PolarisEntityManager.setUpnOfEntity(t, context);
             }
         } else {
             maybeEntityOrOptions.dataVersion = context.returnedExtensions.globalDataVersion;
-            maybeEntityOrOptions.realityId = context.requestHeaders.realityId || 0;
+            maybeEntityOrOptions.realityId =
+                (context.requestHeaders && context.requestHeaders.realityId) || 0;
             PolarisEntityManager.setUpnOfEntity(maybeEntityOrOptions, context);
         }
     }
 
     private static setUpnOfEntity(entity: any, context: any) {
-        if (entity.creationTime !== undefined) {
-            entity.createdBy =
-                context.requestHeaders.upn || context.requestHeaders.requestingSystemId;
-        } else {
-            entity.lastUpdatedBy =
-                context.requestHeaders.upn || context.requestHeaders.requestingSystemId;
+        if (context.requestHeaders) {
+            if (entity.creationTime !== undefined) {
+                entity.createdBy =
+                    context.requestHeaders.upn || context.requestHeaders.requestingSystemId;
+            } else {
+                entity.lastUpdatedBy =
+                    context.requestHeaders.upn || context.requestHeaders.requestingSystemId;
+            }
         }
     }
     public dataVersionHandler: DataVersionHandler;
@@ -61,6 +64,7 @@ export class PolarisEntityManager extends EntityManager {
     ): Promise<DeleteResult> {
         if (criteria instanceof PolarisCriteria) {
             return this.wrapTransaction(async () => {
+                criteria.context = criteria.context || {};
                 await this.dataVersionHandler.updateDataVersion(criteria.context);
                 const config = this.connection.options.extra.config;
                 if (
@@ -140,6 +144,7 @@ export class PolarisEntityManager extends EntityManager {
             targetOrEntity.toString().includes('CommonModel')
         ) {
             return this.wrapTransaction(async () => {
+                maybeEntityOrOptions.context = maybeEntityOrOptions.context || {};
                 await this.dataVersionHandler.updateDataVersion(maybeEntityOrOptions.context);
                 await PolarisEntityManager.setInfoOfCommonModel(
                     maybeEntityOrOptions.context,
@@ -158,6 +163,7 @@ export class PolarisEntityManager extends EntityManager {
         partialEntity: any,
     ): Promise<UpdateResult> {
         return this.wrapTransaction(async () => {
+            criteria.context = criteria.context || {};
             await this.dataVersionHandler.updateDataVersion(criteria.context);
             const globalDataVersion = criteria.context.returnedExtensions.globalDataVersion;
             const upnOrRequestingSystemId = criteria.context.requestHeaders

@@ -41,15 +41,15 @@ export const initDb = async (connection: Connection) => {
     cbBook.author = cascadeAuthor;
     await connection.manager.save(Profile, new PolarisSaveOptions(profile, context) as any);
     await connection.manager.save(User, new PolarisSaveOptions(user, context) as any);
-    await connection.manager.save(Author, new PolarisSaveOptions(
-        [rowlingAuthor, cascadeAuthor],
-        context,
-    ) as any);
+    await connection.manager.save(
+        Author,
+        new PolarisSaveOptions([rowlingAuthor, cascadeAuthor], context) as any,
+    );
     await connection.manager.save(Book, new PolarisSaveOptions([hpBook, cbBook], context) as any);
-    await connection.manager.save(Library, new PolarisSaveOptions(
-        new Library('public', [cbBook]),
-        context,
-    ) as any);
+    await connection.manager.save(
+        Library,
+        new PolarisSaveOptions(new Library('public', [cbBook]), context) as any,
+    );
 };
 
 export function setHeaders(connection: Connection, headers?: PolarisRequestHeaders): void {
