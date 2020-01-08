@@ -55,19 +55,22 @@ export class DataVersionMiddleware {
     }
 
     public async updateDataVersionInReturnedExtensions(context: PolarisGraphQLContext) {
-        const connection = getConnectionManager().get();
-        if (!connection) {
-            return;
-        }
-        const dataVersionRepo = connection.getRepository(DataVersion);
-        const globalDataVersion: any = await dataVersionRepo.findOne();
-        if (globalDataVersion) {
-            context.returnedExtensions = {
-                ...context.returnedExtensions,
-                globalDataVersion: globalDataVersion.getValue(),
-            };
-        } else {
-            throw new Error('no data version found in db');
+        const connectionManager = getConnectionManager();
+        if (connectionManager.connections.length > 0) {
+            const connection = connectionManager.get();
+            if (!connection) {
+                return;
+            }
+            const dataVersionRepo = connection.getRepository(DataVersion);
+            const globalDataVersion: any = await dataVersionRepo.findOne();
+            if (globalDataVersion) {
+                context.returnedExtensions = {
+                    ...context.returnedExtensions,
+                    globalDataVersion: globalDataVersion.getValue(),
+                };
+            } else {
+                throw new Error('no data version found in db');
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ const irrelevantEntitiesMiddleware = new IrrelevantEntitiesMiddleware(
 
 const polarisTypeormModule = require('@enigmatis/polaris-typeorm');
 polarisTypeormModule.getConnectionManager = jest.fn(() => {
-    return { get: jest.fn(() => connection) };
+    return { get: jest.fn(() => connection), connections: [connection] };
 });
 
 describe('Irrelevant entities middleware', () => {

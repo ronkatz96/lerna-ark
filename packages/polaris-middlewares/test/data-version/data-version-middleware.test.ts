@@ -12,7 +12,7 @@ const dataVersionMiddleware = new DataVersionMiddleware(logger, connection).getM
 jest.mock('../../node_modules/@enigmatis/polaris-typeorm', () => {
     return {
         getConnectionManager: jest.fn(() => {
-            return { get: jest.fn(() => connection) };
+            return { get: jest.fn(() => connection), connections: [connection] };
         }),
     };
 });

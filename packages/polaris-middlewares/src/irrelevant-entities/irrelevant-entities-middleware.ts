@@ -63,36 +63,39 @@ export class IrrelevantEntitiesMiddleware {
         ) => {
             this.logger.debug('Irrelevant entities middleware started job', { context });
             const result = await resolve(root, args, context, info);
-            const connection = getConnectionManager().get();
-            if (
-                context &&
-                context.requestHeaders &&
-                context.requestHeaders.dataVersion !== undefined &&
-                !isNaN(context.requestHeaders.dataVersion) &&
-                info.returnType.ofType &&
-                connection &&
-                !root
-            ) {
-                const irrelevantWhereCriteria = IrrelevantEntitiesMiddleware.createIrrelevantWhereCriteria(
-                    result,
-                    context,
-                );
-                const typeName = IrrelevantEntitiesMiddleware.getTypeName(info);
-                const resultIrrelevant: any = await connection.getRepository(typeName).find(
-                    new PolarisFindManyOptions(
-                        {
-                            select: ['id'],
-                            where: irrelevantWhereCriteria,
-                        },
-                        context,
-                    ),
-                );
-                if (resultIrrelevant && resultIrrelevant.length > 0) {
-                    IrrelevantEntitiesMiddleware.appendIrrelevantEntitiesToExtensions(
-                        info,
-                        resultIrrelevant,
+            const connectionManager = getConnectionManager();
+            if (connectionManager.connections.length > 0) {
+                const connection = connectionManager.get();
+                if (
+                    context &&
+                    context.requestHeaders &&
+                    context.requestHeaders.dataVersion !== undefined &&
+                    !isNaN(context.requestHeaders.dataVersion) &&
+                    info.returnType.ofType &&
+                    connection &&
+                    !root
+                ) {
+                    const irrelevantWhereCriteria = IrrelevantEntitiesMiddleware.createIrrelevantWhereCriteria(
+                        result,
                         context,
                     );
+                    const typeName = IrrelevantEntitiesMiddleware.getTypeName(info);
+                    const resultIrrelevant: any = await connection.getRepository(typeName).find(
+                        new PolarisFindManyOptions(
+                            {
+                                select: ['id'],
+                                where: irrelevantWhereCriteria,
+                            },
+                            context,
+                        ),
+                    );
+                    if (resultIrrelevant && resultIrrelevant.length > 0) {
+                        IrrelevantEntitiesMiddleware.appendIrrelevantEntitiesToExtensions(
+                            info,
+                            resultIrrelevant,
+                            context,
+                        );
+                    }
                 }
             }
             this.logger.debug('Irrelevant entities middleware finished job', { context });
