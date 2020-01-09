@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.6...v1.1.7) (2020-01-09)
+
+
+### Bug Fixes
+
+* check for typeorm connection before using irrelevant entities ([6d06361](https://github.com/Enigmatis/polaris-delta-middleware/commit/6d06361e53ac743c41b072e6ef9d8427b98e14f2))
+
 ## [1.1.6](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.5...v1.1.6) (2020-01-08)
 
 
