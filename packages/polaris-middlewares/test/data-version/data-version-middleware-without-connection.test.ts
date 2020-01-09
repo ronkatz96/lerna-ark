@@ -8,13 +8,9 @@ const dvRepo: any = {
 const connection: any = { getRepository: jest.fn(() => dvRepo) };
 const logger: any = { debug: jest.fn() };
 const dataVersionMiddleware = new DataVersionMiddleware(logger, connection).getMiddleware();
-
-jest.mock('../../node_modules/@enigmatis/polaris-typeorm', () => {
-    return {
-        getConnectionManager: jest.fn(() => {
-            return { get: jest.fn(() => connection), connections: [] };
-        }),
-    };
+const polarisTypeORMModule = require('@enigmatis/polaris-typeorm');
+polarisTypeORMModule.getConnectionManager = jest.fn(() => {
+    return { get: jest.fn(), connections: [] };
 });
 describe('data version middleware', () => {
     it('no connection, extensions were not added', async () => {
