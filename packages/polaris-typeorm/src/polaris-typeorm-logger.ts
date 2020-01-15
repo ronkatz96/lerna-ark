@@ -29,7 +29,7 @@ export class PolarisTypeormLogger implements Logger {
                     this.options === true ||
                     (this.options instanceof Array && this.options.indexOf('info') !== -1)
                 ) {
-                    this.logger.info(message);
+                    this.logger.debug(message);
                 }
                 break;
             case 'warn':
