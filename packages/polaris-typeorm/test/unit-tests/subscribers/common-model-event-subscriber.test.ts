@@ -1,4 +1,11 @@
-import { Connection, EntityManager, EntityMetadata, InsertEvent, QueryRunner, UpdateEvent } from 'typeorm';
+import {
+    Connection,
+    EntityManager,
+    EntityMetadata,
+    InsertEvent,
+    QueryRunner,
+    UpdateEvent,
+} from 'typeorm';
 // tslint:disable-next-line:no-submodule-imports
 import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
 // tslint:disable-next-line:no-submodule-imports

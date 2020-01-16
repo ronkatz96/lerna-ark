@@ -1,4 +1,8 @@
-import { PolarisExtensions, PolarisGraphQLContext, PolarisRequestHeaders } from '@enigmatis/polaris-common';
+import {
+    PolarisExtensions,
+    PolarisGraphQLContext,
+    PolarisRequestHeaders,
+} from '@enigmatis/polaris-common';
 import { PolarisLogger } from '@enigmatis/polaris-logs';
 import { Connection } from 'typeorm';
 import { createPolarisConnection, PolarisSaveOptions } from '../../../src';

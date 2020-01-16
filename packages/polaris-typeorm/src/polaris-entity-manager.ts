@@ -1,5 +1,13 @@
 import { PolarisGraphQLContext } from '@enigmatis/polaris-common';
-import { Connection, DeepPartial, DeleteResult, EntityManager, FindOneOptions, ObjectID, UpdateResult } from 'typeorm';
+import {
+    Connection,
+    DeepPartial,
+    DeleteResult,
+    EntityManager,
+    FindOneOptions,
+    ObjectID,
+    UpdateResult,
+} from 'typeorm';
 import { PolarisCriteria } from './contextable-options/polaris-criteria';
 import { PolarisFindManyOptions } from './contextable-options/polaris-find-many-options';
 import { PolarisFindOneOptions } from './contextable-options/polaris-find-one-options';

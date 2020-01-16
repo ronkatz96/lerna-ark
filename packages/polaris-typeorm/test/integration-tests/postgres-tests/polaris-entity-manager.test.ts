@@ -103,8 +103,8 @@ describe('entity manager tests', () => {
                 : expect(userCommonModel).toBeDefined();
             userCommonModel
                 ? userCommonModel.profile
-                ? expect(userCommonModel.profile.getDeleted()).toBeFalsy()
-                : expect(userCommonModel.profile).toBeDefined()
+                    ? expect(userCommonModel.profile.getDeleted()).toBeFalsy()
+                    : expect(userCommonModel.profile).toBeDefined()
                 : expect(userCommonModel).toBeDefined();
         });
 
@@ -203,7 +203,7 @@ describe('entity manager tests', () => {
     // checks soft delete allow false with cascade
     it(
         'delete entity, soft delete allow is false and return deleted entities true and cascade is true,' +
-        ' doesnt return deleted entity and its linked entity',
+            ' doesnt return deleted entity and its linked entity',
         async () => {
             Object.assign(connection.options, {
                 extra: { config: { allowSoftDelete: false } },
@@ -257,11 +257,7 @@ describe('entity manager tests', () => {
 
         it('fail save action, data version not progressing', async () => {
             const bookFail = new Book('fail book');
-            try {
-                await connection.manager.save(Book, bookFail);
-                // tslint:disable-next-line:no-empty
-            } catch (e) {
-            }
+            await connection.manager.save(Book, bookFail);
             const dv = await connection.manager.findOne(DataVersion);
             const bookSaved = await connection.manager.findOne(
                 Book,
