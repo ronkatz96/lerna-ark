@@ -29,6 +29,7 @@
       ],
       "@semantic-release/github"
     ],
+    "branches": "master",
     "prepare": [
       "@semantic-release/changelog",
       "@semantic-release/npm",
