@@ -1,3 +1,14 @@
+## [1.1.13](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.12...v1.1.13) (2020-01-27)
+
+
+### Bug Fixes
+
+* change info logs to debug logs ([6a46054](https://github.com/Enigmatis/polaris-typeorm/commit/6a46054ec863830743ad6bd0fadb864bf16e8167))
+* try to fix semantic bug ([c69d643](https://github.com/Enigmatis/polaris-typeorm/commit/c69d6437a358bdd0a9b16ca4cffee0d7c6dcb8c7))
+* try to fix semantic bug ([743643b](https://github.com/Enigmatis/polaris-typeorm/commit/743643b4f918a9334eb73a4a27f46a75186f1e78))
+* trying to fix travis ([1f3737f](https://github.com/Enigmatis/polaris-typeorm/commit/1f3737f37cf2134c351e5b172e65411725e1dc97))
+* updated package.json ([536959e](https://github.com/Enigmatis/polaris-typeorm/commit/536959e3fa031e37742b45f7d16a73902b380bfe))
+
 ## [1.1.12](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.11...v1.1.12) (2020-01-06)
 
 
