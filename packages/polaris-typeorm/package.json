@@ -29,7 +29,6 @@
       ],
       "@semantic-release/github"
     ],
-    "branches": "master",
     "prepare": [
       "@semantic-release/changelog",
       "@semantic-release/npm",
@@ -70,9 +69,9 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@semantic-release/changelog": "^3.0.4",
-    "@semantic-release/git": "^7.0.16",
-    "@types/jest": "^24.9.0",
-    "@types/node": "^12.12.24",
+    "@semantic-release/git": "^8.0.0",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.25",
     "husky": "^3.0.9",
     "jest": "24.1.0",
     "path": "^0.12.7",
@@ -88,7 +87,7 @@
     "tslint-consistent-codestyle": "^1.15.1",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-plugin-prettier": "^2.1.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.5"
   },
   "husky": {
     "hooks": {
