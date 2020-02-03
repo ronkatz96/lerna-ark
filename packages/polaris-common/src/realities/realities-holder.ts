@@ -7,10 +7,14 @@ export class RealitiesHolder {
         this.realitiesMap = customRealities
             ? new Map([...customRealities])
             : new Map<number, any>();
-        this.addReality({ id: 0, name: 'Real', type: 'Main' });
+        this.addReality({ id: 0, name: 'Real', type: 'Oper' });
     }
 
-    public addReality(realityMetadata: RealityMetadata) {
+    public addReality(realityMetadata: RealityMetadata): void {
         this.realitiesMap.set(realityMetadata.id, realityMetadata);
+    }
+
+    public getReality(realityId: number): RealityMetadata | undefined {
+        return this.realitiesMap.get(realityId);
     }
 }
