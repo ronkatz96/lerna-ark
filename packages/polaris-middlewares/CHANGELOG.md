@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.7...v1.2.0) (2020-02-03)
+
+
+### Features
+
+* **logger-plugin:** added a logger plugin to instrument requests with logs ([9f45828](https://github.com/Enigmatis/polaris-delta-middleware/commit/9f45828212969df9f9e300f39b85d919bb2c18d3))
+* **logger-plugin:** added the logger plugin instrumentation ([5316d3c](https://github.com/Enigmatis/polaris-delta-middleware/commit/5316d3cb595832eb8c79f46275c3cd378d46a3b2))
+
 ## [1.1.7](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.6...v1.1.7) (2020-01-09)
 
 
