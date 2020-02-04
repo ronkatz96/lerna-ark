@@ -9,4 +9,4 @@ export { PolarisRequestHeaders } from './headers/polaris-request-headers';
 export { PolarisResponseHeaders } from './headers/polaris-response-headers';
 export { ApplicationProperties } from './application-properties';
 export { RealitiesHolder } from './realities/realities-holder';
-export { RealityMetadata } from './realities/reality-metadata';
+export { Reality } from './realities/reality';
