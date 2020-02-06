@@ -10,8 +10,15 @@ export class RealitiesHolder {
         this.addReality({ id: 0, name: 'Real', type: 'Real' });
     }
 
-    public addReality(realityMetadata: Reality): void {
-        this.realitiesMap.set(realityMetadata.id, realityMetadata);
+    public addReality(reality: Reality): void {
+        if (this.hasReality(reality.id)) {
+            throw new Error(`Reality id: ${reality.id} already exists in realities holder`);
+        }
+        this.updateReality(reality);
+    }
+
+    public updateReality(reality: Reality) {
+        this.realitiesMap.set(reality.id, reality);
     }
 
     public getReality(realityId: number): Reality | undefined {
