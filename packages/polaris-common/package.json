@@ -59,7 +59,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@semantic-release/changelog": "^3.0.6",
-    "@semantic-release/git": "^7.0.18",
+    "@semantic-release/git": "latest",
     "@types/graphql": "^14.5.0",
     "@types/node": "^12.12.26",
     "husky": "^3.1.0",
