@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/Enigmatis/polaris-common/compare/v1.0.11...v1.0.12) (2020-02-06)
+
+
+### Bug Fixes
+
+* remove reality 0 ([ebd02f6](https://github.com/Enigmatis/polaris-common/commit/ebd02f6d859ec11740f37b8c9cf7237e646b6c9c))
+
 ## [1.0.11](https://github.com/Enigmatis/polaris-common/compare/v1.0.10...v1.0.11) (2020-02-06)
 
 
