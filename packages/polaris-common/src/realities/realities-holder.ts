@@ -18,7 +18,7 @@ export class RealitiesHolder {
         return this.realitiesMap.get(realityId);
     }
 
-    public hasReality(realityId: number): boolean{
+    public hasReality(realityId: number): boolean {
         return this.realitiesMap.has(realityId);
     }
 }

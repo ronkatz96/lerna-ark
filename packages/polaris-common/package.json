@@ -52,7 +52,8 @@
     "typescript"
   ],
   "dependencies": {
-    "graphql": "^14.6.0"
+    "graphql": "^14.6.0",
+    "apollo-server-express": "latest"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
