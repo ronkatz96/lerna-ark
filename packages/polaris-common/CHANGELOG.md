@@ -1,3 +1,19 @@
+## [1.0.11](https://github.com/Enigmatis/polaris-common/compare/v1.0.10...v1.0.11) (2020-02-06)
+
+
+### Bug Fixes
+
+* added errors ([0a1fd8b](https://github.com/Enigmatis/polaris-common/commit/0a1fd8b3d4e36d5aa77bd4aa1ed517b0519117bc))
+* added realities holder ([7d2faa7](https://github.com/Enigmatis/polaris-common/commit/7d2faa7fc59ba482861b2908ffe54880fae4eea8))
+* added realities holder ([ec52959](https://github.com/Enigmatis/polaris-common/commit/ec5295970e4b4f27b57998bd0275a8b554cdbd3e))
+* changed type name ([857d989](https://github.com/Enigmatis/polaris-common/commit/857d989a62ae240dfcf577e46b6ea9a49779c570))
+* changed type name ([4514b69](https://github.com/Enigmatis/polaris-common/commit/4514b699e6bf461ed61ed45b1a58aae8348987a1))
+* fixed travis ([62b3229](https://github.com/Enigmatis/polaris-common/commit/62b3229ecefec3f75ab804cfdac7bbd33bdea93a))
+* updated methods in ([082a184](https://github.com/Enigmatis/polaris-common/commit/082a184f8b17652e66d6847aaa8d1cedab3f6e86))
+* updated methods in ([2bf990a](https://github.com/Enigmatis/polaris-common/commit/2bf990aefd3bc2192942f048e73bd3722d695888))
+* updated methods in ([2d2b020](https://github.com/Enigmatis/polaris-common/commit/2d2b0200f9001a4cc918c8212ad7cf89741e4376))
+* updated methods in ([fc00099](https://github.com/Enigmatis/polaris-common/commit/fc00099e222fe07e47c2f151b8f815d8faedc036))
+
 ## [1.0.10](https://github.com/Enigmatis/polaris-common/compare/v1.0.9...v1.0.10) (2019-12-09)
 
 
