@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.2.0...v1.2.1) (2020-02-06)
+
+
+### Bug Fixes
+
+* blocking unsupported realities and fixed irrelevant ([b1fb0fc](https://github.com/Enigmatis/polaris-delta-middleware/commit/b1fb0fced6f4bf564ddbd43b9638e72789f2d6ce))
+* data-version works with multiple realities ([5d6869b](https://github.com/Enigmatis/polaris-delta-middleware/commit/5d6869b1fef912ff0f19cdd929c2654eaf86d420))
+* review fixes ([349aa1f](https://github.com/Enigmatis/polaris-delta-middleware/commit/349aa1fb67d8db1e62c8ba1425ab0410452e35b5))
+
 # [1.2.0](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.1.7...v1.2.0) (2020-02-03)
 
 
