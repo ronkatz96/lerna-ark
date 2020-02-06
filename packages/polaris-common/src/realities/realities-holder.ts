@@ -25,6 +25,10 @@ export class RealitiesHolder {
         return this.realitiesMap.get(realityId);
     }
 
+    public getRealitiesMap(): Map<number, Reality> {
+        return this.realitiesMap;
+    }
+
     public hasReality(realityId: number): boolean {
         return this.realitiesMap.has(realityId);
     }
