@@ -7,7 +7,6 @@ export class RealitiesHolder {
         this.realitiesMap = customRealities
             ? new Map([...customRealities])
             : new Map<number, any>();
-        this.addReality({ id: 0, name: 'Real', type: 'Real' });
     }
 
     public addReality(reality: Reality): void {
