@@ -15,6 +15,7 @@ import { PolarisSaveOptions } from './contextable-options/polaris-save-options';
 import { DataVersionHandler } from './handlers/data-version-handler';
 import { FindHandler } from './handlers/find-handler';
 import { SoftDeleteHandler } from './handlers/soft-delete-handler';
+import { CommonModel } from './models/common-model';
 
 export class PolarisEntityManager extends EntityManager {
     private static async setInfoOfCommonModel(
@@ -59,16 +60,7 @@ export class PolarisEntityManager extends EntityManager {
 
     public async delete<Entity>(
         targetOrEntity: any,
-        criteria:
-            | string
-            | string[]
-            | number
-            | number[]
-            | Date
-            | Date[]
-            | ObjectID
-            | ObjectID[]
-            | any,
+        criteria: PolarisCriteria | any,
     ): Promise<DeleteResult> {
         if (criteria instanceof PolarisCriteria) {
             return this.wrapTransaction(async () => {
@@ -77,7 +69,7 @@ export class PolarisEntityManager extends EntityManager {
                 const config = this.connection.options.extra.config;
                 if (
                     (config && config.allowSoftDelete === false) ||
-                    !targetOrEntity.toString().includes('CommonModel')
+                    !targetOrEntity.toString().includes(CommonModel.name)
                 ) {
                     return super.delete(targetOrEntity, criteria.criteria);
                 }
@@ -90,17 +82,7 @@ export class PolarisEntityManager extends EntityManager {
 
     public async findOne<Entity>(
         entityClass: any,
-        criteria:
-            | string
-            | string[]
-            | number
-            | number[]
-            | Date
-            | Date[]
-            | ObjectID
-            | ObjectID[]
-            | FindOneOptions<Entity>
-            | any,
+        criteria: PolarisFindOneOptions<Entity> | any,
         maybeOptions?: FindOneOptions<Entity>,
     ): Promise<Entity | undefined> {
         if (criteria instanceof PolarisFindOneOptions) {
@@ -149,7 +131,7 @@ export class PolarisEntityManager extends EntityManager {
     ): Promise<T | T[]> {
         if (
             maybeEntityOrOptions instanceof PolarisSaveOptions &&
-            targetOrEntity.toString().includes('CommonModel')
+            targetOrEntity.toString().includes(CommonModel.name)
         ) {
             return this.wrapTransaction(async () => {
                 maybeEntityOrOptions.context = maybeEntityOrOptions.context || {};
@@ -167,25 +149,29 @@ export class PolarisEntityManager extends EntityManager {
 
     public async update<Entity>(
         target: any,
-        criteria: PolarisFindOneOptions<Entity> | any,
+        criteria: PolarisCriteria | any,
         partialEntity: any,
     ): Promise<UpdateResult> {
-        return this.wrapTransaction(async () => {
-            criteria.context = criteria.context || {};
-            await this.dataVersionHandler.updateDataVersion(criteria.context);
-            const globalDataVersion = criteria.context.returnedExtensions.globalDataVersion;
-            const upnOrRequestingSystemId = criteria.context.requestHeaders
-                ? criteria.context.requestHeaders.upn ||
-                  criteria.context.requestHeaders.requestingSystemId
-                : '';
-            partialEntity = {
-                ...partialEntity,
-                dataVersion: globalDataVersion,
-                lastUpdatedBy: upnOrRequestingSystemId,
-            };
-            delete partialEntity.realityId;
-            return super.update(target, criteria.criteria, partialEntity);
-        });
+        if (criteria instanceof PolarisCriteria) {
+            return this.wrapTransaction(async () => {
+                criteria.context = criteria.context || {};
+                await this.dataVersionHandler.updateDataVersion(criteria.context);
+                const globalDataVersion = criteria.context.returnedExtensions.globalDataVersion;
+                const upnOrRequestingSystemId = criteria.context.requestHeaders
+                    ? criteria.context.requestHeaders.upn ||
+                      criteria.context.requestHeaders.requestingSystemId
+                    : '';
+                partialEntity = {
+                    ...partialEntity,
+                    dataVersion: globalDataVersion,
+                    lastUpdatedBy: upnOrRequestingSystemId,
+                };
+                delete partialEntity.realityId;
+                return super.update(target, criteria.criteria, partialEntity);
+            });
+        } else {
+            return super.update(target, criteria, partialEntity);
+        }
     }
 
     private async wrapTransaction(action: any) {
@@ -208,7 +194,7 @@ export class PolarisEntityManager extends EntityManager {
     }
 
     private calculateCriteria<Entity>(target: any, includeLinkedOper: boolean, criteria: any) {
-        return target.toString().includes('CommonModel')
+        return target.toString().includes(CommonModel.name)
             ? this.findHandler.findConditions<Entity>(includeLinkedOper, criteria)
             : criteria;
     }
