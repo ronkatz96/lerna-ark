@@ -1,3 +1,4 @@
+import { RealitiesHolder } from '@enigmatis/polaris-common';
 import { IrrelevantEntitiesMiddleware } from '../../src';
 
 const result = [{ id: '1' }, { id: '3' }, { id: '5' }];
@@ -9,12 +10,13 @@ const connection = { getRepository: jest.fn(() => bookRepo) } as any;
 const logger = { debug: jest.fn() } as any;
 const irrelevantEntitiesMiddleware = new IrrelevantEntitiesMiddleware(
     logger,
+    new RealitiesHolder(new Map([[0, { id: 0, name: 'default' }]])),
     connection,
 ).getMiddleware();
 
 const polarisTypeORMModule = require('@enigmatis/polaris-typeorm');
 polarisTypeORMModule.getConnectionManager = jest.fn(() => {
-    return { get: jest.fn(() => connection), connections: [connection] };
+    return { get: jest.fn(() => connection), connections: [connection], has: jest.fn(() => true) };
 });
 
 describe('Irrelevant entities middleware', () => {
@@ -33,7 +35,7 @@ describe('Irrelevant entities middleware', () => {
 
         it('appends irrelevant entities by query name', async () => {
             const evenIds = ['2', '4', '6'];
-            const testContext = { requestHeaders: { dataVersion: 1 } } as any;
+            const testContext = { requestHeaders: { dataVersion: 1, realityId: 0 } } as any;
             await irrelevantEntitiesMiddleware(jest.fn(), undefined, {}, testContext, {
                 returnType: { ofType: { name: 'Book' } },
                 path: { key: 'getEven' },
@@ -43,7 +45,7 @@ describe('Irrelevant entities middleware', () => {
 
         it('keeps searching for the query type even if its complex', async () => {
             const evenIds = ['2', '4', '6'];
-            const testContext = { requestHeaders: { dataVersion: 1 } } as any;
+            const testContext = { requestHeaders: { dataVersion: 1, realityId: 0 } } as any;
             await irrelevantEntitiesMiddleware(jest.fn(), undefined, {}, testContext, {
                 returnType: { ofType: { ofType: { name: 'Book' } } },
                 path: { key: 'getEven' },
@@ -53,7 +55,7 @@ describe('Irrelevant entities middleware', () => {
         it('appends irrelevant entities by query name, multiple queries', async () => {
             const evenIds = ['2', '4', '6'];
             const testContext = {
-                requestHeaders: { dataVersion: 1 },
+                requestHeaders: { dataVersion: 1, realityId: 0 },
                 returnedExtensions: { irrelevantEntities: { getOdd: result } },
             } as any;
             await irrelevantEntitiesMiddleware(jest.fn(), undefined, {}, testContext, {

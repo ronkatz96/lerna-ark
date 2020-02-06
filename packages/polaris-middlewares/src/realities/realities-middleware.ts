@@ -1,11 +1,13 @@
-import { PolarisGraphQLContext } from '@enigmatis/polaris-common';
+import { PolarisGraphQLContext, RealitiesHolder, UnsupportedRealityError } from '@enigmatis/polaris-common';
 import { PolarisGraphQLLogger } from '@enigmatis/polaris-graphql-logger';
 
 export class RealitiesMiddleware {
     public readonly logger: PolarisGraphQLLogger;
+    private readonly realitiesHolder: RealitiesHolder;
 
-    constructor(logger: PolarisGraphQLLogger) {
+    constructor(logger: PolarisGraphQLLogger, realitiesHolder: RealitiesHolder) {
         this.logger = logger;
+        this.realitiesHolder = realitiesHolder;
     }
 
     public getMiddleware() {
@@ -16,6 +18,9 @@ export class RealitiesMiddleware {
             context: PolarisGraphQLContext,
             info: any,
         ) => {
+            if (!this.realitiesHolder.hasReality(context.requestHeaders.realityId as number)) {
+                throw new UnsupportedRealityError(context.requestHeaders.realityId as number);
+            }
             const result = await resolve(root, args, context, info);
             if (result === undefined || result === null) {
                 return result;

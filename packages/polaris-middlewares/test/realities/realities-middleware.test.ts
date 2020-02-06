@@ -1,9 +1,13 @@
-import { PolarisGraphQLContext } from '@enigmatis/polaris-common';
+import { PolarisGraphQLContext, RealitiesHolder, UnsupportedRealityError } from '@enigmatis/polaris-common';
 import { RealitiesMiddleware } from '../../src';
 import { getContextWithRequestHeaders } from '../context-util';
 
 const logger = { debug: jest.fn() } as any;
-const realitiesMiddleware = new RealitiesMiddleware(logger).getMiddleware();
+const realitiesHolder = new RealitiesHolder();
+realitiesHolder.addReality({ id: 0, name: 'Real', type: 'Test' });
+realitiesHolder.addReality({ id: 1, name: 'Non Real', type: 'Test' });
+realitiesHolder.addReality({ id: 2, name: 'Non Real', type: 'Test' });
+const realitiesMiddleware = new RealitiesMiddleware(logger, realitiesHolder).getMiddleware();
 describe('reality id tests', () => {
     const operationalEntity = { title: 'Harry Potter', realityId: 0 };
     const notOperationalEntity = { title: 'Jurassic Park', realityId: 1 };
@@ -25,16 +29,15 @@ describe('reality id tests', () => {
     };
     describe('root resolver', () => {
         const emptyRoot = undefined;
-        it('no reality id in context, array of entities, return operational entities', async () => {
+        it('no reality id in context, thorws unsupported reality exception', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
-            const result = await realitiesMiddleware(
+            await expect(realitiesMiddleware(
                 entitiesResolver,
                 emptyRoot,
                 args,
                 context,
                 info,
-            );
-            expect(result).toEqual([operationalEntity]);
+            )).rejects.toThrow(UnsupportedRealityError);
         });
         it('reality id is in context, array of entities, return only entities from that reality', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({ realityId: 1 });
@@ -65,28 +68,6 @@ describe('reality id tests', () => {
                 info,
             );
             expect(result).toEqual([operationalEntity, noRealityIdEntity]);
-        });
-        it('no reality id in context, one operational entity, return entity', async () => {
-            const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
-            const result = await realitiesMiddleware(
-                operationalEntityResolver,
-                emptyRoot,
-                args,
-                context,
-                info,
-            );
-            expect(result).toEqual(operationalEntity);
-        });
-        it('no reality id in context, one not operational entity, return null', async () => {
-            const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
-            const result = await realitiesMiddleware(
-                notOperationalEntityResolver,
-                emptyRoot,
-                args,
-                context,
-                info,
-            );
-            expect(result).toBeNull();
         });
         it('reality id is in context, one entity with the same reality id, return that entity', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({ realityId: 1 });
@@ -125,28 +106,6 @@ describe('reality id tests', () => {
 
     describe('not a root resolver', () => {
         const notEmptyRoot = { parent: 'book' };
-        it('no reality id in context, operational entity, return entity', async () => {
-            const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
-            const result = await realitiesMiddleware(
-                operationalEntityResolver,
-                notEmptyRoot,
-                args,
-                context,
-                info,
-            );
-            expect(result).toEqual(operationalEntity);
-        });
-        it('no reality id in context, one not operational entity, return null', async () => {
-            const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
-            const result = await realitiesMiddleware(
-                notOperationalEntityResolver,
-                notEmptyRoot,
-                args,
-                context,
-                info,
-            );
-            expect(result).toBeNull();
-        });
         it('reality id is in context, one entity with the same reality id, return that entity', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({ realityId: 1 });
             const result = await realitiesMiddleware(

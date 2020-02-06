@@ -1,13 +1,16 @@
-import { DATA_VERSION, PolarisGraphQLContext } from '@enigmatis/polaris-common';
+import { PolarisGraphQLContext, RealitiesHolder } from '@enigmatis/polaris-common';
 import { PolarisGraphQLLogger } from '@enigmatis/polaris-graphql-logger';
 import { Connection, DataVersion, getConnectionManager } from '@enigmatis/polaris-typeorm';
+import { getConnectionForReality } from '../utills/connection-retriever';
 
 export class DataVersionMiddleware {
     public readonly connection?: Connection;
+    public readonly realitiesHolder: RealitiesHolder;
     public readonly logger: PolarisGraphQLLogger;
 
-    constructor(logger: PolarisGraphQLLogger, connection?: Connection) {
+    constructor(logger: PolarisGraphQLLogger, realitiesHolder: RealitiesHolder, connection?: Connection) {
         this.connection = connection;
+        this.realitiesHolder = realitiesHolder;
         this.logger = logger;
     }
 
@@ -55,12 +58,11 @@ export class DataVersionMiddleware {
     }
 
     public async updateDataVersionInReturnedExtensions(context: PolarisGraphQLContext) {
-        const connectionManager = getConnectionManager();
-        if (connectionManager.connections.length > 0) {
-            const connection = connectionManager.get();
-            if (!connection) {
-                return;
-            }
+        if (context?.requestHeaders?.realityId == null || getConnectionManager().connections.length === 0) {
+            return;
+        }
+        const connection = getConnectionForReality(context?.requestHeaders?.realityId, this.realitiesHolder);
+        if (connection) {
             const dataVersionRepo = connection.getRepository(DataVersion);
             const globalDataVersion: any = await dataVersionRepo.findOne();
             if (globalDataVersion) {
