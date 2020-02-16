@@ -1,3 +1,10 @@
+## [1.1.15](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.14...v1.1.15) (2020-02-16)
+
+
+### Bug Fixes
+
+* when transaction fails it re-thorws error ([ef36011](https://github.com/Enigmatis/polaris-typeorm/commit/ef360119229ec0b04dcb51c58779125f20c697f4))
+
 ## [1.1.14](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.13...v1.1.14) (2020-02-06)
 
 
