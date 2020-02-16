@@ -5,7 +5,6 @@ import {
     DeleteResult,
     EntityManager,
     FindOneOptions,
-    ObjectID,
     UpdateResult,
 } from 'typeorm';
 import { PolarisCriteria } from './contextable-options/polaris-criteria';
@@ -190,6 +189,7 @@ export class PolarisEntityManager extends EntityManager {
         } catch (err) {
             this.connection.logger.log('log', err.message);
             await runner.rollbackTransaction();
+            throw err;
         }
     }
 
