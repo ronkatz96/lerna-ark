@@ -60,11 +60,10 @@
     "@commitlint/config-conventional": "^8.3.4",
     "@semantic-release/changelog": "^3.0.6",
     "@semantic-release/git": "latest",
-    "@types/graphql": "^14.5.0",
-    "@types/node": "^12.12.26",
+    "@types/node": "^12.12.28",
     "husky": "^3.1.0",
     "prettier": "^1.19.1",
-    "rimraf": "^3.0.1",
+    "rimraf": "^3.0.2",
     "travis-deploy-once": "^5.0.11",
     "ts-node": "^8.6.2",
     "tslint": "^5.20.1",
@@ -72,7 +71,7 @@
     "tslint-consistent-codestyle": "^1.16.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-plugin-prettier": "^2.1.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.8.2"
   },
   "husky": {
     "hooks": {
