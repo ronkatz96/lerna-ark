@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Enigmatis/polaris-common/compare/v1.0.12...v1.1.0) (2020-02-23)
+
+
+### Features
+
+* added reality object to the context ([f6b07ba](https://github.com/Enigmatis/polaris-common/commit/f6b07ba97c98e49bd5ead33604f9ee34ed0f19e3))
+
 ## [1.0.12](https://github.com/Enigmatis/polaris-common/compare/v1.0.11...v1.0.12) (2020-02-06)
 
 
