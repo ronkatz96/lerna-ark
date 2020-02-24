@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.2.1...v1.3.0) (2020-02-24)
+
+
+### Bug Fixes
+
+* reviewed some badly written logs ([86f35ba](https://github.com/Enigmatis/polaris-delta-middleware/commit/86f35bacfebdc18f42a6cdf3961d095dec3cbc95))
+
+
+### Features
+
+* renamed logger plugin and added context to logs ([0451211](https://github.com/Enigmatis/polaris-delta-middleware/commit/0451211d00edadc68d3766f650b8abc2b52c0a1c))
+
 ## [1.2.1](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.2.0...v1.2.1) (2020-02-06)
 
 
