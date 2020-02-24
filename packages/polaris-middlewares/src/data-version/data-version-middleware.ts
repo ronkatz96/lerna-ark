@@ -8,7 +8,11 @@ export class DataVersionMiddleware {
     public readonly realitiesHolder: RealitiesHolder;
     public readonly logger: PolarisGraphQLLogger;
 
-    constructor(logger: PolarisGraphQLLogger, realitiesHolder: RealitiesHolder, connection?: Connection) {
+    constructor(
+        logger: PolarisGraphQLLogger,
+        realitiesHolder: RealitiesHolder,
+        connection?: Connection,
+    ) {
         this.connection = connection;
         this.realitiesHolder = realitiesHolder;
         this.logger = logger;
@@ -22,7 +26,7 @@ export class DataVersionMiddleware {
             context: PolarisGraphQLContext,
             info: any,
         ) => {
-            this.logger.debug('Data version middleware started job', { context });
+            this.logger.debug('Data version middleware started job', context);
             const result = await resolve(root, args, context, info);
             let finalResult = result;
             context = context || {};
@@ -52,16 +56,22 @@ export class DataVersionMiddleware {
                 }
             }
             await this.updateDataVersionInReturnedExtensions(context);
-            this.logger.debug('Data version middleware finished job', { context });
+            this.logger.debug('Data version middleware finished job', context);
             return finalResult;
         };
     }
 
     public async updateDataVersionInReturnedExtensions(context: PolarisGraphQLContext) {
-        if (context?.requestHeaders?.realityId == null || getConnectionManager().connections.length === 0) {
+        if (
+            context?.requestHeaders?.realityId == null ||
+            getConnectionManager().connections.length === 0
+        ) {
             return;
         }
-        const connection = getConnectionForReality(context?.requestHeaders?.realityId, this.realitiesHolder);
+        const connection = getConnectionForReality(
+            context?.requestHeaders?.realityId,
+            this.realitiesHolder,
+        );
         if (connection) {
             const dataVersionRepo = connection.getRepository(DataVersion);
             const globalDataVersion: any = await dataVersionRepo.findOne();

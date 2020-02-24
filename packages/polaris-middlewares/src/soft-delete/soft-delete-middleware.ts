@@ -16,7 +16,7 @@ export class SoftDeleteMiddleware {
             context: PolarisGraphQLContext,
             info: any,
         ) => {
-            this.logger.debug('Soft delete middleware started job', { context });
+            this.logger.debug('Soft delete middleware started job', context);
             const result = await resolve(root, args, context, info);
             let finalResult = result;
             if (Array.isArray(result)) {
@@ -26,7 +26,7 @@ export class SoftDeleteMiddleware {
                     finalResult = null;
                 }
             }
-            this.logger.debug('Soft delete middleware finished job', { context });
+            this.logger.debug('Soft delete middleware finished job', context);
             return finalResult;
         };
     }

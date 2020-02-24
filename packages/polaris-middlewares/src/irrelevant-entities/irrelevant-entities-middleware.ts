@@ -1,7 +1,4 @@
-import {
-    PolarisGraphQLContext,
-    RealitiesHolder,
-} from '@enigmatis/polaris-common';
+import { PolarisGraphQLContext, RealitiesHolder } from '@enigmatis/polaris-common';
 import { PolarisGraphQLLogger } from '@enigmatis/polaris-graphql-logger';
 import {
     Connection,
@@ -54,7 +51,11 @@ export class IrrelevantEntitiesMiddleware {
     public readonly realitiesHolder: RealitiesHolder;
     public readonly logger: PolarisGraphQLLogger;
 
-    constructor(logger: PolarisGraphQLLogger, realitiesHolder: RealitiesHolder, connection?: Connection) {
+    constructor(
+        logger: PolarisGraphQLLogger,
+        realitiesHolder: RealitiesHolder,
+        connection?: Connection,
+    ) {
         this.connection = connection;
         this.logger = logger;
         this.realitiesHolder = realitiesHolder;
@@ -68,7 +69,7 @@ export class IrrelevantEntitiesMiddleware {
             context: PolarisGraphQLContext,
             info: any,
         ) => {
-            this.logger.debug('Irrelevant entities middleware started job', { context });
+            this.logger.debug('Irrelevant entities middleware started job', context);
             const result = await resolve(root, args, context, info);
 
             if (
@@ -79,7 +80,10 @@ export class IrrelevantEntitiesMiddleware {
                 getConnectionManager().connections.length > 0 &&
                 !root
             ) {
-                const connection = getConnectionForReality(context.requestHeaders.realityId, this.realitiesHolder);
+                const connection = getConnectionForReality(
+                    context.requestHeaders.realityId,
+                    this.realitiesHolder,
+                );
                 const irrelevantWhereCriteria = IrrelevantEntitiesMiddleware.createIrrelevantWhereCriteria(
                     result,
                     context,
@@ -103,7 +107,7 @@ export class IrrelevantEntitiesMiddleware {
                 }
             }
 
-            this.logger.debug('Irrelevant entities middleware finished job', { context });
+            this.logger.debug('Irrelevant entities middleware finished job', context);
             return result;
         };
     }

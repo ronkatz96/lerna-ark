@@ -10,7 +10,11 @@ const connection: any = { getRepository: jest.fn(() => dvRepo) };
 const logger: any = { debug: jest.fn() };
 const realitiesHolder = new RealitiesHolder();
 realitiesHolder.addReality({ id: 0, name: 'default' });
-const dataVersionMiddleware = new DataVersionMiddleware(logger, realitiesHolder, connection).getMiddleware();
+const dataVersionMiddleware = new DataVersionMiddleware(
+    logger,
+    realitiesHolder,
+    connection,
+).getMiddleware();
 const polarisTypeORMModule = require('@enigmatis/polaris-typeorm');
 polarisTypeORMModule.getConnectionManager = jest.fn(() => {
     return { get: jest.fn(() => connection), connections: [connection], has: jest.fn(() => true) };
@@ -19,7 +23,10 @@ polarisTypeORMModule.getConnectionManager = jest.fn(() => {
 describe('data version middleware', () => {
     describe('root resolver', () => {
         it('should filter out entities with data version lower/equal to context', async () => {
-            const context: PolarisGraphQLContext = getContextWithRequestHeaders({ dataVersion: 2, realityId: 0 });
+            const context: PolarisGraphQLContext = getContextWithRequestHeaders({
+                dataVersion: 2,
+                realityId: 0,
+            });
             const objects = [
                 { title: 'moshe', dataVersion: 2 },
                 { title: 'dani', dataVersion: 5 },
@@ -59,7 +66,10 @@ describe('data version middleware', () => {
             expect(result).toEqual(objects);
         });
         it('entities does not have a data version property, no filter should be applied', async () => {
-            const context: PolarisGraphQLContext = getContextWithRequestHeaders({ dataVersion: 3, realityId: 0 });
+            const context: PolarisGraphQLContext = getContextWithRequestHeaders({
+                dataVersion: 3,
+                realityId: 0,
+            });
             const objects = [{ title: 'moshe' }, { title: 'dani' }];
             const resolve = async () => {
                 return objects;
@@ -79,7 +89,10 @@ describe('data version middleware', () => {
         });
 
         it('a single entity without data version is resolved, no filter should be applied', async () => {
-            const context: PolarisGraphQLContext = getContextWithRequestHeaders({ dataVersion: 3, realityId: 0 });
+            const context: PolarisGraphQLContext = getContextWithRequestHeaders({
+                dataVersion: 3,
+                realityId: 0,
+            });
             const objects = { title: 'foo' };
             const resolve = async () => {
                 return objects;
@@ -91,7 +104,10 @@ describe('data version middleware', () => {
     });
     describe('not a root resolver', () => {
         it('not a root resolver, no filter should be applied', async () => {
-            const context: PolarisGraphQLContext = getContextWithRequestHeaders({ dataVersion: 3 , realityId: 0});
+            const context: PolarisGraphQLContext = getContextWithRequestHeaders({
+                dataVersion: 3,
+                realityId: 0,
+            });
             const objects = [
                 { title: 'moshe', dataVersion: 2 },
                 { title: 'dani', dataVersion: 5 },
@@ -106,7 +122,10 @@ describe('data version middleware', () => {
     });
     describe('update global data version extensions in context', () => {
         it('global data version is undefined in context, update global data version in extensions', async () => {
-            const context: any = getContextWithRequestHeaders({ dataVersion: 2, realityId: 0 });
+            const context: any = getContextWithRequestHeaders({
+                dataVersion: 2,
+                realityId: 0,
+            });
             context.returnedExtensions = undefined;
             const objects = [
                 { title: 'moshe', dataVersion: 2 },
@@ -121,7 +140,10 @@ describe('data version middleware', () => {
         });
 
         it('global data version is already in extensions, change it', async () => {
-            const context: PolarisGraphQLContext = getContextWithRequestHeaders({ dataVersion: 2, realityId: 0 });
+            const context: PolarisGraphQLContext = getContextWithRequestHeaders({
+                dataVersion: 2,
+                realityId: 0,
+            });
             const objects = [
                 { title: 'moshe', dataVersion: 2 },
                 { title: 'dani', dataVersion: 5 },

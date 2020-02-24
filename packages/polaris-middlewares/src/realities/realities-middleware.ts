@@ -1,4 +1,8 @@
-import { PolarisGraphQLContext, RealitiesHolder, UnsupportedRealityError } from '@enigmatis/polaris-common';
+import {
+    PolarisGraphQLContext,
+    RealitiesHolder,
+    UnsupportedRealityError,
+} from '@enigmatis/polaris-common';
 import { PolarisGraphQLLogger } from '@enigmatis/polaris-graphql-logger';
 
 export class RealitiesMiddleware {

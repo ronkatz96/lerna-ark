@@ -1,4 +1,8 @@
-import { PolarisGraphQLContext, RealitiesHolder, UnsupportedRealityError } from '@enigmatis/polaris-common';
+import {
+    PolarisGraphQLContext,
+    RealitiesHolder,
+    UnsupportedRealityError,
+} from '@enigmatis/polaris-common';
 import { RealitiesMiddleware } from '../../src';
 import { getContextWithRequestHeaders } from '../context-util';
 
@@ -31,13 +35,9 @@ describe('reality id tests', () => {
         const emptyRoot = undefined;
         it('no reality id in context, thorws unsupported reality exception', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({});
-            await expect(realitiesMiddleware(
-                entitiesResolver,
-                emptyRoot,
-                args,
-                context,
-                info,
-            )).rejects.toThrow(UnsupportedRealityError);
+            await expect(
+                realitiesMiddleware(entitiesResolver, emptyRoot, args, context, info),
+            ).rejects.toThrow(UnsupportedRealityError);
         });
         it('reality id is in context, array of entities, return only entities from that reality', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({ realityId: 1 });

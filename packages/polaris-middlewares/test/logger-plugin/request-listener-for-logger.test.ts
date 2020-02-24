@@ -1,49 +1,59 @@
 import { loggerPluginMessages } from '../../src/logger-plugin/logger-plugin-messages';
-import { RequestListenerForLoggerPlugin } from '../../src/logger-plugin/request-listener-for-logger';
+import { PolarisRequestListener } from '../../src/logger-plugin/polaris-request-listener';
 import { loggerMock } from '../mocks/logger-mock';
 
 describe('RequestListenerForLoggerPlugin tests', () => {
-    const requestContext = { context: jest.fn(), response: jest.fn() };
-    const listener = new RequestListenerForLoggerPlugin(loggerMock as any);
+    const listener = new PolarisRequestListener(loggerMock as any);
+    const context: any = {
+        response: {
+            data: jest.fn(),
+            extensions: jest.fn(),
+            errors: jest.fn(),
+        },
+    };
+    const requestContext: any = { context };
+
     describe('willSendResponse tests', () => {
         test('a log is written with response', async () => {
-            // act
-            await listener.willSendResponse(requestContext as any);
-            // assert
+            await listener.willSendResponse(requestContext);
+
             expect(loggerMock.info).toHaveBeenCalledWith(loggerPluginMessages.responseSent, {
-                context: requestContext.context,
-                polarisLogProperties: { response: requestContext.response },
+                response: {
+                    data: context.response.data,
+                    extensions: context.response.extensions,
+                    errors: context.response.errors,
+                },
             });
         });
     });
     describe('executionDidStart tests', () => {
         test('a log is written', () => {
-            // act
-            listener.executionDidStart(requestContext as any);
-            // assert
-            expect(loggerMock.debug).toHaveBeenCalledWith(loggerPluginMessages.executionBegan, {
-                context: requestContext.context,
-            });
+            listener.executionDidStart(requestContext);
+
+            expect(loggerMock.debug).toHaveBeenCalledWith(
+                loggerPluginMessages.executionBegan,
+                context,
+            );
         });
     });
     describe('parsingDidStart tests', () => {
         test('a log is written', () => {
-            // act
-            listener.parsingDidStart(requestContext as any);
-            // assert
-            expect(loggerMock.debug).toHaveBeenCalledWith(loggerPluginMessages.parsingBegan, {
-                context: requestContext.context,
-            });
+            listener.parsingDidStart(requestContext);
+
+            expect(loggerMock.debug).toHaveBeenCalledWith(
+                loggerPluginMessages.parsingBegan,
+                context,
+            );
         });
     });
     describe('validationDidStart tests', () => {
         test('a log is written', () => {
-            // act
-            listener.validationDidStart(requestContext as any);
-            // assert
-            expect(loggerMock.debug).toHaveBeenCalledWith(loggerPluginMessages.validationBegan, {
-                context: requestContext.context,
-            });
+            listener.validationDidStart(requestContext);
+
+            expect(loggerMock.debug).toHaveBeenCalledWith(
+                loggerPluginMessages.validationBegan,
+                context,
+            );
         });
     });
 });
