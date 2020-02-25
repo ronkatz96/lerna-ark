@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Enigmatis/polaris-common/compare/v1.1.0...v1.1.1) (2020-02-25)
+
+
+### Bug Fixes
+
+* removed response field from context ([11faabd](https://github.com/Enigmatis/polaris-common/commit/11faabdc2886cc35f2e08b9e24e5941051e43ca3))
+
 # [1.1.0](https://github.com/Enigmatis/polaris-common/compare/v1.0.12...v1.1.0) (2020-02-23)
 
 
