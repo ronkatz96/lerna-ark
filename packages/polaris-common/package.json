@@ -46,6 +46,10 @@
   },
   "author": "enigmatis",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enigmatis/polaris-common.git"
+  },
   "keywords": [
     "polaris",
     "graphql",

@@ -7,7 +7,6 @@ import { PolarisWarning } from './polaris-warning';
 
 export interface PolarisGraphQLContext extends PolarisBaseContext {
     request: PolarisGraphQLRequest;
-    response: any;
     returnedExtensions: PolarisExtensions;
     reality: Reality;
     errors?: GraphQLError[];
