@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.3.0...v1.3.1) (2020-02-26)
+
+
+### Bug Fixes
+
+* response is now logged appropriately ([982ca70](https://github.com/Enigmatis/polaris-delta-middleware/commit/982ca701a46541402104f260314a4cbb4b308dc2))
+
 # [1.3.0](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.2.1...v1.3.0) (2020-02-24)
 
 
