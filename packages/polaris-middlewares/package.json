@@ -71,8 +71,8 @@
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "@enigmatis/polaris-common": "^1.1.0",
-    "@enigmatis/polaris-graphql-logger": "^1.4.0",
+    "@enigmatis/polaris-common": "^1.1.1",
+    "@enigmatis/polaris-graphql-logger": "^1.4.1",
     "@enigmatis/polaris-typeorm": "^1.1.15",
     "@semantic-release/changelog": "^3.0.6",
     "@semantic-release/git": "latest",

@@ -3,8 +3,7 @@ import { PolarisGraphQLLogger } from '@enigmatis/polaris-graphql-logger';
 import { GraphQLRequestContext, GraphQLRequestListener } from 'apollo-server-plugin-base';
 import { loggerPluginMessages } from './logger-plugin-messages';
 
-export class PolarisRequestListener
-    implements GraphQLRequestListener<PolarisGraphQLContext> {
+export class PolarisRequestListener implements GraphQLRequestListener<PolarisGraphQLContext> {
     public readonly logger: PolarisGraphQLLogger;
 
     constructor(logger: PolarisGraphQLLogger) {
@@ -15,8 +14,15 @@ export class PolarisRequestListener
         requestContext: GraphQLRequestContext<PolarisGraphQLContext> &
             Required<Pick<GraphQLRequestContext<PolarisGraphQLContext>, 'metrics' | 'response'>>,
     ): Promise<void> | void {
-        const { context } = requestContext;
-        this.logger.info(loggerPluginMessages.responseSent, context);
+        const { context, response } = requestContext;
+        const loggedResponse = {
+            data: response.data,
+            errors: response.errors,
+            extensions: response.extensions,
+        };
+        this.logger.info(loggerPluginMessages.responseSent, context, {
+            response: loggedResponse,
+        });
     }
 
     public executionDidStart(

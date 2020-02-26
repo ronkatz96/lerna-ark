@@ -4,26 +4,23 @@ import { loggerMock } from '../mocks/logger-mock';
 
 describe('RequestListenerForLoggerPlugin tests', () => {
     const listener = new PolarisRequestListener(loggerMock as any);
-    const context: any = {
-        response: {
-            data: jest.fn(),
-            extensions: jest.fn(),
-            errors: jest.fn(),
-        },
+    const context: any = {};
+    const response: any = {
+        data: jest.fn(),
+        extensions: jest.fn(),
+        errors: jest.fn(),
     };
-    const requestContext: any = { context };
+    const requestContext: any = { context, response };
 
     describe('willSendResponse tests', () => {
         test('a log is written with response', async () => {
             await listener.willSendResponse(requestContext);
 
-            expect(loggerMock.info).toHaveBeenCalledWith(loggerPluginMessages.responseSent, {
-                response: {
-                    data: context.response.data,
-                    extensions: context.response.extensions,
-                    errors: context.response.errors,
-                },
-            });
+            expect(loggerMock.info).toHaveBeenCalledWith(
+                loggerPluginMessages.responseSent,
+                context,
+                { response },
+            );
         });
     });
     describe('executionDidStart tests', () => {

@@ -6,7 +6,6 @@ export const getContextWithRequestHeaders = (
     return {
         requestHeaders,
         request: { query: 'foo' },
-        response: jest.fn(),
         returnedExtensions: { globalDataVersion: 5 },
         responseHeaders: {},
         clientIp: 'bar',
