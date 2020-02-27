@@ -1,3 +1,27 @@
+# [2.0.0](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.15...v2.0.0) (2020-02-27)
+
+
+### Bug Fixes
+
+* chaining ([ef17b19](https://github.com/Enigmatis/polaris-typeorm/commit/ef17b195f2311858c58fbb117ec12a8ea0a74a52))
+* connection manager set from create in connection manager ([c3f257e](https://github.com/Enigmatis/polaris-typeorm/commit/c3f257e843490dfcf42cd887b0f4672ed9acdc7d))
+* id field in no longer a field of common-model.ts ([c254f3e](https://github.com/Enigmatis/polaris-typeorm/commit/c254f3e3091e896f1f7bf8dbe3a81d724123bb13))
+* name changes ([16077f3](https://github.com/Enigmatis/polaris-typeorm/commit/16077f3495e2d960f827f2dc51a1d7e718aa3c9b))
+* npm update ([21d5b96](https://github.com/Enigmatis/polaris-typeorm/commit/21d5b96d87ef2e8a2e4564c0593177c6084c0649))
+* npm update ([84347dc](https://github.com/Enigmatis/polaris-typeorm/commit/84347dc1d4ae176babed304691482f4a01ad2476))
+* tslint changes ([d42bfea](https://github.com/Enigmatis/polaris-typeorm/commit/d42bfeae33b2799e41a2a9d921c2a6a408d6b0af))
+* types in polaris ([446fa18](https://github.com/Enigmatis/polaris-typeorm/commit/446fa184879906979902f95dea13cbf9cf0e5b04))
+* types in polaris ([1812264](https://github.com/Enigmatis/polaris-typeorm/commit/181226439aff8a07538bc92241d64d2d558228c5))
+* types in polaris ([790b808](https://github.com/Enigmatis/polaris-typeorm/commit/790b808f772c7a11ddaca4117603d4c349513d08))
+
+
+* refactor: ([35c2d94](https://github.com/Enigmatis/polaris-typeorm/commit/35c2d94e2e331141a8e11e3073c6eca0768d6e6b))
+
+
+### BREAKING CHANGES
+
+* polaris types
+
 ## [1.1.15](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.14...v1.1.15) (2020-02-16)
 
 
