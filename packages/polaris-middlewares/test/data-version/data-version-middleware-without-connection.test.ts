@@ -9,7 +9,7 @@ const connection: any = { getRepository: jest.fn(() => dvRepo) };
 const logger: any = { debug: jest.fn() };
 const dataVersionMiddleware = new DataVersionMiddleware(logger, connection).getMiddleware();
 const polarisTypeORMModule = require('@enigmatis/polaris-typeorm');
-polarisTypeORMModule.getConnectionManager = jest.fn(() => {
+polarisTypeORMModule.getPolarisConnectionManager = jest.fn(() => {
     return { get: jest.fn(), connections: [] };
 });
 describe('data version middleware', () => {

@@ -1,11 +1,14 @@
 import { PolarisError, RealitiesHolder } from '@enigmatis/polaris-common';
-import { Connection, getConnectionManager } from '@enigmatis/polaris-typeorm';
+import {
+    getPolarisConnectionManager,
+    PolarisConnection,
+} from '@enigmatis/polaris-typeorm';
 
 export function getConnectionForReality(
     realityId: number,
     realitiesHolder: RealitiesHolder,
-): Connection {
-    const connectionManager = getConnectionManager();
+): PolarisConnection {
+    const connectionManager = getPolarisConnectionManager();
     const reality = realitiesHolder.getReality(realityId);
     const realityName = reality?.name;
     if (realityName == null) {

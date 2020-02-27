@@ -16,7 +16,7 @@ const dataVersionMiddleware = new DataVersionMiddleware(
     connection,
 ).getMiddleware();
 const polarisTypeORMModule = require('@enigmatis/polaris-typeorm');
-polarisTypeORMModule.getConnectionManager = jest.fn(() => {
+polarisTypeORMModule.getPolarisConnectionManager = jest.fn(() => {
     return { get: jest.fn(() => connection), connections: [connection], has: jest.fn(() => true) };
 });
 
@@ -136,7 +136,7 @@ describe('data version middleware', () => {
             };
             const result = await dataVersionMiddleware(resolve, undefined, {}, context, {});
             expect(result).toEqual([{ title: 'dani', dataVersion: 5 }]);
-            expect(context.returnedExtensions.globalDataVersion).toEqual(1);
+            expect(context?.returnedExtensions?.globalDataVersion).toEqual(1);
         });
 
         it('global data version is already in extensions, change it', async () => {

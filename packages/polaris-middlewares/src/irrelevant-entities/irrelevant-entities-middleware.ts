@@ -1,11 +1,10 @@
 import { PolarisGraphQLContext, RealitiesHolder } from '@enigmatis/polaris-common';
 import { PolarisGraphQLLogger } from '@enigmatis/polaris-graphql-logger';
 import {
-    Connection,
-    getConnectionManager,
+    getPolarisConnectionManager,
     In,
     Not,
-    PolarisFindManyOptions,
+    PolarisConnection,
 } from '@enigmatis/polaris-typeorm';
 import { getConnectionForReality } from '../utills/connection-retriever';
 
@@ -47,14 +46,14 @@ export class IrrelevantEntitiesMiddleware {
         return irrelevantWhereCriteria;
     }
 
-    public readonly connection?: Connection;
+    public readonly connection?: PolarisConnection;
     public readonly realitiesHolder: RealitiesHolder;
     public readonly logger: PolarisGraphQLLogger;
 
     constructor(
         logger: PolarisGraphQLLogger,
         realitiesHolder: RealitiesHolder,
-        connection?: Connection,
+        connection?: PolarisConnection,
     ) {
         this.connection = connection;
         this.logger = logger;
@@ -77,7 +76,7 @@ export class IrrelevantEntitiesMiddleware {
                 context?.requestHeaders?.realityId != null &&
                 !isNaN(context?.requestHeaders?.dataVersion) &&
                 info.returnType.ofType &&
-                getConnectionManager().connections.length > 0 &&
+                getPolarisConnectionManager().connections.length > 0 &&
                 !root
             ) {
                 const connection = getConnectionForReality(
@@ -89,15 +88,12 @@ export class IrrelevantEntitiesMiddleware {
                     context,
                 );
                 const typeName = IrrelevantEntitiesMiddleware.getTypeName(info);
-                const resultIrrelevant: any = await connection.getRepository(typeName).find(
-                    new PolarisFindManyOptions(
-                        {
-                            select: ['id'],
-                            where: irrelevantWhereCriteria,
-                        },
-                        context,
-                    ),
-                );
+                const resultIrrelevant: any = await connection
+                    .getRepository(typeName)
+                    .find(context, {
+                        select: ['id'],
+                        where: irrelevantWhereCriteria,
+                    });
                 if (resultIrrelevant && resultIrrelevant.length > 0) {
                     IrrelevantEntitiesMiddleware.appendIrrelevantEntitiesToExtensions(
                         info,
