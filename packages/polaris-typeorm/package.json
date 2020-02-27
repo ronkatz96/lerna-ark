@@ -60,8 +60,9 @@
   },
   "homepage": "https://github.com/Enigmatis/polaris-typeorm#readme",
   "dependencies": {
-    "@enigmatis/polaris-common": "^1.0.10",
-    "@enigmatis/polaris-logs": "^2.6.1",
+    "@enigmatis/polaris-common": "^1.1.1",
+    "@enigmatis/polaris-logs": "^2.8.1",
+    "@enigmatis/polaris-graphql-logger": "^1.4.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.22"
   },
@@ -71,13 +72,13 @@
     "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/git": "^8.0.0",
     "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.25",
+    "@types/node": "^12.12.28",
     "husky": "^3.0.9",
     "jest": "24.1.0",
     "path": "^0.12.7",
-    "pg": "^7.17.1",
+    "pg": "^7.18.2",
     "prettier": "^1.17.0",
-    "rimraf": "^3.0.0",
+    "rimraf": "^3.0.2",
     "travis-deploy-once": "^5.0.11",
     "ts-jest": "^24.3.0",
     "ts-node": "^8.6.2",
@@ -87,7 +88,7 @@
     "tslint-consistent-codestyle": "^1.15.1",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-plugin-prettier": "^2.1.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.8.2"
   },
   "husky": {
     "hooks": {

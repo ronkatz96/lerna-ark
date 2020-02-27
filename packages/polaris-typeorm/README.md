@@ -15,9 +15,48 @@ npm install polaris-typeorm
 
 This library provides support and wrappers for typeorm functionality. [[Typeorm]](https://github.com/typeorm/typeorm)
 
-#### CreateConnection
+#### createPolarisConnection
 
-Through this class we can create the polaris connection to our DB on top of typeorm.
+Through this method we can create the polaris connection to our DB on top of typeorm.
+
+```
+ const connection: PolarisConnection = await createPolarisConnection(
+        connectionOptions,
+        polarisGraphQLLogger,
+    );
+```
+
+The `createPolarisConnection` method receives:
+
+-   `ConnectionOptions` from `typeorm` (see documentation on typeorm)
+-   `AbstractPolarisLogger` from `@enigmatis/polaris-logs`, implemented by `PolarisGraphQLLogger` from `@enigmatis/polaris-graphql-logger` or by `PolarisLogger` from `@enigmatis/polaris-logs`
+
+#### PolarisConnection
+
+This class extends the typeorm `Connection` class.
+Through a `PolarisConnection` we will have access to the `PolarisRepository`.
+
+```
+    const authorRepo: PolarisRepository = connection.getRepository(Author);
+```
+
+#### PolarisRepository
+
+This class extends the typeorm `Repository` class.
+In addition to the types required by typeorm functions in this class, we added a requested field in each function we've overridden.
+That field is `PolarisGraphQLContext` from `@enigmatis/polaris-common` which we must have for the filters and additions answering the api standards.
+
+```
+    await authoRepo.find(context, { where: {name:"chen"}}));
+```
+
+#### PolarisConnectionManager
+
+This class extends the typeorm `ConnectionManager`. Using the next method you will get your `polarisConnection` from every place in the code.
+
+```
+    const connection: PolarisConnection = getPolarisConnectionManager().get();
+```
 
 #### CommonModel
 
@@ -45,7 +84,7 @@ So now `SimpleEntity` also includes all of the above properties.
 
 #### PolarisEntityManager
 
-This class extends the typeorm original `EntityManager` logic - adds a relevant filters such as reality filters,
+This class extends the typeorm original `EntityManager` logic and adds relevant filters and actions such as reality filters,
 data version filters and also supports the soft delete mechanism.
 You can access this CRUD methods in 2 ways :
 

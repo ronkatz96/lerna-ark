@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CommonModel } from '../../src';
 import { Author } from './author';
 import { Library } from './library';
@@ -21,6 +21,10 @@ export class Book extends CommonModel {
         { onDelete: 'CASCADE' },
     )
     public library: Library;
+
+    @PrimaryGeneratedColumn()
+    protected id: string;
+
     constructor(title?: string, author?: Author) {
         super();
         if (title) {
@@ -29,5 +33,9 @@ export class Book extends CommonModel {
         if (author) {
             this.author = author;
         }
+    }
+
+    public getId(): string {
+        return this.id;
     }
 }

@@ -1,11 +1,11 @@
-import { PolarisLogger } from '@enigmatis/polaris-logs';
+import { AbstractPolarisLogger } from '@enigmatis/polaris-logs';
 import { Logger, QueryRunner } from 'typeorm';
 
 export class PolarisTypeormLogger implements Logger {
-    private logger: PolarisLogger;
+    private logger: AbstractPolarisLogger;
     private readonly options: any;
 
-    constructor(logger: PolarisLogger, options?: any) {
+    constructor(logger: AbstractPolarisLogger, options?: any) {
         this.logger = logger;
         if (options) {
             this.options = options;

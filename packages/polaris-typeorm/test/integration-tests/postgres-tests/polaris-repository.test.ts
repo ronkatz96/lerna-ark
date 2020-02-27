@@ -1,0 +1,269 @@
+import { DataVersion } from '../../../src';
+import { getEntitiesIncludingDeletedConditions } from '../../../src/handlers/find-handler';
+import { PolarisConnection } from '../../../src/typeorm-bypasses/polaris-connection';
+import { PolarisRepository } from '../../../src/typeorm-bypasses/polaris-repository';
+import { Author } from '../../dal/author';
+import { Book } from '../../dal/book';
+import { Library } from '../../dal/library';
+import { Profile } from '../../dal/profile';
+import { User } from '../../dal/user';
+import {
+    cascadeBook,
+    gender,
+    generateContext,
+    harryPotter,
+    initDb,
+    mrCascade,
+    rowling,
+    setHeaders,
+    setUpTestConnection,
+    userName,
+} from '../utils/set-up';
+
+const bookFindOneOptions = { where: { title: harryPotter } };
+const authorFindOneOptions = { where: { name: rowling } };
+const bookWithCascadeFindOneOptions = { where: { title: cascadeBook } };
+const authorWithCascadeFindOneOptions = { where: { name: mrCascade } };
+const userFindOneOptions = { where: { name: userName } };
+const profileFindOneOptions = { where: { gender } };
+
+export let connection: PolarisConnection;
+export let authorRepo: PolarisRepository<Author>;
+export let bookRepo: PolarisRepository<Book>;
+export let profileRepo: PolarisRepository<Profile>;
+export let userRepo: PolarisRepository<User>;
+export let dvRepo: PolarisRepository<DataVersion>;
+export let libraryRepo: PolarisRepository<Library>;
+
+describe('entity manager tests', () => {
+    beforeEach(async () => {
+        connection = await setUpTestConnection();
+        authorRepo = connection.getRepository(Author);
+        bookRepo = connection.getRepository(Book);
+        profileRepo = connection.getRepository(Profile);
+        userRepo = connection.getRepository(User);
+        dvRepo = connection.getRepository(DataVersion);
+        libraryRepo = connection.getRepository(Library);
+        await initDb();
+        setHeaders(connection, { res: { locals: {} } } as any);
+    });
+    afterEach(async () => {
+        await connection.close();
+    });
+    describe('soft delete tests', () => {
+        it('parent is not common model, hard delete parent entity', async () => {
+            const findConditions = { name: 'public' };
+            const findOptions = { where: findConditions };
+            await libraryRepo.delete(generateContext(), findConditions);
+            const libAfterDelete = await libraryRepo.findOne(generateContext(), findOptions);
+            expect(libAfterDelete).toBeUndefined();
+        });
+
+        it('field is not common model, does not delete linked entity', async () => {
+            await authorRepo.delete(generateContext(), authorWithCascadeFindOneOptions.where);
+            const lib = await libraryRepo.findOne(generateContext(), {
+                relations: ['books'],
+            });
+            const criteria = {
+                where: {
+                    ...authorWithCascadeFindOneOptions.where,
+                    ...getEntitiesIncludingDeletedConditions,
+                },
+            };
+            const authorWithCascade = await authorRepo.findOne(generateContext(), criteria);
+            expect(lib).toBeDefined();
+            authorWithCascade
+                ? expect(authorWithCascade.getDeleted()).toBeTruthy()
+                : expect(authorWithCascade).toBeDefined();
+        });
+
+        it('parent and field are common models but cascade is not on, does not delete linked entity', async () => {
+            const criteria = {
+                where: { ...userFindOneOptions.where, ...getEntitiesIncludingDeletedConditions },
+                relations: ['profile'],
+            };
+            await userRepo.delete(generateContext(), criteria.where);
+            const userCommonModel = await userRepo.findOne(generateContext(), criteria);
+            userCommonModel
+                ? expect(userCommonModel.getDeleted()).toBeTruthy()
+                : expect(userCommonModel).toBeDefined();
+            userCommonModel
+                ? userCommonModel.profile
+                    ? expect(userCommonModel.profile.getDeleted()).toBeFalsy()
+                    : expect(userCommonModel.profile).toBeDefined()
+                : expect(userCommonModel).toBeDefined();
+        });
+
+        it('field is common model and cascade is on, delete linked entity', async () => {
+            const authorFindOneOptions1 = {
+                where: {
+                    ...authorWithCascadeFindOneOptions.where,
+                    ...getEntitiesIncludingDeletedConditions,
+                },
+                relations: ['books'],
+            };
+            const bookFindOneOptions1 = {
+                where: {
+                    ...bookWithCascadeFindOneOptions.where,
+                    ...getEntitiesIncludingDeletedConditions,
+                },
+            };
+            await authorRepo.delete(generateContext(), authorFindOneOptions1.where);
+            const authorWithCascade: Author | undefined = await authorRepo.findOne(
+                generateContext(),
+                authorFindOneOptions1,
+            );
+            const bookWithCascade: Book | undefined = await bookRepo.findOne(
+                generateContext(),
+                bookFindOneOptions1,
+            );
+            bookWithCascade
+                ? expect(bookWithCascade.getDeleted()).toBeTruthy()
+                : expect(bookWithCascade).toBeDefined();
+            authorWithCascade
+                ? expect(authorWithCascade.getDeleted()).toBeTruthy()
+                : expect(bookWithCascade).toBeDefined();
+        });
+
+        it('delete linked entity, should not return deleted entities(first level), get entity and its linked entity', async () => {
+            await profileRepo.delete(generateContext(), profileFindOneOptions.where);
+            const userEntity: User | undefined = await userRepo.findOne(generateContext(), {
+                ...userFindOneOptions,
+                relations: ['profile'],
+            });
+            if (userEntity?.profile) {
+                expect(userEntity.profile.getDeleted()).toBeTruthy();
+                expect(userEntity.getDeleted()).toBeFalsy();
+            } else {
+                expect(userEntity).toBeDefined();
+            }
+        });
+
+        // checks default setting
+        it('delete entity, should not return deleted entities, doesnt return deleted entity', async () => {
+            await bookRepo.delete(generateContext(), bookFindOneOptions.where);
+            const book: Book | undefined = await bookRepo.findOne(
+                generateContext(),
+                bookFindOneOptions,
+            );
+            expect(book).toBeUndefined();
+        });
+
+        // checks soft delete allow false
+        it('delete entity, soft delete allow is false and return deleted entities true, doesnt return deleted entity', async () => {
+            Object.assign(connection.options, {
+                extra: { config: { allowSoftDelete: false } },
+            });
+            await authorRepo.delete(generateContext(), authorFindOneOptions.where);
+            const author: Author | undefined = await authorRepo.findOne(generateContext(), {
+                where: {
+                    ...authorFindOneOptions.where,
+                    ...getEntitiesIncludingDeletedConditions,
+                },
+            });
+            expect(author).toBeUndefined();
+        });
+
+        // checks soft delete allow false with cascade
+        it(
+            'delete entity, soft delete allow is false and return deleted entities true and cascade is true,' +
+                ' doesnt return deleted entity and its linked entity',
+            async () => {
+                Object.assign(connection.options, {
+                    extra: { config: { allowSoftDelete: false } },
+                });
+                await authorRepo.delete(generateContext(), authorWithCascadeFindOneOptions.where);
+                const bookWithCascade = await bookRepo.findOne(generateContext(), {
+                    where: {
+                        ...bookWithCascadeFindOneOptions.where,
+                        ...getEntitiesIncludingDeletedConditions,
+                    },
+                });
+                const authorWithCascade = await authorRepo.findOne(generateContext(), {
+                    where: {
+                        ...authorWithCascadeFindOneOptions.where,
+                        ...getEntitiesIncludingDeletedConditions,
+                    },
+                });
+                expect(bookWithCascade).toBeUndefined();
+                expect(authorWithCascade).toBeUndefined();
+            },
+        );
+    });
+    describe('data version tests', () => {
+        it('books are created with data version, get all book for data version 0', async () => {
+            const booksInit = await bookRepo.find(generateContext({ dataVersion: 0 }), {});
+            const booksAfterDataVersion = await bookRepo.find(
+                generateContext({ dataVersion: 2 }),
+                {},
+            );
+            expect(booksInit.length).toEqual(2);
+            expect(booksAfterDataVersion.length).toEqual(0);
+        });
+
+        it.skip('fail save action, data version not progressing', async () => {
+            const bookFail = new Book('fail book');
+            await bookRepo.save(generateContext(), bookFail);
+            const dv = await dvRepo.findOne(generateContext());
+            const bookSaved = await bookRepo.findOne(generateContext({ realityId: 1 }), {
+                where: { title: bookFail.title },
+            });
+            dv ? expect(dv.getValue()).toEqual(1) : expect(dv).toBeUndefined();
+            expect(bookSaved).toBeUndefined();
+        });
+    });
+
+    describe('reality tests', () => {
+        it('reality id is supplied in headers', async () => {
+            const bookReality1: any = new Book('Jurassic Park');
+            bookReality1.realityId = 1;
+            await bookRepo.save(generateContext({ realityId: 1 }), bookReality1);
+            const book = await bookRepo.findOne(generateContext({ realityId: 1 }), {});
+            expect(book).toEqual(bookReality1);
+        });
+
+        it('delete operational entity, linked oper header true and reality id isnt operational, entity not deleted', async () => {
+            try {
+                await authorRepo.delete(
+                    generateContext({ realityId: 1 }),
+                    authorFindOneOptions.where,
+                );
+            } catch (err) {
+                expect(err.message).toEqual('there are no entities to delete');
+            }
+        });
+
+        it('save existing entity with different reality id, fail saving', async () => {
+            const book: any = new Book('my book');
+            await bookRepo.save(generateContext(), book);
+            book.realityId = 1;
+            try {
+                await bookRepo.save(generateContext({ realityId: 1 }), book);
+            } catch (err) {
+                expect(err.message).toEqual('reality id of entity is different from header');
+            }
+        });
+    });
+    it('find one with id', async () => {
+        const book = new Book('my book');
+        await bookRepo.save(generateContext(), book);
+        const bookFound = await bookRepo.findOne(generateContext(), {
+            where: { id: book.getId() },
+        });
+        expect(book).toEqual(bookFound);
+    });
+
+    it('count', async () => {
+        expect(await bookRepo.count(generateContext(), {})).toEqual(2);
+    });
+
+    it('order by', async () => {
+        const books1 = await bookRepo.find(generateContext(), {
+            order: {
+                title: 'ASC',
+            },
+        });
+        expect(books1[0].title).toEqual(cascadeBook);
+        expect(books1[1].title).toEqual(harryPotter);
+    });
+});

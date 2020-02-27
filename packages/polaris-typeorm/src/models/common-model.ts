@@ -1,41 +1,36 @@
-import { Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 export abstract class CommonModel {
-    @PrimaryGeneratedColumn('uuid')
-    private id: string;
-
     @Column({
         name: 'dataVersion',
         type: 'real',
         default: 1,
     })
-    private dataVersion: number;
+    protected dataVersion: number;
 
     @Column({
         name: 'realityId',
         type: 'real',
         default: 0,
     })
-    private realityId: number;
+    protected realityId: number;
 
     @Column({ nullable: true })
-    private createdBy?: string;
+    protected createdBy?: string;
 
     @CreateDateColumn()
-    private creationTime: Date;
+    protected creationTime: Date;
 
     @Column({ nullable: true })
-    private lastUpdatedBy?: string;
+    protected lastUpdatedBy?: string;
 
     @UpdateDateColumn()
-    private lastUpdateTime: Date;
+    protected lastUpdateTime: Date;
 
     @Column()
-    private deleted: boolean = false;
+    protected deleted: boolean = false;
 
-    public getId(): string {
-        return this.id;
-    }
+    public abstract getId(): string;
 
     public getDataVersion(): number {
         return this.dataVersion;
@@ -65,30 +60,30 @@ export abstract class CommonModel {
         return this.deleted;
     }
 
-    public setDataVersion(dataVersion: number) {
+    public setDataVersion(dataVersion: number): void {
         this.dataVersion = dataVersion;
     }
-    public setRealityId(realityId: number) {
+    public setRealityId(realityId: number): void {
         this.realityId = realityId;
     }
 
-    public setCreatedBy(createdBy?: string) {
+    public setCreatedBy(createdBy?: string): void {
         this.createdBy = createdBy;
     }
 
-    public setCreationTime(creationTime: Date) {
+    public setCreationTime(creationTime: Date): void {
         this.creationTime = creationTime;
     }
 
-    public setLastUpdatedBy(lastUpdatedBy?: string) {
+    public setLastUpdatedBy(lastUpdatedBy?: string): void {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
-    public setLastUpdateTime(lastUpdateTime: Date) {
+    public setLastUpdateTime(lastUpdateTime: Date): void {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public setDeleted(deleted: boolean) {
+    public setDeleted(deleted: boolean): void {
         this.deleted = deleted;
     }
 }

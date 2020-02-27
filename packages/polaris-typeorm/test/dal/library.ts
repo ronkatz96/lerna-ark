@@ -28,7 +28,7 @@ export class Library {
     )
     public books: Book[];
     @PrimaryGeneratedColumn('uuid')
-    private id: string;
+    public id: string;
     @Column({
         name: 'dataVersion',
         type: 'real',

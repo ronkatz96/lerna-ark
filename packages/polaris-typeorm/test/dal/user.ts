@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CommonModel } from '../../src';
 import { Profile } from './profile';
 
@@ -10,6 +10,10 @@ export class User extends CommonModel {
     @OneToOne(() => Profile)
     @JoinColumn()
     public profile: Profile;
+
+    @PrimaryGeneratedColumn()
+    protected id: string;
+
     constructor(name?: string, profile?: Profile) {
         super();
         if (name) {
@@ -18,5 +22,9 @@ export class User extends CommonModel {
         if (profile) {
             this.profile = profile;
         }
+    }
+
+    public getId(): string {
+        return this.id;
     }
 }

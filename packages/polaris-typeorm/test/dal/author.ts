@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CommonModel } from '../../src';
 import { Book } from './book';
 import { Library } from './library';
@@ -19,6 +19,10 @@ export class Author extends CommonModel {
         libraries => libraries.author,
     )
     public libraries: Library[];
+
+    @PrimaryGeneratedColumn()
+    protected id: string;
+
     constructor(name?: string, books?: Book[]) {
         super();
         if (name) {
@@ -27,5 +31,9 @@ export class Author extends CommonModel {
         if (books) {
             this.books = books;
         }
+    }
+
+    public getId(): string {
+        return this.id;
     }
 }

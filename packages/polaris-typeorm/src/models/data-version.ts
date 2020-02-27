@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'dataVersion' })
 export class DataVersion {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     private id: number = 1;
 
     @Column()
