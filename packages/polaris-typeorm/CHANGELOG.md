@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/Enigmatis/polaris-typeorm/compare/v2.0.0...v2.0.1) (2020-03-02)
+
+
+### Bug Fixes
+
+* package-lock.json ([99e7d67](https://github.com/Enigmatis/polaris-typeorm/commit/99e7d67858019910889c95d778ca0a5ea91cc534))
+
 # [2.0.0](https://github.com/Enigmatis/polaris-typeorm/compare/v1.1.15...v2.0.0) (2020-02-27)
 
 
