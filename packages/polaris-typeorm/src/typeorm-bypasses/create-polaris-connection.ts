@@ -29,15 +29,6 @@ const setPolarisConnectionOptions = (
     if (config) {
         Object.assign(options, { extra: { ...options.extra, config } });
     }
-    const polarisTypeormSubscribers = [
-        path.resolve(__dirname, '../') + '/subscribers/*.ts',
-        path.resolve(__dirname, '../') + '/subscribers/*.js',
-    ];
-    Object.assign(options, {
-        subscribers: options.subscribers
-            ? [...options.subscribers, ...polarisTypeormSubscribers]
-            : polarisTypeormSubscribers,
-    });
     Object.assign(options, {
         entities: options.entities
             ? [...options.entities, CommonModel, DataVersion]
