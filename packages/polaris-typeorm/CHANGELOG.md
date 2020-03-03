@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/Enigmatis/polaris-typeorm/compare/v2.0.2...v2.0.3) (2020-03-03)
+
+
+### Bug Fixes
+
+* createdBy is set when saving a new entity ([1f2d1f5](https://github.com/Enigmatis/polaris-typeorm/commit/1f2d1f53000dcc3da826d6a35a799807f2cc2409))
+
 ## [2.0.2](https://github.com/Enigmatis/polaris-typeorm/compare/v2.0.1...v2.0.2) (2020-03-03)
 
 
