@@ -43,9 +43,10 @@ export class PolarisEntityManager extends EntityManager {
 
     private static setUpnOfEntity(entity: any, context: PolarisGraphQLContext) {
         if (context?.requestHeaders) {
-            if (entity.creationTime !== undefined) {
+            if (entity.creationTime === undefined) {
                 entity.createdBy =
                     context?.requestHeaders?.upn || context?.requestHeaders?.requestingSystemId;
+                entity.lastUpdatedBy = entity.createdBy;
             } else {
                 entity.lastUpdatedBy =
                     context?.requestHeaders?.upn || context?.requestHeaders?.requestingSystemId;

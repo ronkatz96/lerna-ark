@@ -266,4 +266,18 @@ describe('entity manager tests', () => {
         expect(books1[0].title).toEqual(cascadeBook);
         expect(books1[1].title).toEqual(harryPotter);
     });
+
+    it('save and update entity with upn, createdBy and lastUpdatedBy is updated accordingly', async () => {
+        const book = new Book('my book');
+
+        const createdByUpn = 'foo';
+        await bookRepo.save(generateContext({ upn: createdByUpn }), book);
+        expect(book.getCreatedBy()).toBe(createdByUpn);
+        expect(book.getLastUpdatedBy()).toBe(createdByUpn);
+
+        const updatedByUpn = 'bar';
+        await bookRepo.save(generateContext({ upn: updatedByUpn }), book);
+        expect(book.getCreatedBy()).not.toBe(updatedByUpn);
+        expect(book.getLastUpdatedBy()).toBe(updatedByUpn);
+    });
 });
