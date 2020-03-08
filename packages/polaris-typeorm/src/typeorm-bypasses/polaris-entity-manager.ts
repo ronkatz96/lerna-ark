@@ -93,6 +93,12 @@ export class PolarisEntityManager extends EntityManager {
         return newRepository;
     }
 
+    public hasRepository<Entity>(
+        target: (new () => Entity) | Function | EntitySchema<Entity> | string,
+    ): boolean {
+        return this.connection.hasMetadata(target as any);
+    }
+
     public async delete<Entity>(
         targetOrEntity: any,
         criteria: PolarisCriteria | any,

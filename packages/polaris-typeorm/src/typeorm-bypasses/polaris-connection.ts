@@ -19,4 +19,10 @@ export class PolarisConnection extends Connection {
     ): PolarisRepository<Entity> {
         return this.manager.getRepository(target);
     }
+
+    public hasRepository<Entity>(
+        target: ObjectType<Entity> | EntitySchema<Entity> | string,
+    ): boolean {
+        return this.manager.hasRepository(target);
+    }
 }
