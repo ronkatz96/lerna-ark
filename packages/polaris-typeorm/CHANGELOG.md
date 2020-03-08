@@ -1,3 +1,11 @@
+# [2.1.0](https://github.com/Enigmatis/polaris-typeorm/compare/v2.0.3...v2.1.0) (2020-03-08)
+
+
+### Features
+
+* added hasRepository method ([de029d1](https://github.com/Enigmatis/polaris-typeorm/commit/de029d14fe7c3f0d78529e3602801ccffb57d16e))
+* added hasRepository method ([150fe59](https://github.com/Enigmatis/polaris-typeorm/commit/150fe590bab10d53b0bd8529491cfa0301242ae1))
+
 ## [2.0.3](https://github.com/Enigmatis/polaris-typeorm/compare/v2.0.2...v2.0.3) (2020-03-03)
 
 
