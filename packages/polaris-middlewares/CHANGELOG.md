@@ -1,3 +1,11 @@
+## [1.3.4](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.3.3...v1.3.4) (2020-03-09)
+
+
+### Bug Fixes
+
+* no exception when could not find repository ([1aeb50e](https://github.com/Enigmatis/polaris-delta-middleware/commit/1aeb50ea105554ee701a42ed462aff36d6efeaa0))
+* not throwing exception when could not find repository ([7d5ab17](https://github.com/Enigmatis/polaris-delta-middleware/commit/7d5ab17170366734600f4914ef6661c382912f04))
+
 ## [1.3.3](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.3.2...v1.3.3) (2020-03-02)
 
 
