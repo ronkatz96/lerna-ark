@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 
 export const scalarsTypeDefs = gql`
+    scalar Upload
     scalar DateTime
     scalar EmailAddress
     scalar NegativeFloat

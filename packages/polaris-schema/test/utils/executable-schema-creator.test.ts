@@ -41,4 +41,11 @@ describe('makeExecutablePolarisSchema tests', () => {
         expect(dateScalarType).toBeDefined();
         expect(dateScalarType).toBeInstanceOf(GraphQLScalarType);
     });
+
+    test('creating polaris schema, has upload as GraphQLScalarType', () => {
+        const polarisSchema = makeExecutablePolarisSchema(typeDefs, resolvers);
+        const uploadScalarType = polarisSchema.getType('Upload');
+        expect(uploadScalarType).toBeDefined();
+        expect(uploadScalarType).toBeInstanceOf(GraphQLScalarType);
+    });
 });

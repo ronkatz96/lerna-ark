@@ -60,29 +60,31 @@
   "homepage": "https://github.com/Enigmatis/polaris-schema#readme",
   "dependencies": {
     "@types/graphql": "^14.5.0",
-    "graphql": "^14.5.8",
-    "graphql-scalars": "^1.0.4",
-    "graphql-tag": "^2.10.1",
-    "graphql-tools": "^4.0.6",
-    "merge-graphql-schemas": "^1.7.2"
+    "graphql": "^14.6.0",
+    "graphql-scalars": "^1.0.6",
+    "graphql-tag": "^2.10.3",
+    "graphql-tools": "^4.0.7",
+    "merge-graphql-schemas": "^1.7.6"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
-    "@semantic-release/changelog": "^3.0.5",
-    "@semantic-release/git": "^7.0.18",
-    "@types/jest": "^24.0.22",
-    "jest": "24.1.0",
-    "prettier": "^1.18.2",
-    "rimraf": "^3.0.0",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@semantic-release/changelog": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.0",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^17.0.4",
     "travis-deploy-once": "^5.0.11",
-    "ts-jest": "^24.1.0",
+    "ts-jest": "^25.2.1",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-consistent-codestyle": "^1.16.0",
     "tslint-eslint-rules": "^5.4.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.7.2"
+    "tslint-plugin-prettier": "^2.1.0",
+    "typescript": "^3.8.3"
   },
   "husky": {
     "hooks": {
