@@ -6,7 +6,10 @@ const irrResult = [{ id: '2' }, { id: '4' }, { id: '6' }];
 const bookRepo = {
     find: jest.fn(() => irrResult),
 } as any;
-const connection = { getRepository: jest.fn(() => bookRepo) } as any;
+const connection = {
+    getRepository: jest.fn(() => bookRepo),
+    hasRepository: jest.fn(() => true),
+} as any;
 const logger = { debug: jest.fn() } as any;
 const irrelevantEntitiesMiddleware = new IrrelevantEntitiesMiddleware(
     logger,

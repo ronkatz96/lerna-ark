@@ -76,7 +76,9 @@ which start with the letter 'a', the response will contain (in it's extensions) 
 items which were updated after this data version (their data version is greater), but that their letter does not start with
 the letter 'a' (so they do not fit to the filter).\
 If your context object contains an irrelevant entities object under property `context.returnedExtensions.irrelevantEntities`,
-it adds the value of this property to the extensions object in the graphql response.
+it adds the value of this property to the extensions object in the graphql response.\
+**This middleware relies on naming conventions, which means that in order to activate the logic of this middleware, you need
+to name your DB entities just like how they appear in the GraphQL schema!**
 
 for example, setting the context irrelevant entities:
 

@@ -88,16 +88,24 @@ export class IrrelevantEntitiesMiddleware {
                     context,
                 );
                 const typeName = IrrelevantEntitiesMiddleware.getTypeName(info);
-                const resultIrrelevant: any = await connection
-                    .getRepository(typeName)
-                    .find(context, {
-                        select: ['id'],
-                        where: irrelevantWhereCriteria,
-                    });
-                if (resultIrrelevant && resultIrrelevant.length > 0) {
-                    IrrelevantEntitiesMiddleware.appendIrrelevantEntitiesToExtensions(
-                        info,
-                        resultIrrelevant,
+
+                if (connection.hasRepository(typeName)) {
+                    const resultIrrelevant: any = await connection
+                        .getRepository(typeName)
+                        .find(context, {
+                            select: ['id'],
+                            where: irrelevantWhereCriteria,
+                        });
+                    if (resultIrrelevant && resultIrrelevant.length > 0) {
+                        IrrelevantEntitiesMiddleware.appendIrrelevantEntitiesToExtensions(
+                            info,
+                            resultIrrelevant,
+                            context,
+                        );
+                    }
+                } else {
+                    this.logger.warn(
+                        'Could not find repository with the graphql object name',
                         context,
                     );
                 }
