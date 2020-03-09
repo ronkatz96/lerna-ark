@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/Enigmatis/polaris-schema/compare/v1.0.6...v1.0.7) (2020-03-09)
+
+
+### Bug Fixes
+
+* removed deleted field from repository entity ([0708ec8](https://github.com/Enigmatis/polaris-schema/commit/0708ec87927043ed46f62da4d7baaed3d4b763f1))
+
 ## [1.0.6](https://github.com/Enigmatis/polaris-schema/compare/v1.0.5...v1.0.6) (2019-12-08)
 
 
