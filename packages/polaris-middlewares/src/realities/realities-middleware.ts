@@ -34,24 +34,23 @@ export class RealitiesMiddleware {
                 (context && context.requestHeaders && context.requestHeaders.realityId) || 0;
             const noRealityIdOrSameAsHeader = (entity: any) =>
                 entity.realityId === undefined || entity.realityId === realityId;
-            if (!root) {
-                if (Array.isArray(result)) {
-                    return result.filter(noRealityIdOrSameAsHeader);
-                } else {
-                    if (noRealityIdOrSameAsHeader(result)) {
-                        return result;
-                    }
-                }
+            const includeLinkedOperIsTrueAndEntityIsOper = (entity: any) =>
+                context?.requestHeaders?.includeLinkedOper &&
+                entity.realityId === operationalRealityId;
+            if (Array.isArray(result)) {
+                return root
+                    ? result.filter(
+                          res =>
+                              noRealityIdOrSameAsHeader(res) ||
+                              includeLinkedOperIsTrueAndEntityIsOper(res),
+                      )
+                    : result.filter(noRealityIdOrSameAsHeader);
             } else if (
                 noRealityIdOrSameAsHeader(result) ||
-                (context &&
-                    context.requestHeaders &&
-                    context.requestHeaders.includeLinkedOper &&
-                    result.realityId === operationalRealityId)
+                (root && includeLinkedOperIsTrueAndEntityIsOper(result))
             ) {
                 return result;
             }
-
             return null;
         };
     }
