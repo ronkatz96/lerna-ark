@@ -1,22 +1,27 @@
 import { GraphQLSchema } from 'graphql';
-import { makeExecutableSchema } from 'graphql-tools';
-import { mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
-import { repositoryEntityTypeDefs } from '../common/repository-entity-type-defs';
-import { scalarsResolvers } from '../scalars/scalars-resolvers';
-import { scalarsTypeDefs } from '../scalars/scalars-type-defs';
+import {
+    IResolvers,
+    ITypeDefinitions,
+    makeExecutableSchema,
+    SchemaDirectiveVisitor,
+} from 'graphql-tools';
+import { getMergedPolarisResolvers } from './merge-resolvers';
+import { getMergedPolarisTypes } from './merge-types';
 
-export function makeExecutablePolarisSchema(typeDefs: any, resolvers: any): GraphQLSchema {
-    const polarisTypeDefs: any = mergeTypes([repositoryEntityTypeDefs, scalarsTypeDefs, typeDefs], {
-        all: true,
-    });
-
-    const polarisResolvers: any = mergeResolvers([scalarsResolvers, resolvers]);
+export function makeExecutablePolarisSchema(
+    typeDefs: ITypeDefinitions,
+    resolvers?: IResolvers | IResolvers[],
+    schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>,
+): GraphQLSchema {
+    const mergedTypes = getMergedPolarisTypes(typeDefs);
+    const mergedResolvers = getMergedPolarisResolvers(resolvers);
 
     return makeExecutableSchema({
-        typeDefs: polarisTypeDefs,
-        resolvers: polarisResolvers,
+        typeDefs: mergedTypes,
+        resolvers: mergedResolvers,
         resolverValidationOptions: {
             requireResolversForResolveType: false,
         },
+        schemaDirectives,
     });
 }

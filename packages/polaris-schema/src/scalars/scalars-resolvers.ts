@@ -31,8 +31,9 @@ import {
     URLResolver,
     USCurrencyResolver,
 } from 'graphql-scalars';
+import { IResolvers } from 'graphql-tools';
 
-export const scalarsResolvers: any = {
+export const scalarsResolvers: IResolvers = {
     DateTime: DateTimeResolver,
 
     NonPositiveInt: NonPositiveIntResolver,
