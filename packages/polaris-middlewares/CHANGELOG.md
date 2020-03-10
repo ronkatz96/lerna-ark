@@ -1,3 +1,10 @@
+## [1.3.5](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.3.4...v1.3.5) (2020-03-10)
+
+
+### Bug Fixes
+
+* linked array was not working ([aeb4725](https://github.com/Enigmatis/polaris-delta-middleware/commit/aeb47252491ca6d06b95ea4e93f764bb6eca2118))
+
 ## [1.3.4](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.3.3...v1.3.4) (2020-03-09)
 
 
