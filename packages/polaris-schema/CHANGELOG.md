@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Enigmatis/polaris-schema/compare/v1.0.7...v1.1.0) (2020-03-10)
+
+
+### Features
+
+* **directive:** directives support ([a76d8f7](https://github.com/Enigmatis/polaris-schema/commit/a76d8f7efcef26cf5d3778a1762ae3ae7bda5fb8))
+
 ## [1.0.7](https://github.com/Enigmatis/polaris-schema/compare/v1.0.6...v1.0.7) (2020-03-09)
 
 
