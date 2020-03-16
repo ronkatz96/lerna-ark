@@ -16,6 +16,10 @@ export class RealitiesHolder {
         this.updateReality(reality);
     }
 
+    public addRealities(realities: Reality[]): void {
+        realities.forEach(reality => this.addReality(reality));
+    }
+
     public updateReality(reality: Reality) {
         this.realitiesMap.set(reality.id, reality);
     }
