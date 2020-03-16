@@ -9,15 +9,15 @@ export class RealitiesHolder {
             : new Map<number, any>();
     }
 
+    public addRealities(realities: Reality[]): void {
+        realities.forEach(reality => this.addReality(reality));
+    }
+
     public addReality(reality: Reality): void {
         if (this.hasReality(reality.id)) {
             throw new Error(`Reality id: ${reality.id} already exists in realities holder`);
         }
         this.updateReality(reality);
-    }
-
-    public addRealities(realities: Reality[]): void {
-        realities.forEach(reality => this.addReality(reality));
     }
 
     public updateReality(reality: Reality) {
