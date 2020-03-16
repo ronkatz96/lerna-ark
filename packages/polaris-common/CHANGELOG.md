@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Enigmatis/polaris-common/compare/v1.1.1...v1.2.0) (2020-03-16)
+
+
+### Features
+
+* add realities. ([6f51f1c](https://github.com/Enigmatis/polaris-common/commit/6f51f1cdf227ffa679525a132f8ba7edc45d8c36))
+
 ## [1.1.1](https://github.com/Enigmatis/polaris-common/compare/v1.1.0...v1.1.1) (2020-02-25)
 
 
