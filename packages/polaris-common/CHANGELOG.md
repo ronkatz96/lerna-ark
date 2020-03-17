@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/Enigmatis/polaris-common/compare/v1.2.0...v1.3.0) (2020-03-17)
+
+
+### Features
+
+* add warnings to extensions. ([7c925ca](https://github.com/Enigmatis/polaris-common/commit/7c925caad492e2e45e3688ac99f1eedc392139d7))
+
 # [1.2.0](https://github.com/Enigmatis/polaris-common/compare/v1.1.1...v1.2.0) (2020-03-16)
 
 
