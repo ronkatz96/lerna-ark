@@ -1,7 +1,7 @@
-import { ApolloError } from 'apollo-server-errors';
+import { PolarisWarning } from './polaris-warning';
 
 export interface PolarisExtensions {
     globalDataVersion: number;
     irrelevantEntities?: any;
-    warnings?: Array<ApolloError | string>;
+    warnings?: PolarisWarning[];
 }
