@@ -6,6 +6,7 @@ import {
     EntityManager,
     EntitySchema,
     FindOneOptions,
+    In,
     UpdateResult,
 } from 'typeorm';
 import { RepositoryNotFoundError } from 'typeorm/error/RepositoryNotFoundError';
@@ -53,6 +54,7 @@ export class PolarisEntityManager extends EntityManager {
             }
         }
     }
+
     // @ts-ignore
     public connection: PolarisConnection;
     public dataVersionHandler: DataVersionHandler;
@@ -67,6 +69,7 @@ export class PolarisEntityManager extends EntityManager {
         this.findHandler = new FindHandler();
         this.softDeleteHandler = new SoftDeleteHandler((this as unknown) as EntityManager);
     }
+
     // @ts-ignore
     public getRepository<Entity>(
         target: (new () => Entity) | Function | EntitySchema<Entity> | string,
@@ -195,8 +198,9 @@ export class PolarisEntityManager extends EntityManager {
         criteria: PolarisCriteria | any,
         partialEntity: any,
     ): Promise<UpdateResult> {
-        if (criteria instanceof PolarisCriteria) {
-            return this.wrapTransaction(async () => {
+        return this.wrapTransaction(async () => {
+            let updateCriteria = criteria;
+            if (criteria instanceof PolarisCriteria) {
                 criteria.context = criteria.context || {};
                 await this.dataVersionHandler.updateDataVersion(criteria.context);
                 const globalDataVersion = criteria.context.returnedExtensions.globalDataVersion;
@@ -210,11 +214,36 @@ export class PolarisEntityManager extends EntityManager {
                     lastUpdatedBy: upnOrRequestingSystemId,
                 };
                 delete partialEntity.realityId;
-                return super.update(target, criteria.criteria, partialEntity);
+                updateCriteria = criteria.criteria;
+            }
+
+            if (
+                this.connection.options.type === 'postgres' ||
+                this.connection.options.type === 'mssql'
+            ) {
+                return super.update(target, updateCriteria, partialEntity);
+            }
+
+            if (typeof updateCriteria === 'string' || updateCriteria instanceof Array) {
+                updateCriteria = {
+                    where: {
+                        id: In(updateCriteria instanceof Array ? updateCriteria : [updateCriteria]),
+                    },
+                };
+            }
+
+            const entitiesToUpdate = await super.find(target, updateCriteria);
+            entitiesToUpdate.forEach((entityToUpdate: typeof target, index) => {
+                entitiesToUpdate[index] = { ...entityToUpdate, ...partialEntity };
             });
-        } else {
-            return super.update(target, criteria, partialEntity);
-        }
+            await super.save(target, entitiesToUpdate);
+            const updateResult: UpdateResult = {
+                generatedMaps: [],
+                raw: entitiesToUpdate,
+                affected: entitiesToUpdate.length,
+            };
+            return updateResult;
+        });
     }
 
     private async wrapTransaction(action: any) {

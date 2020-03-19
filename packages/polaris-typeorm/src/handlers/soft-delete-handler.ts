@@ -1,6 +1,5 @@
 import { EntityManager, In, UpdateResult } from 'typeorm';
-import { CommonModel } from '..';
-import { PolarisCriteria } from '../contextable-options/polaris-criteria';
+import { CommonModel, PolarisCriteria } from '..';
 
 export class SoftDeleteHandler {
     private manager: EntityManager;
@@ -19,11 +18,8 @@ export class SoftDeleteHandler {
             {
                 deleted: true,
                 lastUpdatedBy:
-                    polarisCriteria &&
-                    polarisCriteria.context &&
-                    polarisCriteria.context.requestHeaders &&
-                    (polarisCriteria.context.requestHeaders.upn ||
-                        polarisCriteria.context.requestHeaders.requestingSystemName),
+                    polarisCriteria?.context?.requestHeaders?.upn ||
+                    polarisCriteria?.context?.requestHeaders?.requestingSystemName,
             },
         );
         if (softDeletedEntities.affected === 0) {
@@ -59,7 +55,7 @@ export class SoftDeleteHandler {
         return softDeletedEntities;
     }
 
-    private updateWithReturningIds(
+    private async updateWithReturningIds(
         target: any,
         criteria: string | string[] | any,
         partialEntity: any,
@@ -76,22 +72,54 @@ export class SoftDeleteHandler {
             );
         }
 
-        if (typeof criteria === 'string' || criteria instanceof Array) {
-            return this.manager
-                .createQueryBuilder()
-                .update(target)
-                .set(partialEntity)
-                .whereInIds(criteria)
-                .returning('id')
-                .execute();
+        if (
+            this.manager.connection.options.type !== 'postgres' &&
+            this.manager.connection.options.type !== 'mssql'
+        ) {
+            return this.updateWithFindAndSave(target, criteria, partialEntity);
         } else {
-            return this.manager
-                .createQueryBuilder()
-                .update(target)
-                .set(partialEntity)
-                .where(criteria)
-                .returning('id')
-                .execute();
+            if (typeof criteria === 'string' || criteria instanceof Array) {
+                return this.manager
+                    .createQueryBuilder()
+                    .update(target)
+                    .set(partialEntity)
+                    .whereInIds(criteria)
+                    .returning('id')
+                    .execute();
+            } else {
+                return this.manager
+                    .createQueryBuilder()
+                    .update(target)
+                    .set(partialEntity)
+                    .where(criteria)
+                    .returning('id')
+                    .execute();
+            }
         }
+    }
+
+    private async updateWithFindAndSave(
+        target: any,
+        criteria: string | string[] | any,
+        partialEntity: any,
+    ) {
+        let findCriteria;
+        if (typeof criteria === 'string' || criteria instanceof Array) {
+            findCriteria = {
+                deleted: false,
+                id: In(criteria instanceof Array ? criteria : [criteria]),
+            };
+        } else {
+            findCriteria = { deleted: false, ...criteria };
+        }
+        const entitiesToDelete = await this.manager.find(target, { where: findCriteria });
+        entitiesToDelete.forEach((entity: typeof target, index) => {
+            entitiesToDelete[index] = { ...entity, ...partialEntity };
+        });
+        await this.manager.save(target, entitiesToDelete);
+        const updateResult = new UpdateResult();
+        updateResult.affected = entitiesToDelete.length;
+        updateResult.raw = entitiesToDelete;
+        return updateResult;
     }
 }
