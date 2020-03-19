@@ -1,3 +1,13 @@
+## [2.1.1](https://github.com/Enigmatis/polaris-typeorm/compare/v2.1.0...v2.1.1) (2020-03-19)
+
+
+### Bug Fixes
+
+* delete finally works with sqlite (not done yet) ([62e89d8](https://github.com/Enigmatis/polaris-typeorm/commit/62e89d88422fa59caf6d251c6b6e5d43432ff722))
+* delete now works with all drivers ([5bbb2b2](https://github.com/Enigmatis/polaris-typeorm/commit/5bbb2b272e7f74088d70bfcb2d6c9373b5a43ea9))
+* fix build and review ([ae23aa5](https://github.com/Enigmatis/polaris-typeorm/commit/ae23aa509b2cd71737dd86f933389e0cbc388891))
+* now update works ([55b5fee](https://github.com/Enigmatis/polaris-typeorm/commit/55b5fee70d4f7d610b166801594c7e38cbc14209))
+
 # [2.1.0](https://github.com/Enigmatis/polaris-typeorm/compare/v2.0.3...v2.1.0) (2020-03-08)
 
 
