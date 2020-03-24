@@ -5,18 +5,9 @@
     "extends": ["tslint:latest", "tslint-eslint-rules", "tslint-config-prettier"],
     "rules": {
         "no-object-literal-type-assertion": false,
-        "file-name-casing": [
-            true,
-            "kebab-case"
-        ],
-        "prettier": [
-            true,
-            ".prettierrc"
-        ],
-        "interface-name": [
-            true,
-            "never-prefix"
-        ],
+        "file-name-casing": [true, "kebab-case"],
+        "prettier": [true, ".prettierrc"],
+        "interface-name": [true, "never-prefix"],
         "object-literal-sort-keys": false,
         "no-submodule-imports": false,
         "ban-types": false,
