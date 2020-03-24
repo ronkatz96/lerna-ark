@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/Enigmatis/polaris-typeorm/compare/v2.1.1...v2.1.2) (2020-03-24)
+
+
+### Bug Fixes
+
+* **package:** updated dependencies ([7ee090d](https://github.com/Enigmatis/polaris-typeorm/commit/7ee090db9b373acd6d63f4ed69525d37b7cd04b9))
+
 ## [2.1.1](https://github.com/Enigmatis/polaris-typeorm/compare/v2.1.0...v2.1.1) (2020-03-19)
 
 
