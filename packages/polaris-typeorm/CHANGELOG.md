@@ -1,3 +1,15 @@
+# [2.2.0](https://github.com/Enigmatis/polaris-typeorm/compare/v2.1.2...v2.2.0) (2020-03-29)
+
+
+### Bug Fixes
+
+* **package:** updated jest version ([64ae49c](https://github.com/Enigmatis/polaris-typeorm/commit/64ae49c1b01df7083172ee1bcdef04aa4904024a))
+
+
+### Features
+
+* **snapshot:** added snapshot page entity ([2462d91](https://github.com/Enigmatis/polaris-typeorm/commit/2462d917f1e9ead89f7206054908f0ace32ffdf9))
+
 ## [2.1.2](https://github.com/Enigmatis/polaris-typeorm/compare/v2.1.1...v2.1.2) (2020-03-24)
 
 
