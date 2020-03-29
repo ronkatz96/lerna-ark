@@ -6,4 +6,6 @@ export interface PolarisRequestHeaders {
     requestingSystemId?: string;
     requestingSystemName?: string;
     upn?: string;
+    snapRequest?: boolean;
+    snapPageSize?: number;
 }

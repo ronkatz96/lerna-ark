@@ -2,6 +2,7 @@ export { PolarisGraphQLContext } from './context/polaris-graphql-context';
 export { PolarisBaseContext } from './context/polaris-base-context';
 export { PolarisExtensions } from './context/polaris-extensions';
 export { PolarisGraphQLRequest } from './context/polaris-request';
+export { SnapshotContext } from './context/snapshot-context';
 export { PolarisWarning } from './context/polaris-warning';
 export { runAndMeasureTime } from './common-methods';
 export * from './headers/header-names';

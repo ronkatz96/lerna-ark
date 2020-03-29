@@ -5,3 +5,5 @@ export const INCLUDE_LINKED_OPER: string = 'include-linked-oper';
 export const REQUESTING_SYS: string = 'requesting-sys';
 export const REQUESTING_SYS_NAME: string = 'requesting-sys-name';
 export const OICD_CLAIM_UPN: string = 'oicd-claim-upn';
+export const SNAP_REQUEST: string = 'snap-request';
+export const SNAP_PAGE_SIZE: string = 'snap-page-size';
