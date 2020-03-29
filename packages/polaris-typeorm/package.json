@@ -71,9 +71,9 @@
         "@semantic-release/changelog": "^5.0.0",
         "@semantic-release/git": "^9.0.0",
         "@types/jest": "^25.1.4",
-        "@types/node": "^13.9.3",
+        "@types/node": "^13.9.4",
         "husky": "^3.0.9",
-        "jest": "^25.1.0",
+        "jest": "^25.2.3",
         "path": "^0.12.7",
         "pg": "^7.18.2",
         "prettier": "^1.17.0",
@@ -87,7 +87,7 @@
         "tslint-config-prettier": "^1.18.0",
         "tslint-consistent-codestyle": "^1.15.1",
         "tslint-eslint-rules": "^5.4.0",
-        "tslint-plugin-prettier": "^2.2.0",
+        "tslint-plugin-prettier": "^2.3.0",
         "typescript": "^3.8.3"
     },
     "husky": {

@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity({ name: 'dataVersion' })
+@Entity()
 export class DataVersion {
     @PrimaryColumn()
     private id: number = 1;

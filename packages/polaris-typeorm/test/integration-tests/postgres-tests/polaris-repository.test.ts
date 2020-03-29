@@ -1,7 +1,5 @@
-import { DataVersion } from '../../../src';
+import { DataVersion, PolarisConnection, PolarisRepository } from '../../../src';
 import { getEntitiesIncludingDeletedConditions } from '../../../src/handlers/find-handler';
-import { PolarisConnection } from '../../../src/typeorm-bypasses/polaris-connection';
-import { PolarisRepository } from '../../../src/typeorm-bypasses/polaris-repository';
 import { Author } from '../../dal/author';
 import { Book } from '../../dal/book';
 import { Library } from '../../dal/library';
@@ -27,13 +25,13 @@ const authorWithCascadeFindOneOptions = { where: { name: mrCascade } };
 const userFindOneOptions = { where: { name: userName } };
 const profileFindOneOptions = { where: { gender } };
 
-export let connection: PolarisConnection;
-export let authorRepo: PolarisRepository<Author>;
-export let bookRepo: PolarisRepository<Book>;
-export let profileRepo: PolarisRepository<Profile>;
-export let userRepo: PolarisRepository<User>;
-export let dvRepo: PolarisRepository<DataVersion>;
-export let libraryRepo: PolarisRepository<Library>;
+let connection: PolarisConnection;
+let authorRepo: PolarisRepository<Author>;
+let bookRepo: PolarisRepository<Book>;
+let profileRepo: PolarisRepository<Profile>;
+let userRepo: PolarisRepository<User>;
+let dvRepo: PolarisRepository<DataVersion>;
+let libraryRepo: PolarisRepository<Library>;
 
 describe('entity manager tests', () => {
     beforeEach(async () => {
@@ -44,7 +42,7 @@ describe('entity manager tests', () => {
         userRepo = connection.getRepository(User);
         dvRepo = connection.getRepository(DataVersion);
         libraryRepo = connection.getRepository(Library);
-        await initDb();
+        await initDb(connection);
         setHeaders(connection, { res: { locals: {} } } as any);
     });
     afterEach(async () => {

@@ -7,7 +7,9 @@ export const connectionOptions: ConnectionOptions = {
     url: process.env.CONNECTION_STRING || '',
     entities: [path.resolve(__dirname, '../..') + '/dal/*.ts'],
     synchronize: true,
+    dropSchema: true,
     logging: true,
+    schema: process.env.SCHEMA_NAME,
 };
 
 export const applicationLogProperties: ApplicationProperties = {
