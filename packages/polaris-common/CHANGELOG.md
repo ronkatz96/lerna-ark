@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/Enigmatis/polaris-common/compare/v1.3.0...v1.4.0) (2020-03-29)
+
+
+### Features
+
+* **snapshot:** added snapshot to context ([3bd30a7](https://github.com/Enigmatis/polaris-common/commit/3bd30a7dc79ef078bb20b97028fdcd7f2153aa2d))
+
 # [1.3.0](https://github.com/Enigmatis/polaris-common/compare/v1.2.0...v1.3.0) (2020-03-17)
 
 
