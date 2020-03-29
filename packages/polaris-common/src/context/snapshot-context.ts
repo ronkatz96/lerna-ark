@@ -1,5 +1,5 @@
 export interface SnapshotContext {
-    startIndex: number;
-    totalCount: number;
-    countPerPage: number;
+    startIndex?: number;
+    totalCount?: number;
+    countPerPage?: number;
 }
