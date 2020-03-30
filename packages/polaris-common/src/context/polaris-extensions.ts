@@ -4,4 +4,8 @@ export interface PolarisExtensions {
     globalDataVersion: number;
     irrelevantEntities?: any;
     warnings?: PolarisWarning[];
+    totalCount?: number;
+    snapResponse?: {
+        pagesIds: string[];
+    };
 }
