@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/Enigmatis/polaris-common/compare/v1.4.0...v1.4.1) (2020-03-30)
+
+
+### Bug Fixes
+
+* **snapshot:** added snapshot fields to returned extensions ([800cc9c](https://github.com/Enigmatis/polaris-common/commit/800cc9c59eb0c1903eb2a8bae07282c12a59d904))
+
 # [1.4.0](https://github.com/Enigmatis/polaris-common/compare/v1.3.0...v1.4.0) (2020-03-29)
 
 
