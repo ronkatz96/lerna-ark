@@ -1,3 +1,13 @@
+## [2.3.1](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.0...v2.3.1) (2020-04-01)
+
+
+### Bug Fixes
+
+* bug fix ([72f5dd3](https://github.com/Enigmatis/polaris-typeorm/commit/72f5dd39dfffbc5fa7ebe0f556bd74716f8ccc47))
+* fix code review ([beaf1c0](https://github.com/Enigmatis/polaris-typeorm/commit/beaf1c0c62d44c21cbddf76a7187e86d75f24177))
+* fixed true ([047217e](https://github.com/Enigmatis/polaris-typeorm/commit/047217ef54bf010f23f53c8d4a502303bb674b0c))
+* updated branch ([1caad74](https://github.com/Enigmatis/polaris-typeorm/commit/1caad74dd2c1b4916cebd736a77e3921f2287283))
+
 # [2.3.0](https://github.com/Enigmatis/polaris-typeorm/compare/v2.2.0...v2.3.0) (2020-04-01)
 
 
