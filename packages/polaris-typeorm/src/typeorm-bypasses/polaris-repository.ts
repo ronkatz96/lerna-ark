@@ -12,6 +12,7 @@ import {
     UpdateResult,
 } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { CommonModel } from '..';
 import { PolarisCriteria } from '../contextable-options/polaris-criteria';
 import { PolarisFindManyOptions } from '../contextable-options/polaris-find-many-options';
 import { PolarisFindOneOptions } from '../contextable-options/polaris-find-one-options';
@@ -33,7 +34,9 @@ export class PolarisRepository<Entity extends ObjectLiteral> extends Repository<
     ): Promise<T | T[]> {
         return this.manager.save<T>(
             this.metadata.target as any,
-            new PolarisSaveOptions(entityOrEntities, context) as any,
+            this.metadata.target.toString().includes(CommonModel.name)
+                ? (new PolarisSaveOptions(entityOrEntities, context) as any)
+                : entityOrEntities,
             options,
         );
     }
@@ -62,7 +65,9 @@ export class PolarisRepository<Entity extends ObjectLiteral> extends Repository<
     ): Promise<UpdateResult> {
         return this.manager.update(
             this.metadata.target as any,
-            new PolarisCriteria(criteria, context) as any,
+            this.metadata.target.toString().includes(CommonModel.name)
+                ? (new PolarisCriteria(criteria, context) as any)
+                : criteria,
             partialEntity,
         );
     }
@@ -89,7 +94,9 @@ export class PolarisRepository<Entity extends ObjectLiteral> extends Repository<
     ): Promise<DeleteResult> {
         return this.manager.delete(
             this.metadata.target as any,
-            new PolarisCriteria(criteria, context) as any,
+            this.metadata.target.toString().includes(CommonModel.name)
+                ? (new PolarisCriteria(criteria, context) as any)
+                : criteria,
         );
     }
 
@@ -103,7 +110,9 @@ export class PolarisRepository<Entity extends ObjectLiteral> extends Repository<
     ): Promise<number> {
         return this.manager.count(
             this.metadata.target as any,
-            new PolarisFindManyOptions(optionsOrConditions, context) as any,
+            this.metadata.target.toString().includes(CommonModel.name)
+                ? (new PolarisFindManyOptions(optionsOrConditions, context) as any)
+                : optionsOrConditions,
         );
     }
 
@@ -117,7 +126,9 @@ export class PolarisRepository<Entity extends ObjectLiteral> extends Repository<
     ): Promise<Entity[]> {
         return this.manager.find(
             this.metadata.target as any,
-            new PolarisFindManyOptions(optionsOrConditions, context) as any,
+            this.metadata.target.toString().includes(CommonModel.name)
+                ? (new PolarisFindManyOptions(optionsOrConditions, context) as any)
+                : optionsOrConditions,
         );
     }
 
@@ -138,7 +149,9 @@ export class PolarisRepository<Entity extends ObjectLiteral> extends Repository<
     ): Promise<Entity | undefined> {
         return this.manager.findOne(
             this.metadata.target as any,
-            new PolarisFindOneOptions(optionsOrConditions, context) as any,
+            this.metadata.target.toString().includes(CommonModel.name)
+                ? (new PolarisFindOneOptions(optionsOrConditions, context) as any)
+                : optionsOrConditions,
             maybeOptions,
         );
     }
