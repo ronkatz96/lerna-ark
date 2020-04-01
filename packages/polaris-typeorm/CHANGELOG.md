@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/Enigmatis/polaris-typeorm/compare/v2.2.0...v2.3.0) (2020-04-01)
+
+
+### Features
+
+* added getConnectionForReality function ([3e0500e](https://github.com/Enigmatis/polaris-typeorm/commit/3e0500e061628a835a2725761274f20e87845744))
+
 # [2.2.0](https://github.com/Enigmatis/polaris-typeorm/compare/v2.1.2...v2.2.0) (2020-03-29)
 
 
