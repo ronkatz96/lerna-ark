@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.3.5...v1.4.0) (2020-04-05)
+
+
+### Features
+
+* **transactional mutations:** not finished tests yet. ([f894e0b](https://github.com/Enigmatis/polaris-delta-middleware/commit/f894e0b796a11c18d0ac6b39c6200b244083ca4f))
+* **transactional mutations:** not finished tests yet. ([07327e1](https://github.com/Enigmatis/polaris-delta-middleware/commit/07327e1eb2d94a67b1a294cf4c1519cefb73c8ee))
+
 ## [1.3.5](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.3.4...v1.3.5) (2020-03-10)
 
 
