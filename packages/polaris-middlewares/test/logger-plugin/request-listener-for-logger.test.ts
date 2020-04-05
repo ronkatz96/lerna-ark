@@ -1,4 +1,9 @@
-import { loggerPluginMessages } from '../../src/logger-plugin/logger-plugin-messages';
+import {
+    EXECUTION_BEGAN,
+    PARSING_BEGAN,
+    RESPONSE_SENT,
+    VALIDATION_BEGAN,
+} from '../../src/logger-plugin/logger-plugin-messages';
 import { PolarisRequestListener } from '../../src/logger-plugin/polaris-request-listener';
 import { loggerMock } from '../mocks/logger-mock';
 
@@ -17,7 +22,7 @@ describe('RequestListenerForLoggerPlugin tests', () => {
             await listener.willSendResponse(requestContext);
 
             expect(loggerMock.info).toHaveBeenCalledWith(
-                loggerPluginMessages.responseSent,
+                RESPONSE_SENT,
                 context,
                 { response },
             );
@@ -28,7 +33,7 @@ describe('RequestListenerForLoggerPlugin tests', () => {
             listener.executionDidStart(requestContext);
 
             expect(loggerMock.debug).toHaveBeenCalledWith(
-                loggerPluginMessages.executionBegan,
+                EXECUTION_BEGAN,
                 context,
             );
         });
@@ -38,7 +43,7 @@ describe('RequestListenerForLoggerPlugin tests', () => {
             listener.parsingDidStart(requestContext);
 
             expect(loggerMock.debug).toHaveBeenCalledWith(
-                loggerPluginMessages.parsingBegan,
+                PARSING_BEGAN,
                 context,
             );
         });
@@ -48,7 +53,7 @@ describe('RequestListenerForLoggerPlugin tests', () => {
             listener.validationDidStart(requestContext);
 
             expect(loggerMock.debug).toHaveBeenCalledWith(
-                loggerPluginMessages.validationBegan,
+                VALIDATION_BEGAN,
                 context,
             );
         });

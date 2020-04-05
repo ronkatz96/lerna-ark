@@ -71,9 +71,9 @@
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "@enigmatis/polaris-common": "^1.1.1",
+    "@enigmatis/polaris-common": "^1.4.1",
     "@enigmatis/polaris-graphql-logger": "^1.4.1",
-    "@enigmatis/polaris-typeorm": "^2.1.0",
+    "@enigmatis/polaris-typeorm": "^2.3.1",
     "@semantic-release/changelog": "^3.0.6",
     "@semantic-release/git": "latest",
     "@types/jest": "^24.0.23",
@@ -90,7 +90,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-consistent-codestyle": "^1.16.0",
     "tslint-eslint-rules": "^5.4.0",
-    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-plugin-prettier": "^2.3.0",
     "typescript": "^3.8.3"
   },
   "husky": {

@@ -1,5 +1,5 @@
 import { PolarisLoggerPlugin } from '../../src';
-import { loggerPluginMessages } from '../../src/logger-plugin/logger-plugin-messages';
+import { REQUEST_RECEIVED } from '../../src/logger-plugin/logger-plugin-messages';
 import { loggerMock } from '../mocks/logger-mock';
 
 describe('LoggerPlugin tests', () => {
@@ -18,7 +18,7 @@ describe('LoggerPlugin tests', () => {
             loggerPlugin.requestDidStart(requestContext);
 
             expect(loggerMock.info).toHaveBeenCalledWith(
-                loggerPluginMessages.requestReceived,
+                REQUEST_RECEIVED,
                 context,
             );
         });

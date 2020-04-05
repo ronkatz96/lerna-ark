@@ -1,13 +1,11 @@
-export const loggerPluginMessages = {
-    responseSent: `Request Finished`,
-    executionBegan: `Query execution began`,
-    executionFinished: `Query execution finished`,
-    executionFinishedWithError: `Query execution finished with error`,
-    parsingBegan: `Query parsing started`,
-    parsingFinished: `Query parsing finished`,
-    parsingFinishedWithError: `Query parsing finished with error`,
-    validationBegan: `Query validation started`,
-    validationFinished: `Query validation finished`,
-    validationFinishedWithError: `Query validation finished with error`,
-    requestReceived: `Request Started`,
-};
+export const RESPONSE_SENT = `Request Finished`;
+export const EXECUTION_BEGAN = `Query execution began`;
+export const EXECUTION_FINISHED = `Query execution finished`;
+export const EXECUTION_FINISHED_WITH_ERROR = `Query execution finished with error`;
+export const PARSING_BEGAN = `Query parsing started`;
+export const PARSING_FINISHED = `Query parsing finished`;
+export const PARSING_FINISHED_WITH_ERROR = `Query parsing finished with error`;
+export const VALIDATION_BEGAN = `Query validation started`;
+export const VALIDATION_FINISHED = `Query validation finished`;
+export const VALIDATION_FINISHED_WITH_ERROR = `Query validation finished with error`;
+export const REQUEST_RECEIVED = `Request Started`;
