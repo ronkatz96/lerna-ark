@@ -63,7 +63,7 @@
         "@enigmatis/polaris-graphql-logger": "^1.4.1",
         "@enigmatis/polaris-logs": "^2.8.2",
         "reflect-metadata": "^0.1.13",
-        "typeorm": "^0.2.24"
+        "typeorm": "0.2.22"
     },
     "devDependencies": {
         "@commitlint/cli": "^8.3.5",

@@ -13,7 +13,8 @@
         "allowSyntheticDefaultImports": true,
         "types": ["node", "jest"],
         "declaration": true,
-        "lib": ["es6", "es2017", "esnext", "dom"]
+        "lib": ["es6", "es2017", "esnext", "dom"],
+        "importHelpers": true
     },
     "exclude": ["node_modules", "dist"]
 }
