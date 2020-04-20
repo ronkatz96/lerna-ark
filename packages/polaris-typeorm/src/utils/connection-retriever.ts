@@ -1,11 +1,11 @@
 import { RealitiesHolder } from '@enigmatis/polaris-common';
-import { getPolarisConnectionManager, PolarisConnection } from '..';
+import { PolarisConnection, PolarisConnectionManager } from '..';
 
 export const getConnectionForReality = (
     realityId: number,
     realitiesHolder: RealitiesHolder,
+    connectionManager: PolarisConnectionManager,
 ): PolarisConnection => {
-    const connectionManager = getPolarisConnectionManager();
     const reality = realitiesHolder.getReality(realityId);
     const realityName = reality?.name;
     if (realityName == null) {
@@ -14,6 +14,5 @@ export const getConnectionForReality = (
     if (!connectionManager.has(realityName)) {
         throw new Error(`There is no connections: '${realityName}' for reality id: ${realityId}`);
     }
-
     return connectionManager.get(realityName);
 };
