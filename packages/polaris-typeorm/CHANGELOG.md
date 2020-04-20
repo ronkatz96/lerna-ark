@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.2...v2.3.3) (2020-04-20)
+
+
+### Bug Fixes
+
+* export polarisconnectionmanager ([849bd62](https://github.com/Enigmatis/polaris-typeorm/commit/849bd621bdc6fc740eae694b7975e5e872eef7be))
+
 ## [2.3.2](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.1...v2.3.2) (2020-04-20)
 
 
