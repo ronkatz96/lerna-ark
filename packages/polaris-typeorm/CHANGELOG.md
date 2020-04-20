@@ -1,3 +1,10 @@
+## [2.3.4](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.3...v2.3.4) (2020-04-20)
+
+
+### Bug Fixes
+
+* change get connection for reality to rely on given instance ([936acf2](https://github.com/Enigmatis/polaris-typeorm/commit/936acf2e68c7b64d32d79c843722d64406698873))
+
 ## [2.3.3](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.2...v2.3.3) (2020-04-20)
 
 
