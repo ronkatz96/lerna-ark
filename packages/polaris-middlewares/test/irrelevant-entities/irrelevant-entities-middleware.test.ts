@@ -3,24 +3,24 @@ import { IrrelevantEntitiesMiddleware } from '../../src';
 
 const result = [{ id: '1' }, { id: '3' }, { id: '5' }];
 const irrResult = [{ id: '2' }, { id: '4' }, { id: '6' }];
-const bookRepo = {
-    find: jest.fn(() => irrResult),
-} as any;
 const connection = {
-    getRepository: jest.fn(() => bookRepo),
+    manager: {
+        find: jest.fn(() => irrResult),
+    },
     hasRepository: jest.fn(() => true),
 } as any;
 const logger = { debug: jest.fn() } as any;
+
+const polarisConnectionManager = {
+    get: jest.fn(() => connection),
+    connections: [connection],
+    has: jest.fn(() => true),
+};
 const irrelevantEntitiesMiddleware = new IrrelevantEntitiesMiddleware(
     logger,
     new RealitiesHolder(new Map([[0, { id: 0, name: 'default' }]])),
-    connection,
+    polarisConnectionManager as any,
 ).getMiddleware();
-
-const polarisTypeORMModule = require('@enigmatis/polaris-typeorm');
-polarisTypeORMModule.getPolarisConnectionManager = jest.fn(() => {
-    return { get: jest.fn(() => connection), connections: [connection], has: jest.fn(() => true) };
-});
 
 describe('Irrelevant entities middleware', () => {
     describe('irrelevant entities in returned extensions', () => {

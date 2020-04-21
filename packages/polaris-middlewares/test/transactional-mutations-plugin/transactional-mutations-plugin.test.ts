@@ -1,10 +1,12 @@
-import { PolarisConnection, QueryRunner } from '@enigmatis/polaris-typeorm';
+import { RealitiesHolder } from '@enigmatis/polaris-common';
+import { QueryRunner } from '@enigmatis/polaris-typeorm';
 import { TransactionalMutationsPlugin } from '../../src';
 import { PLUGIN_STARTED_JOB } from '../../src/transactional-mutations-plugin/transactional-mutations-messages';
-import * as connectionRetriever from '../../src/utills/connection-retriever';
 import { loggerMock } from '../mocks/logger-mock';
-
 let transactionalMutationsPlugin: TransactionalMutationsPlugin;
+const realitiesHolder: RealitiesHolder = new RealitiesHolder(
+    new Map([[0, { id: 0, name: 'default' }]]),
+);
 
 const setUpContext = (query: string): any => {
     return {
@@ -19,33 +21,34 @@ const setUpContext = (query: string): any => {
     };
 };
 
-const spyOnGetConnectionForReality = (queryRunner: Partial<QueryRunner>) => {
+const getPolarisConnectionManager = (queryRunner: Partial<QueryRunner>) => {
     const returnValue = {
-        manager: {
-            queryRunner,
+        connections: {
+            length: 1,
         },
+        has: jest.fn(() => true),
+        get: jest.fn(() => {
+            return {
+                manager: {
+                    queryRunner,
+                },
+            };
+        }),
     };
-    jest.spyOn(connectionRetriever, 'getConnectionForReality').mockReturnValue(returnValue as PolarisConnection);
+    return returnValue as any;
 };
 
 describe('transactionalMutationsPlugin tests', () => {
     describe('requestDidStart tests - execute queries', () => {
-        beforeEach(async () => {
-            const realitiesHolderMock = {
-                addRealities: jest.fn(),
-                addReality: jest.fn(),
-                updateReality: jest.fn(),
-                getReality: jest.fn().mockReturnValue({ id: 0, name: 'emet' }),
-                getRealitiesMap: jest.fn(),
-                hasReality: jest.fn(),
-            };
-            transactionalMutationsPlugin = new TransactionalMutationsPlugin(loggerMock as any, realitiesHolderMock as any);
-        });
-
-        it('execute a query, the logger wasn\'t called - the function wasn\'t executed', () => {
-            const query = '{\n  allBooks {\n    id\n    title\n    author {\n      firstName\n      lastName\n    }\n  }\n}\n';
+        it("execute a query, the logger wasn't called - the function wasn't executed", () => {
+            const query =
+                '{\n  allBooks {\n    id\n    title\n    author {\n      firstName\n      lastName\n    }\n  }\n}\n';
             const requestContext = setUpContext(query);
-
+            transactionalMutationsPlugin = new TransactionalMutationsPlugin(
+                loggerMock as any,
+                realitiesHolder,
+                getPolarisConnectionManager({}),
+            );
             transactionalMutationsPlugin.requestDidStart(requestContext);
 
             expect(loggerMock.debug).toHaveBeenCalledTimes(0);
@@ -53,18 +56,6 @@ describe('transactionalMutationsPlugin tests', () => {
     });
 
     describe('requestDidStart tests - execute mutations', () => {
-        beforeEach(async () => {
-            const realitiesHolderMock = {
-                addRealities: jest.fn(),
-                addReality: jest.fn(),
-                updateReality: jest.fn(),
-                getReality: jest.fn().mockReturnValue({ id: 0, name: 'emet' }),
-                getRealitiesMap: jest.fn(),
-                hasReality: jest.fn(),
-            };
-            transactionalMutationsPlugin = new TransactionalMutationsPlugin(loggerMock as any, realitiesHolderMock as any);
-        });
-
         it('execute a mutation and start transaction throws an error, an error thrown and logger and rollback called', () => {
             const errorMessage = 'error';
             const queryRunner: Partial<QueryRunner> = {
@@ -74,7 +65,11 @@ describe('transactionalMutationsPlugin tests', () => {
                 }),
                 rollbackTransaction: jest.fn(),
             };
-            spyOnGetConnectionForReality(queryRunner);
+            transactionalMutationsPlugin = new TransactionalMutationsPlugin(
+                loggerMock as any,
+                realitiesHolder,
+                getPolarisConnectionManager(queryRunner),
+            );
             const mutation = 'mutation....';
             const requestContext = setUpContext(mutation);
 
@@ -85,12 +80,16 @@ describe('transactionalMutationsPlugin tests', () => {
             expect(queryRunner.rollbackTransaction).toHaveBeenCalledTimes(1);
         });
 
-        it('execute a mutation and there isn\'t transaction active, start transaction was called', () => {
+        it("execute a mutation and there isn't transaction active, start transaction was called", () => {
             const queryRunner: Partial<QueryRunner> = {
                 isTransactionActive: false,
                 startTransaction: jest.fn(),
             };
-            spyOnGetConnectionForReality(queryRunner);
+            transactionalMutationsPlugin = new TransactionalMutationsPlugin(
+                loggerMock as any,
+                realitiesHolder,
+                getPolarisConnectionManager(queryRunner),
+            );
             const mutation = 'mutation....';
             const requestContext = setUpContext(mutation);
 
@@ -99,12 +98,16 @@ describe('transactionalMutationsPlugin tests', () => {
             expect(queryRunner.startTransaction).toHaveBeenCalledTimes(1);
         });
 
-        it('execute a mutation and there isn transaction active, start transaction wasn\'t called', () => {
+        it("execute a mutation and there isn transaction active, start transaction wasn't called", () => {
             const queryRunner: Partial<QueryRunner> = {
                 isTransactionActive: true,
                 startTransaction: jest.fn(),
             };
-            spyOnGetConnectionForReality(queryRunner);
+            transactionalMutationsPlugin = new TransactionalMutationsPlugin(
+                loggerMock as any,
+                realitiesHolder,
+                getPolarisConnectionManager(queryRunner),
+            );
             const mutation = 'mutation....';
             const requestContext = setUpContext(mutation);
 
@@ -118,14 +121,21 @@ describe('transactionalMutationsPlugin tests', () => {
                 isTransactionActive: true,
                 startTransaction: jest.fn(),
             };
-            spyOnGetConnectionForReality(queryRunner);
+            transactionalMutationsPlugin = new TransactionalMutationsPlugin(
+                loggerMock as any,
+                realitiesHolder,
+                getPolarisConnectionManager(queryRunner),
+            );
             const mutation = 'mutation....';
             const requestContext = setUpContext(mutation);
 
             transactionalMutationsPlugin.requestDidStart(requestContext);
 
             expect(loggerMock.debug).toHaveBeenCalledTimes(1);
-            expect(loggerMock.debug).toHaveBeenCalledWith(PLUGIN_STARTED_JOB, requestContext.context);
+            expect(loggerMock.debug).toHaveBeenCalledWith(
+                PLUGIN_STARTED_JOB,
+                requestContext.context,
+            );
         });
     });
 });

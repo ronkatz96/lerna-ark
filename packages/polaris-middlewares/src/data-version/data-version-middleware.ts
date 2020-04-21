@@ -1,19 +1,18 @@
 import { PolarisGraphQLContext, RealitiesHolder } from '@enigmatis/polaris-common';
 import { PolarisGraphQLLogger } from '@enigmatis/polaris-graphql-logger';
-import { DataVersion, getPolarisConnectionManager, PolarisConnection } from '@enigmatis/polaris-typeorm';
-import { getConnectionForReality } from '../utills/connection-retriever';
+import { DataVersion, getConnectionForReality, PolarisConnectionManager } from '@enigmatis/polaris-typeorm';
 
 export class DataVersionMiddleware {
-    public readonly connection?: PolarisConnection;
+    public readonly connectionManager?: PolarisConnectionManager;
     public readonly realitiesHolder: RealitiesHolder;
     public readonly logger: PolarisGraphQLLogger;
 
     constructor(
         logger: PolarisGraphQLLogger,
         realitiesHolder: RealitiesHolder,
-        connection?: PolarisConnection,
+        connectionManager?: PolarisConnectionManager,
     ) {
-        this.connection = connection;
+        this.connectionManager = connectionManager;
         this.realitiesHolder = realitiesHolder;
         this.logger = logger;
     }
@@ -62,27 +61,24 @@ export class DataVersionMiddleware {
     }
 
     public async updateDataVersionInReturnedExtensions(context: PolarisGraphQLContext) {
-        if (
-            context?.requestHeaders?.realityId == null ||
-            getPolarisConnectionManager().connections.length === 0
+        if (context?.requestHeaders?.realityId == null || !this.connectionManager?.connections?.length
         ) {
             return;
         }
         const connection = getConnectionForReality(
-            context?.requestHeaders?.realityId,
+            context.requestHeaders.realityId,
             this.realitiesHolder,
+            this.connectionManager
         );
-        if (connection) {
-            const dataVersionRepo = connection.getRepository(DataVersion);
-            const globalDataVersion: any = await dataVersionRepo.findOne(context);
-            if (globalDataVersion) {
-                context.returnedExtensions = {
-                    ...context.returnedExtensions,
-                    globalDataVersion: globalDataVersion.getValue(),
-                };
-            } else {
-                throw new Error('no data version found in db');
-            }
+        const dataVersionRepo = connection.getRepository(DataVersion);
+        const globalDataVersion: any = await dataVersionRepo.findOne(context);
+        if (globalDataVersion) {
+            context.returnedExtensions = {
+                ...context.returnedExtensions,
+                globalDataVersion: globalDataVersion.getValue(),
+            };
+        } else {
+            throw new Error('no data version found in db');
         }
     }
 }

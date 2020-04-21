@@ -10,15 +10,11 @@ const connection: any = { getRepository: jest.fn(() => dvRepo) };
 const logger: any = { debug: jest.fn() };
 const realitiesHolder = new RealitiesHolder();
 realitiesHolder.addReality({ id: 0, name: 'default' });
+const polarisConnectionManager = { get: jest.fn(() => connection), connections: [connection], has: jest.fn(() => true) };
 const dataVersionMiddleware = new DataVersionMiddleware(
     logger,
-    realitiesHolder,
-    connection,
+    realitiesHolder, polarisConnectionManager as any
 ).getMiddleware();
-const polarisTypeORMModule = require('@enigmatis/polaris-typeorm');
-polarisTypeORMModule.getPolarisConnectionManager = jest.fn(() => {
-    return { get: jest.fn(() => connection), connections: [connection], has: jest.fn(() => true) };
-});
 
 describe('data version middleware', () => {
     describe('root resolver', () => {
