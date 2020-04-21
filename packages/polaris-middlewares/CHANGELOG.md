@@ -1,3 +1,12 @@
+## [1.4.1](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.0...v1.4.1) (2020-04-21)
+
+
+### Bug Fixes
+
+* change the behavior of connectionManager in the transactional plugin. ([3bc2a63](https://github.com/Enigmatis/polaris-delta-middleware/commit/3bc2a632aefeb130fb53f081bbe198b4e43b2822))
+* use in polaris connection manager ([1488946](https://github.com/Enigmatis/polaris-delta-middleware/commit/148894643347f603a0f4f9c0c40902b14958de25))
+* use in polaris connection manager ([e0d72f7](https://github.com/Enigmatis/polaris-delta-middleware/commit/e0d72f7f78ee094d3a301575a47a37ef24628099))
+
 # [1.4.0](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.3.5...v1.4.0) (2020-04-05)
 
 
