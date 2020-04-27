@@ -8,7 +8,8 @@ import {
     LISTENER_ROLLING_BACK_MESSAGE,
 } from './transactional-mutations-messages';
 
-export class TransactionalMutationsListener implements GraphQLRequestListener<PolarisGraphQLContext> {
+export class TransactionalMutationsListener
+    implements GraphQLRequestListener<PolarisGraphQLContext> {
     private readonly logger: PolarisGraphQLLogger;
     private readonly queryRunner?: QueryRunner;
 
@@ -30,9 +31,13 @@ export class TransactionalMutationsListener implements GraphQLRequestListener<Po
                 this.logger.warn(LISTENER_ROLLING_BACK_MESSAGE, requestContext.context);
             }
         } else if (this.queryRunner?.isTransactionActive) {
-            this.queryRunner.commitTransaction();
-            this.logger.debug(LISTENER_COMMITTING_MESSAGE, requestContext.context);
+            return this.endTransaction(requestContext.context);
         }
         this.logger.debug(LISTENER_FINISHED_JOB, requestContext.context);
+    }
+    private async endTransaction(context: PolarisGraphQLContext): Promise<void> {
+        await this.queryRunner?.commitTransaction();
+        this.logger.debug(LISTENER_COMMITTING_MESSAGE, context);
+        this.logger.debug(LISTENER_FINISHED_JOB, context);
     }
 }
