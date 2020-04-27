@@ -1,3 +1,12 @@
+## [1.4.2](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.1...v1.4.2) (2020-04-27)
+
+
+### Bug Fixes
+
+* return promise in transactional-mutations-listener.ts ([c7aa693](https://github.com/Enigmatis/polaris-delta-middleware/commit/c7aa6932fe2b286d1a3e90d5821be3465f047732))
+* return promise in transactional-mutations-listener.ts ([542f28f](https://github.com/Enigmatis/polaris-delta-middleware/commit/542f28f0c1755ec162a0b30fda8205b8ad3494d7))
+* return promise in transactional-mutations-listener.ts ([2adf27a](https://github.com/Enigmatis/polaris-delta-middleware/commit/2adf27a3dbea59a28f35c6580094cf6c3cc20b22))
+
 ## [1.4.1](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.0...v1.4.1) (2020-04-21)
 
 
