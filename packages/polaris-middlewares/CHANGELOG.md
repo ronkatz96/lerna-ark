@@ -1,3 +1,11 @@
+## [1.4.3](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.2...v1.4.3) (2020-04-30)
+
+
+### Bug Fixes
+
+* limited data version calls ([993c312](https://github.com/Enigmatis/polaris-delta-middleware/commit/993c312cb0cf3d065c386a22c91bc61104cb51f3))
+* prettify for joy ([fad7431](https://github.com/Enigmatis/polaris-delta-middleware/commit/fad7431a3d40979c7deeff8e56363fa9585b55c1))
+
 ## [1.4.2](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.1...v1.4.2) (2020-04-27)
 
 
