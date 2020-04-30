@@ -54,7 +54,9 @@ export class DataVersionMiddleware {
                     finalResult = undefined;
                 }
             }
-            await this.updateDataVersionInReturnedExtensions(context);
+            if ((context.returnedExtensions?.globalDataVersion) === undefined) {
+                await this.updateDataVersionInReturnedExtensions(context);
+            }
             this.logger.debug('Data version middleware finished job', context);
             return finalResult;
         };

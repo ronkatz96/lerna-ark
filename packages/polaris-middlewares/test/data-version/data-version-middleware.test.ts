@@ -133,9 +133,10 @@ describe('data version middleware', () => {
             const result = await dataVersionMiddleware(resolve, undefined, {}, context, {});
             expect(result).toEqual([{ title: 'dani', dataVersion: 5 }]);
             expect(context?.returnedExtensions?.globalDataVersion).toEqual(1);
+            expect(dvRepo.findOne.mock.calls.length).toBe(1);
         });
 
-        it('global data version is already in extensions, change it', async () => {
+        it('global data version is already in extensions, should not try to fetch from db', async () => {
             const context: PolarisGraphQLContext = getContextWithRequestHeaders({
                 dataVersion: 2,
                 realityId: 0,
@@ -149,7 +150,7 @@ describe('data version middleware', () => {
             };
             const result = await dataVersionMiddleware(resolve, undefined, {}, context, {});
             expect(result).toEqual([{ title: 'dani', dataVersion: 5 }]);
-            expect(context.returnedExtensions.globalDataVersion).toEqual(1);
+            expect(dvRepo.findOne.mock.calls.length).toBe(0);
         });
 
         it('global data version not found, throw error', async () => {
