@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Enigmatis/polaris-schema/compare/v1.1.0...v1.1.1) (2020-05-03)
+
+
+### Bug Fixes
+
+* **package:** updates dependencies and added support for codecov ([4c3c7f0](https://github.com/Enigmatis/polaris-schema/commit/4c3c7f0ca679ce3d1d8267b3d83ae1b1e3795a1b))
+
 # [1.1.0](https://github.com/Enigmatis/polaris-schema/compare/v1.0.7...v1.1.0) (2020-03-10)
 
 
