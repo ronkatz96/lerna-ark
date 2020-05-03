@@ -1,102 +1,101 @@
 {
-  "name": "@enigmatis/polaris-middlewares",
-  "version": "1.4.3",
-  "description": "handling middlewares in polaris",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "lint": "npm run tslint-check && tslint -p .",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "lint:fix": "npm run tslint-check && tslint -p . --fix",
-    "test": "jest --runInBand",
-    "build": "rimraf dist && tsc -p tsconfig.json",
-    "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once",
-    "prepare": "npm run lint:fix && npm run build"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "release": {
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/npm",
-        {
-          "npmPublish": true
-        }
-      ],
-      "@semantic-release/github"
-    ],
-    "prepare": [
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      {
-        "path": "@semantic-release/git",
-        "assets": [
-          "package.json",
-          "package-lock.json",
-          "CHANGELOG.md"
+    "name": "@enigmatis/polaris-middlewares",
+    "version": "1.4.3",
+    "description": "handling middlewares in polaris",
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts",
+    "scripts": {
+        "lint": "npm run tslint-check && tslint -p .",
+        "tslint-check": "tslint-config-prettier-check ./tslint.json",
+        "lint:fix": "npm run tslint-check && tslint -p . --fix",
+        "test": "jest --runInBand",
+        "coverage": "jest --runInBand --coverage",
+        "build": "rimraf dist && tsc -p tsconfig.json",
+        "semantic-release": "semantic-release",
+        "prepare": "npm run lint:fix && npm run build"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "release": {
+        "plugins": [
+            "@semantic-release/commit-analyzer",
+            "@semantic-release/release-notes-generator",
+            [
+                "@semantic-release/npm",
+                {
+                    "npmPublish": true
+                }
+            ],
+            "@semantic-release/github"
         ],
-        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-      }
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Enigmatis/polaris-delta-middleware.git"
-  },
-  "keywords": [
-    "polaris",
-    "graphql",
-    "graphql-ts"
-  ],
-  "author": "Yarin Vaknin <yarinvak@gmail.com> (http://github.com/yarinvak)",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Enigmatis/polaris-middlewares/issues"
-  },
-  "homepage": "https://github.com/Enigmatis/polaris-middlewares#readme",
-  "dependencies": {
-    "graphql-extensions": "^0.10.3"
-  },
-  "peerDependencies": {
-    "@enigmatis/polaris-common": "^1.0.9",
-    "@enigmatis/polaris-graphql-logger": "^1.2.0",
-    "@enigmatis/polaris-typeorm": "^2.3.4",
-    "apollo-server-plugin-base": "^0.6.8",
-    "graphql": "^14.5.8"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
-    "@enigmatis/polaris-common": "^1.4.1",
-    "@enigmatis/polaris-graphql-logger": "^1.4.1",
-    "@enigmatis/polaris-typeorm": "^2.3.4",
-    "@semantic-release/changelog": "^3.0.6",
-    "@semantic-release/git": "latest",
-    "@types/jest": "^24.0.23",
-    "apollo-server-plugin-base": "^0.6.8",
-    "graphql": "^14.5.8",
-    "graphql-extensions": "^0.10.3",
-    "husky": "^3.1.0",
-    "jest": "^24.9.0",
-    "prettier": "^1.19.1",
-    "rimraf": "^3.0.2",
-    "travis-deploy-once": "^5.0.11",
-    "ts-jest": "^24.2.0",
-    "tslint": "^5.20.1",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-consistent-codestyle": "^1.16.0",
-    "tslint-eslint-rules": "^5.4.0",
-    "tslint-plugin-prettier": "^2.3.0",
-    "typescript": "^3.8.3"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run lint:fix"
+        "prepare": [
+            "@semantic-release/changelog",
+            "@semantic-release/npm",
+            {
+                "path": "@semantic-release/git",
+                "assets": [
+                    "package.json",
+                    "package-lock.json",
+                    "CHANGELOG.md"
+                ],
+                "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+            }
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Enigmatis/polaris-delta-middleware.git"
+    },
+    "keywords": [
+        "polaris",
+        "graphql",
+        "graphql-ts"
+    ],
+    "author": "Yarin Vaknin <yarinvak@gmail.com> (http://github.com/yarinvak)",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Enigmatis/polaris-middlewares/issues"
+    },
+    "homepage": "https://github.com/Enigmatis/polaris-middlewares#readme",
+    "dependencies": {
+        "graphql-extensions": "^0.10.3"
+    },
+    "peerDependencies": {
+        "@enigmatis/polaris-common": "^1.0.9",
+        "@enigmatis/polaris-graphql-logger": "^1.2.0",
+        "@enigmatis/polaris-typeorm": "^2.3.4",
+        "apollo-server-plugin-base": "^0.6.8",
+        "graphql": "^14.5.8"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^8.2.0",
+        "@commitlint/config-conventional": "^8.2.0",
+        "@enigmatis/polaris-common": "^1.4.1",
+        "@enigmatis/polaris-graphql-logger": "^1.4.1",
+        "@enigmatis/polaris-typeorm": "^2.3.4",
+        "@semantic-release/changelog": "^5.0.1",
+        "@semantic-release/git": "^9.0.0",
+        "@types/jest": "^25.2.1",
+        "apollo-server-plugin-base": "^0.6.8",
+        "graphql-extensions": "^0.10.3",
+        "husky": "^3.1.0",
+        "jest": "^25.5.4",
+        "prettier": "^1.19.1",
+        "semantic-release": "^17.0.7",
+        "rimraf": "^3.0.2",
+        "ts-jest": "^25.4.0",
+        "tslint": "^5.20.1",
+        "tslint-config-prettier": "^1.18.0",
+        "tslint-consistent-codestyle": "^1.16.0",
+        "tslint-eslint-rules": "^5.4.0",
+        "tslint-plugin-prettier": "^2.3.0",
+        "typescript": "^3.8.3"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+            "pre-commit": "npm run lint:fix"
+        }
     }
-  }
 }
