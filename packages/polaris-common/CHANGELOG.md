@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/Enigmatis/polaris-common/compare/v1.4.1...v1.4.2) (2020-05-03)
+
+
+### Bug Fixes
+
+* added necessary fields for prefetch ([92940c2](https://github.com/Enigmatis/polaris-common/commit/92940c2075fb9e565b73515bb30e883439c967d0))
+
 ## [1.4.1](https://github.com/Enigmatis/polaris-common/compare/v1.4.0...v1.4.1) (2020-03-30)
 
 
