@@ -11,7 +11,7 @@ import { getMergedPolarisTypes } from './merge-types';
 export function makeExecutablePolarisSchema(
     typeDefs: ITypeDefinitions,
     resolvers?: IResolvers | IResolvers[],
-    schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>,
+    schemaDirectives?: { [name: string]: typeof SchemaDirectiveVisitor },
 ): GraphQLSchema {
     const mergedTypes = getMergedPolarisTypes(typeDefs);
     const mergedResolvers = getMergedPolarisResolvers(resolvers);
