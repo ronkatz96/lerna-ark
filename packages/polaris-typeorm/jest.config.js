@@ -5,4 +5,5 @@ module.exports = {
     moduleFileExtensions: ['ts', 'js'],
     testMatch: ['**/*.test.ts'],
     setupFilesAfterEnv: ['./jest.setup.js'],
+    coverageDirectory: './coverage/',
 };
