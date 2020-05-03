@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.3...v1.4.4) (2020-05-03)
+
+
+### Bug Fixes
+
+* **package:** updated dependencies and added support for codecov ([0b758d7](https://github.com/Enigmatis/polaris-delta-middleware/commit/0b758d710242b5fa1f6c762876a6cb3e9cfbf610))
+
 ## [1.4.3](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.2...v1.4.3) (2020-04-30)
 
 
