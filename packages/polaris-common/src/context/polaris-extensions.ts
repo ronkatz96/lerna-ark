@@ -8,4 +8,5 @@ export interface PolarisExtensions {
     snapResponse?: {
         pagesIds: string[];
     };
+    prefetchBuffer: any[];
 }
