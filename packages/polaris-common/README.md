@@ -58,3 +58,4 @@ This interface represents your application properties. It contains:
 ### Common Methods
 
 runAndMeasureTime - gets runnable, returns an object which contains the time it took to run the runnable in milliseconds and its response.
+ 
