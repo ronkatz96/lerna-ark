@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/Enigmatis/polaris-common/compare/v1.4.2...v1.4.3) (2020-05-04)
+
+
+### Bug Fixes
+
+* new version ([8a9e3a5](https://github.com/Enigmatis/polaris-common/commit/8a9e3a5675c5146de0c26f20827eb3a1188e21f7))
+
 ## [1.4.2](https://github.com/Enigmatis/polaris-common/compare/v1.4.1...v1.4.2) (2020-05-03)
 
 
