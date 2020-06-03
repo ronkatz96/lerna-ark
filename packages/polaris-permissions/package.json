@@ -1,0 +1,42 @@
+{
+  "name": "polaris-permissions",
+  "version": "1.0.0",
+  "description": "Permissions service wrapper for polaris framework",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "tsc -p tsconfig.json",
+    "rebuild": "npm run clean && npm run build",
+    "test": "jest --runInBand --detectOpenHandles",
+    "coverage": "jest --runInBand --detectOpenHandles --coverage",
+    "semantic-release": "npx semantic-release",
+    "travis-deploy-once": "travis-deploy-once",
+    "prepare": "npm run lint:fix && npm run build",
+    "lint": "npm run tslint-check && tslint -p .",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "lint:fix": "npm run tslint-check && tslint -p . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enigmatis/polaris-permissions.git"
+  },
+  "keywords": [
+    "polaris",
+    "permissions"
+  ],
+  "author": "Arik Furman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Enigmatis/polaris-permissions/issues"
+  },
+  "homepage": "https://github.com/Enigmatis/polaris-permissions#readme",
+  "devDependencies": {
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "@enigmatis/polaris-logs": "^3.0.1",
+    "axios": "^0.19.2"
+  }
+}
