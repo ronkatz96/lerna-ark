@@ -24,7 +24,7 @@ export default class PermissionsServiceWrapper {
         for (let entityType of entityTypes) {
             const isPermitted = await this.areActionsPermittedOnEntity(upn, reality, entityType, actions, permissionHeaders);
             if (!isPermitted) {
-                return { isPermitted: false };
+                return {isPermitted: false};
             }
         }
 
@@ -37,20 +37,65 @@ export default class PermissionsServiceWrapper {
         try {
             if (!this.permissionsCacheHolder.isCached(entityType)) {
                 const permissionResponse = await this.sendRequestToExternalService(requestUrlForType, permissionHeaders);
-                if (permissionResponse.status !== 200){
+                if (permissionResponse.status !== 200) {
                     throw new Error(`Status response ${permissionResponse.status} is received when access external permissions service`);
                 }
 
-                
+                const permittedActions = this.getPermittedActionsFromResponse(permissionResponse, entityType);
+
+                for (let action of actions) {
+                    if (!permittedActions.includes(action)) {
+                        return false;
+                    }
+                }
             }
         } catch (e) {
-
+            throw new Error(e);
         }
 
         return true;
     }
 
-    private async sendRequestToExternalService(requestUrlForType: string, permissionHeaders: { [p: string]: string | string[] }) : Promise<any> {
-        const result = await axios(requestUrlForType, {method:"get", headers: permissionHeaders});
+    private async sendRequestToExternalService(requestUrlForType: string, permissionHeaders: { [p: string]: string | string[] }): Promise<any> {
+        const timeStart = new Date().getTime();
+        this.logger.info("Sending request to external permissions service", {
+            customProperties: {
+                "requestUrl": requestUrlForType,
+                "requestDestination": this.serviceUrl,
+                "requestHeaders": permissionHeaders,
+            }
+        });
+        const result = await axios(requestUrlForType, {method: "get", headers: permissionHeaders});
+        this.logger.info("Finished request to external permissions server",
+            {
+                response: result,
+                elapsedTime: (new Date().getTime() - timeStart),
+                customProperties: {
+                    "responseHttpCode": result.status,
+                    "responseHeaders": result.headers,
+                }
+            });
+        return result;
+    }
+
+    private getPermittedActionsFromResponse(permissionResponse: any, entityType: string): string[] {
+        const entityTypeActions = permissionResponse?.userPermissions[entityType];
+        let permittedActions: string[] = [];
+        let actionsDigitalFilters: { [type: string]: any } = {};
+
+        for (const [action, value] of Object.entries(entityTypeActions)) {
+            const isPermitted: boolean = (value as any).isPermitted;
+            const digitalFilters: any = (value as any).digitalFilters;
+
+            if (isPermitted) {
+                permittedActions.push(action);
+                actionsDigitalFilters[action] = digitalFilters;
+            }
+        }
+
+        this.permissionsCacheHolder.addPermissions(entityType, permittedActions);
+        // TODO digital filters
+
+        return permittedActions;
     }
 }
