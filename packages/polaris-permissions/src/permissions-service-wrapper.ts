@@ -1,6 +1,6 @@
 import {PolarisLogger} from "@enigmatis/polaris-logs";
 import PermissionResult from "./permission-result";
-import axios, {AxiosPromise} from 'axios';
+import axios from 'axios';
 import PermissionsCacheHolder from "./permissions-cache-holder";
 
 export default class PermissionsServiceWrapper {
@@ -41,12 +41,12 @@ export default class PermissionsServiceWrapper {
                     throw new Error(`Status response ${permissionResponse.status} is received when access external permissions service`);
                 }
 
-                const permittedActions = this.getPermittedActionsFromResponse(permissionResponse, entityType);
-
-                for (let action of actions) {
-                    if (!permittedActions.includes(action)) {
-                        return false;
-                    }
+                this.getPermittedActionsFromResponse(permissionResponse, entityType);
+            }
+            const permittedActions = this.permissionsCacheHolder.getPermittedActions(entityType);
+            for (let action of actions) {
+                if (!permittedActions.includes(action)) {
+                    return false;
                 }
             }
         } catch (e) {
@@ -94,7 +94,7 @@ export default class PermissionsServiceWrapper {
         }
 
         this.permissionsCacheHolder.addPermissions(entityType, permittedActions);
-        // TODO digital filters
+        this.permissionsCacheHolder.addDigitalFilters(entityType, actionsDigitalFilters);
 
         return permittedActions;
     }

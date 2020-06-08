@@ -2,7 +2,7 @@ export default class PermissionsCacheHolder {
 
     constructor(
         private cachedPermittedTypesActions: { [type: string]: string[] },
-        private cachedTypesActionDigitalFilters: { [type: string]: string[] }
+        private cachedTypesActionDigitalFilters: { [type: string]: any }
     ) {
     }
 
@@ -12,8 +12,17 @@ export default class PermissionsCacheHolder {
         }
     }
 
+    public addDigitalFilters(type: string, digitalFilters: any){
+        if(this.cachedTypesActionDigitalFilters){
+            this.cachedTypesActionDigitalFilters[type] = digitalFilters
+        }
+    }
+
     public isCached(type: string): boolean {
         return type in this.cachedPermittedTypesActions;
     }
 
+    public getPermittedActions(entityType: string) {
+        return this.cachedPermittedTypesActions[entityType];
+    }
 }
