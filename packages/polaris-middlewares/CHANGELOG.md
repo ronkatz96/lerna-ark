@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.4...v1.4.5) (2020-06-08)
+
+
+### Bug Fixes
+
+* export isMutation ([2bb0fd3](https://github.com/Enigmatis/polaris-delta-middleware/commit/2bb0fd31985f2bcad266c1fe276fa40ffc166c90))
+
 ## [1.4.4](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.3...v1.4.4) (2020-05-03)
 
 
