@@ -1,0 +1,31 @@
+{
+  "upn": "arikUpn",
+  "realityId": "TheReal",
+  "userPermissions": {
+    "Arik": {
+      "name": "",
+      "actions": {
+        "READ": {
+          "name": "READ",
+          "isPermitted": true,
+          "digitalFilters": {}
+        },
+        "DELETE": {
+          "name": "DELETE",
+          "isPermitted": true,
+          "digitalFilters": {}
+        },
+        "CREATE": {
+          "name": "CREATE",
+          "isPermitted": true,
+          "digitalFilters": {}
+        },
+        "UPDATE": {
+          "name": "UPDATE",
+          "isPermitted": true,
+          "digitalFilters": {}
+        }
+      }
+    }
+  }
+}

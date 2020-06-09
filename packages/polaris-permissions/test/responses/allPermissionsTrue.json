@@ -1,0 +1,37 @@
+{
+  "upn": "arikUpn",
+  "realityId": "TheReal",
+  "userPermissions": {
+    "TEST": {
+      "name": "",
+      "actions": {
+        "READ": {
+          "name": "READ",
+          "isPermitted": true,
+          "digitalFilters": {
+            "filter": [
+            "1"
+            ]}
+        },
+        "DELETE": {
+          "name": "DELETE",
+          "isPermitted": true,
+          "digitalFilters": {}
+        },
+        "UPDATE": {
+          "name": "UPDATE",
+          "isPermitted": true,
+          "digitalFilters": {}
+        },
+        "CREATE": {
+          "name": "CREATE",
+          "isPermitted": true,
+          "digitalFilters": {}
+        }
+      }
+    }
+  },
+  "portalData": {
+    "id": "1111111"
+  }
+}
