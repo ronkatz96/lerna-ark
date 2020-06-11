@@ -1,5 +1,5 @@
 import { GraphQLError } from 'graphql';
-import { Reality } from '..';
+import { PermissionsContext, Reality } from '..';
 import { PolarisBaseContext } from './polaris-base-context';
 import { PolarisExtensions } from './polaris-extensions';
 import { PolarisGraphQLRequest } from './polaris-request';
@@ -11,4 +11,5 @@ export interface PolarisGraphQLContext extends PolarisBaseContext {
     reality: Reality;
     errors?: GraphQLError[];
     snapshotContext?: SnapshotContext;
+    permissionsContext?: PermissionsContext;
 }
