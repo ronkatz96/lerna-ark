@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/Enigmatis/polaris-common/compare/v1.4.3...v1.4.4) (2020-06-11)
+
+
+### Bug Fixes
+
+* added a permissions context ([62817f2](https://github.com/Enigmatis/polaris-common/commit/62817f292c58c71b0e059403f7270d91ce5cbb70))
+
 ## [1.4.3](https://github.com/Enigmatis/polaris-common/compare/v1.4.2...v1.4.3) (2020-05-04)
 
 
