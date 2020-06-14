@@ -167,16 +167,20 @@ describe('get permissions result', () => {
 
     describe('http headers', () => {
         it('should be returned from the external service', async () => {
-            mockedAxios.get.mockResolvedValue({ data: allPermissionsTrue, status: 200, headers:{"arik":"test"} });
+            mockedAxios.get.mockResolvedValue({
+                data: allPermissionsTrue,
+                status: 200,
+                headers: { arik: 'test' },
+            });
             const result = await permissionsServiceWrapper.getPermissionResult(
                 'arikUpn',
                 'TheReal',
                 ['TEST'],
                 ['READ'],
             );
-            expect(result.responseHeaders!["arik"]).toBe("test");
+            expect(result.responseHeaders!.arik).toBe('test');
         });
-    })
+    });
 
     describe('cached permissions', () => {
         it('should use the cache for the second time', async () => {
