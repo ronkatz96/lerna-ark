@@ -164,4 +164,39 @@ describe('get permissions result', () => {
             await expect(action).rejects.toEqual(new Error('Something wong'));
         });
     });
+
+    describe('http headers', () => {
+        it('should be returned from the external service', async () => {
+            mockedAxios.get.mockResolvedValue({ data: allPermissionsTrue, status: 200, headers:{"arik":"test"} });
+            const result = await permissionsServiceWrapper.getPermissionResult(
+                'arikUpn',
+                'TheReal',
+                ['TEST'],
+                ['READ'],
+            );
+            expect(result.responseHeaders!["arik"]).toBe("test");
+        });
+    })
+
+    describe('cached permissions', () => {
+        it('should use the cache for the second time', async () => {
+            mockedAxios.get.mockImplementationOnce(
+                () => ({ data: allPermissionsTrue, status: 200 } as any),
+            );
+            await permissionsServiceWrapper.getPermissionResult(
+                'arikUpn',
+                'TheReal',
+                ['TEST'],
+                ['READ'],
+            );
+            const result = await permissionsServiceWrapper.getPermissionResult(
+                'arikUpn',
+                'TheReal',
+                ['TEST'],
+                ['READ'],
+            );
+            expect(result.isPermitted).toBeTruthy();
+            expect(mockedAxios.get).toBeCalledTimes(1);
+        });
+    });
 });
