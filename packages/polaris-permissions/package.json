@@ -90,7 +90,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "@enigmatis/polaris-common": "^1.4.3",
+    "@enigmatis/polaris-common": "^1.4.4",
     "@enigmatis/polaris-logs": "^3.0.1",
     "axios": "^0.19.2"
   },
