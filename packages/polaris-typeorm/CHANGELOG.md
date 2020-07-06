@@ -1,3 +1,11 @@
+## [2.3.5](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.4...v2.3.5) (2020-07-06)
+
+
+### Bug Fixes
+
+* created by not updated if creationtime was set ([16f2f81](https://github.com/Enigmatis/polaris-typeorm/commit/16f2f81f6ad7afdd98617bffd689a89f1dcf0da4))
+* created by not updated if creationtime was set ([0b8666d](https://github.com/Enigmatis/polaris-typeorm/commit/0b8666db719c40b9acdeb6770073b7720d1b1b09))
+
 ## [2.3.4](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.3...v2.3.4) (2020-04-20)
 
 
