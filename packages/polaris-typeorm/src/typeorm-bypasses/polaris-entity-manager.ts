@@ -11,7 +11,6 @@ import {
 } from 'typeorm';
 import { RepositoryNotFoundError } from 'typeorm/error/RepositoryNotFoundError';
 import {
-    CommonModel,
     PolarisCriteria,
     PolarisFindManyOptions,
     PolarisFindOneOptions,
@@ -44,14 +43,11 @@ export class PolarisEntityManager extends EntityManager {
 
     private static setUpnOfEntity(entity: any, context: PolarisGraphQLContext) {
         if (context?.requestHeaders) {
-            if (entity.creationTime === undefined) {
-                entity.createdBy =
-                    context?.requestHeaders?.upn || context?.requestHeaders?.requestingSystemId;
-                entity.lastUpdatedBy = entity.createdBy;
-            } else {
-                entity.lastUpdatedBy =
-                    context?.requestHeaders?.upn || context?.requestHeaders?.requestingSystemId;
+            const id = context?.requestHeaders?.upn || context?.requestHeaders?.requestingSystemId;
+            if (entity.lastUpdateTime == null) {
+                entity.createdBy = id;
             }
+            entity.lastUpdatedBy = id;
         }
     }
 

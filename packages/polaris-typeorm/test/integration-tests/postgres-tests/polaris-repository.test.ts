@@ -278,4 +278,14 @@ describe('entity manager tests', () => {
         expect(book.getCreatedBy()).not.toBe(updatedByUpn);
         expect(book.getLastUpdatedBy()).toBe(updatedByUpn);
     });
+
+    it('save and update entity with upn, entity already has creation time, createdBy and lastUpdatedBy is updated accordingly', async () => {
+        const book = new Book('my book');
+
+        const createdByUpn = 'foo';
+        book.setCreationTime(new Date());
+        await bookRepo.save(generateContext({ upn: createdByUpn }), book);
+        expect(book.getCreatedBy()).toBe(createdByUpn);
+        expect(book.getLastUpdatedBy()).toBe(createdByUpn);
+    });
 });
