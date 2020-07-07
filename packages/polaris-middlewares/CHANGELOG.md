@@ -1,3 +1,11 @@
+## [1.4.6](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.5...v1.4.6) (2020-07-07)
+
+
+### Bug Fixes
+
+* upgrade typeorm ([c507fc1](https://github.com/Enigmatis/polaris-delta-middleware/commit/c507fc1d46572873c195dbac2d5ae151a20e6b67))
+* upgrade typeorm ([ed6bf82](https://github.com/Enigmatis/polaris-delta-middleware/commit/ed6bf822d5075298b3576c91f08fafa533615063))
+
 ## [1.4.5](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.4...v1.4.5) (2020-06-08)
 
 
