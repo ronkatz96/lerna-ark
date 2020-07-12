@@ -6,6 +6,7 @@ export interface PolarisExtensions {
     warnings?: PolarisWarning[];
     totalCount?: number;
     snapResponse?: {
+        snapshotMetadataId: string;
         pagesIds: string[];
     };
     prefetchBuffer?: any[];
