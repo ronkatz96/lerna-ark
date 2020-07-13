@@ -1,3 +1,11 @@
+## [1.4.7](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.6...v1.4.7) (2020-07-13)
+
+
+### Bug Fixes
+
+* irrelevant entities returned by data version ([d1496fa](https://github.com/Enigmatis/polaris-delta-middleware/commit/d1496fa1d257fbb85cde26b96e874a400f611d72))
+* npm update ([3f3334c](https://github.com/Enigmatis/polaris-delta-middleware/commit/3f3334c878da72c1a5366dca275ea0487230cb7f))
+
 ## [1.4.6](https://github.com/Enigmatis/polaris-delta-middleware/compare/v1.4.5...v1.4.6) (2020-07-07)
 
 
