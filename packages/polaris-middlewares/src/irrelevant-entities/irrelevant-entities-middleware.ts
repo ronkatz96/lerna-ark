@@ -1,6 +1,6 @@
 import { PolarisGraphQLContext, RealitiesHolder } from '@enigmatis/polaris-common';
 import { PolarisGraphQLLogger } from '@enigmatis/polaris-graphql-logger';
-import { getConnectionForReality,  In, Not, PolarisConnectionManager } from '@enigmatis/polaris-typeorm';
+import { getConnectionForReality, In, MoreThan, Not, PolarisConnectionManager } from '@enigmatis/polaris-typeorm';
 export class IrrelevantEntitiesMiddleware {
     private static getTypeName(info: any): string {
         let type = info.returnType;
@@ -36,6 +36,7 @@ export class IrrelevantEntitiesMiddleware {
                 : {};
         irrelevantWhereCriteria.deleted = In([true, false]);
         irrelevantWhereCriteria.realityId = context.requestHeaders.realityId;
+        irrelevantWhereCriteria.dataVersion = MoreThan(context.requestHeaders.dataVersion);
         return irrelevantWhereCriteria;
     }
 
