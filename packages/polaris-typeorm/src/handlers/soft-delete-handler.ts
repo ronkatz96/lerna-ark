@@ -16,6 +16,7 @@ export class SoftDeleteHandler {
             targetOrEntity,
             polarisCriteria.criteria,
             {
+                dataVersion: polarisCriteria?.context?.returnedExtensions?.globalDataVersion,
                 deleted: true,
                 lastUpdatedBy:
                     polarisCriteria?.context?.requestHeaders?.upn ||
