@@ -15,3 +15,5 @@ export { Reality } from './realities/reality';
 export { PermissionsCache } from './permissions/permissions-cache';
 export { PolarisError } from './errors/polaris-error';
 export { UnsupportedRealityError } from './errors/unsupported-reality-error';
+export { IrrelevantEntitiesResponse } from './irrelevant-entities/irrelevant-entities-response';
+export { mergeIrrelevantEntities } from './irrelevant-entities/irrelevant-entities-helper';
