@@ -1,3 +1,10 @@
+## [2.3.6](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.5...v2.3.6) (2020-07-14)
+
+
+### Bug Fixes
+
+* update data version of soft deleted entity ([fb84d86](https://github.com/Enigmatis/polaris-typeorm/commit/fb84d866613be151f65aa997afc9a171d9a18d29))
+
 ## [2.3.5](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.4...v2.3.5) (2020-07-06)
 
 
