@@ -6,6 +6,7 @@ export {
 export { PolarisConnection } from './typeorm-bypasses/polaris-connection';
 export { PolarisRepository } from './typeorm-bypasses/polaris-repository';
 export { CommonModel } from './models/common-model';
+export { SnapshotMetadata, SnapshotStatus } from './models/snapshot-metadata';
 export { DataVersion } from './models/data-version';
 export { SnapshotPage } from './models/snapshot-page';
 export { PolarisEntityManager } from './typeorm-bypasses/polaris-entity-manager';
