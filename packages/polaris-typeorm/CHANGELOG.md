@@ -1,3 +1,19 @@
+## [2.3.7](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.6...v2.3.7) (2020-07-16)
+
+
+### Bug Fixes
+
+* fix test ([b06f77f](https://github.com/Enigmatis/polaris-typeorm/commit/b06f77f03ba4145074942168bbc27fa90f69710d))
+* fixed according to mgf ([6efe218](https://github.com/Enigmatis/polaris-typeorm/commit/6efe21863389e09b2cd9c79d41f0a2f02831a8f2))
+* snapshot can be created with no data ([fd59408](https://github.com/Enigmatis/polaris-typeorm/commit/fd59408b3bf5babe7657e268b8bf5b9e6474daa7))
+* snapshot-metadata.ts added ([3a62005](https://github.com/Enigmatis/polaris-typeorm/commit/3a620053090132ad95831ded15fbe17ed51c966f))
+* snapshot-metadata.ts fixed ([48e8024](https://github.com/Enigmatis/polaris-typeorm/commit/48e80243232d1369e5fd577e265ba8bd0e0c79eb))
+* snapshot-metadata.ts fixed ([9556b27](https://github.com/Enigmatis/polaris-typeorm/commit/9556b27b8dc7800844dba90e1c7a87b29a656614))
+* snapshot-metadata.ts fixed ([80170d0](https://github.com/Enigmatis/polaris-typeorm/commit/80170d0100a07bf6d2fb99971582485b7d1a0de0))
+* update common ([1739dca](https://github.com/Enigmatis/polaris-typeorm/commit/1739dca634d98781347611986b1b3470b28c7424))
+* update date by annotation ([18170d0](https://github.com/Enigmatis/polaris-typeorm/commit/18170d083c1a2709f5d7dee82f9e2080c6d608f7))
+* update date by annotation ([55a0f01](https://github.com/Enigmatis/polaris-typeorm/commit/55a0f0193d1ea3c898351e604221064f86d162a6))
+
 ## [2.3.6](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.5...v2.3.6) (2020-07-14)
 
 
