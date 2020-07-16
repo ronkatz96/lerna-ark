@@ -1,3 +1,13 @@
+## [1.4.5](https://github.com/Enigmatis/polaris-common/compare/v1.4.4...v1.4.5) (2020-07-16)
+
+
+### Bug Fixes
+
+* added metadata id ([42a999d](https://github.com/Enigmatis/polaris-common/commit/42a999d5a60c8b20f136c3cddc82164278e0b95c))
+* added types of irrelevant and merge function ([af84e25](https://github.com/Enigmatis/polaris-common/commit/af84e25c265f9c805cb1de43656af83f55bd77a8))
+* npm update ([7fbf5a1](https://github.com/Enigmatis/polaris-common/commit/7fbf5a130856d0a13392670156c1529cd1a8b799))
+* reorder ([bcb5ca5](https://github.com/Enigmatis/polaris-common/commit/bcb5ca519e069a09331a45bbb85d28e032aaea95))
+
 ## [1.4.4](https://github.com/Enigmatis/polaris-common/compare/v1.4.3...v1.4.4) (2020-06-11)
 
 
