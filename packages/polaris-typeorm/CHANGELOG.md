@@ -1,3 +1,19 @@
+## [2.3.8](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.7...v2.3.8) (2020-08-02)
+
+
+### Bug Fixes
+
+* switch schema by context ([0b65c9e](https://github.com/Enigmatis/polaris-typeorm/commit/0b65c9ec8ae2d3a59a6363192692ba1720c4ed6b))
+* switch schema by context ([5f71e66](https://github.com/Enigmatis/polaris-typeorm/commit/5f71e66d25f36bc110c1539d5428f73bd55f5508))
+* switch schema by context ([f55bb32](https://github.com/Enigmatis/polaris-typeorm/commit/f55bb3287a1882a10da39322f238d70039dbc632))
+* switch schema by context ([20571c7](https://github.com/Enigmatis/polaris-typeorm/commit/20571c77cbbe746e4f1ef17634082b758e42ec70))
+* switch schema by context ([e8c6166](https://github.com/Enigmatis/polaris-typeorm/commit/e8c61664d076f980b6f52294ca6699e4b452b967))
+* switch schema by context ([a9a4168](https://github.com/Enigmatis/polaris-typeorm/commit/a9a4168cc70d69a4a7899bd5de88b940b5b37607))
+* switch schema by context ([fcb7707](https://github.com/Enigmatis/polaris-typeorm/commit/fcb7707177d7fa399f4ddc792f63d21c5abd1684))
+* switch schema by context ([e664120](https://github.com/Enigmatis/polaris-typeorm/commit/e66412006aeb7fc4188e1581985bbcd3f5e7c80c))
+* switch schema by context ([a69666a](https://github.com/Enigmatis/polaris-typeorm/commit/a69666aabc4de4b4e7ee0b0bc3ce1379eaf31f98))
+* switch schema by context ([469a6db](https://github.com/Enigmatis/polaris-typeorm/commit/469a6dbc649b2fcc310f0a2c3ab8da93192b75c7))
+
 ## [2.3.7](https://github.com/Enigmatis/polaris-typeorm/compare/v2.3.6...v2.3.7) (2020-07-16)
 
 
