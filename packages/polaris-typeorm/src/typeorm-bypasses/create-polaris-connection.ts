@@ -1,6 +1,6 @@
 import { AbstractPolarisLogger } from '@enigmatis/polaris-logs';
 import { ConnectionOptions } from 'typeorm';
-import {CommonModel, DataVersion, SnapshotMetadata, SnapshotPage} from '..';
+import { CommonModel, DataVersion, SnapshotMetadata, SnapshotPage } from '..';
 import { PolarisTypeormLogger } from '../polaris-typeorm-logger';
 import { TypeORMConfig } from '../typeorm-config';
 import { PolarisConnection } from './polaris-connection';

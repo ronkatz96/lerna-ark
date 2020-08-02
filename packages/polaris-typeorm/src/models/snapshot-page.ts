@@ -1,12 +1,12 @@
-import {Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
-import {SnapshotStatus} from "./snapshot-metadata";
+import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { SnapshotStatus } from './snapshot-metadata';
 
 @Entity()
 export class SnapshotPage {
     @PrimaryGeneratedColumn('uuid')
     private readonly id: string;
 
-    @Column('bytea', {nullable: true})
+    @Column('bytea', { nullable: true })
     private data: Buffer;
 
     @UpdateDateColumn()

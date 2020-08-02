@@ -1,4 +1,10 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class SnapshotMetadata {
@@ -127,7 +133,7 @@ export class SnapshotMetadata {
 }
 
 export enum SnapshotStatus {
-    IN_PROGRESS = <any>'IN_PROGRESS',
-    DONE = <any>'DONE',
-    FAILED = <any>'FAILED',
+    IN_PROGRESS = 'IN_PROGRESS',
+    DONE = 'DONE',
+    FAILED = 'FAILED',
 }
